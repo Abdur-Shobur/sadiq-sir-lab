@@ -49,20 +49,20 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="content-card text-center">
                 <div class="stat-icon publications mx-auto mb-3">
-                    <i class="fas fa-newspaper"></i>
+                    <i class="fas fa-file-alt"></i>
                 </div>
-                <h4 class="mb-2">8</h4>
+                <h4 class="mb-2">{{ \App\Models\Publication::count() }}</h4>
                 <p class="text-muted mb-0">Publications</p>
             </div>
         </div>
 
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="content-card text-center">
-                <div class="stat-icon events mx-auto mb-3">
-                    <i class="fas fa-calendar-alt"></i>
+                <div class="stat-icon messages mx-auto mb-3">
+                    <i class="fas fa-envelope"></i>
                 </div>
-                <h4 class="mb-2">5</h4>
-                <p class="text-muted mb-0">Upcoming Events</p>
+                <h4 class="mb-2">{{ \App\Models\ContactMessage::unread()->count() }}</h4>
+                <p class="text-muted mb-0">Unread Messages</p>
             </div>
         </div>
     </div>
@@ -73,6 +73,9 @@
             <div class="content-card">
                 <h5 class="mb-3"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
                 <div class="d-grid gap-2">
+                    <a href="{{ route('dashboard.contact-messages.index') }}" class="btn btn-outline-warning">
+                        <i class="fas fa-envelope me-2"></i>View Contact Messages
+                    </a>
                     <a href="{{ route('dashboard.banners.index') }}" class="btn btn-outline-primary">
                         <i class="fas fa-image me-2"></i>Manage Banners
                     </a>
@@ -82,11 +85,8 @@
                     <a href="{{ route('dashboard.ctas.index') }}" class="btn btn-outline-info">
                         <i class="fas fa-phone-alt me-2"></i>Manage CTA Section
                     </a>
-                    <a href="#" class="btn btn-outline-warning">
-                        <i class="fas fa-plus me-2"></i>Add New Project
-                    </a>
-                    <a href="#" class="btn btn-outline-warning">
-                        <i class="fas fa-plus me-2"></i>Create Publication
+                    <a href="{{ route('dashboard.publications.edit') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-file-alt me-2"></i>Edit Publications
                     </a>
                 </div>
             </div>

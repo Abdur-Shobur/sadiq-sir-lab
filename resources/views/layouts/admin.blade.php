@@ -103,20 +103,21 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link {{ request()->routeIs('dashboard.teams.*') ? 'active' : '' }}" href="{{ route('dashboard.teams.index') }}">
                                     <i class="fas fa-users"></i>Team Members
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-newspaper"></i>Blog Posts
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-phone"></i>Contact Info
-                                </a>
-                            </li>
+
+                                                         <li class="nav-item">
+                                 <a class="nav-link" href="#">
+                                     <i class="fas fa-phone"></i>Contact Info
+                                 </a>
+                             </li>
+                             <li class="nav-item">
+                                 <a class="nav-link {{ request()->routeIs('dashboard.news.*') ? 'active' : '' }}" href="{{ route('dashboard.news.index') }}">
+                                     <i class="fas fa-newspaper"></i>News Articles
+                                 </a>
+                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
                                     <i class="fas fa-cog"></i>General Settings
@@ -126,23 +127,58 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                                <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#blogSubmenu">
+                                    <i class="fas fa-newspaper"></i>Blog Management
+                                    <i class="fas fa-chevron-down ms-auto"></i>
+                                </a>
+                                <div class="collapse" id="blogSubmenu">
+                                    <ul class="nav flex-column ms-3">
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ request()->routeIs('dashboard.blogs.*') ? 'active' : '' }}" href="{{ route('dashboard.blogs.index') }}">
+                                                <i class="fas fa-newspaper"></i>Blog Posts
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ request()->routeIs('dashboard.blog-categories.*') ? 'active' : '' }}" href="{{ route('dashboard.blog-categories.index') }}">
+                                                <i class="fas fa-tags"></i>Blog Categories
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fas fa-users"></i>Users
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#projectsSubmenu">
                         <i class="fas fa-project-diagram"></i>Projects
+                        <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <div class="collapse" id="projectsSubmenu">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.project-categories.*') ? 'active' : '' }}" href="{{ route('dashboard.project-categories.index') }}">
+                                    <i class="fas fa-folder"></i>Project Categories
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.projects.*') ? 'active' : '' }}" href="{{ route('dashboard.projects.index') }}">
+                                    <i class="fas fa-project-diagram"></i>All Projects
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard.publications.*') ? 'active' : '' }}" href="{{ route('dashboard.publications.edit') }}">
+                        <i class="fas fa-book"></i>Publications
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-newspaper"></i>Publications
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-calendar-alt"></i>Events
+                    <a class="nav-link {{ request()->routeIs('dashboard.events.*') ? 'active' : '' }}" href="{{ route('dashboard.events.index') }}">
+                        <i class="fas fa-calendar"></i>Events
                     </a>
                 </li>
                 <li class="nav-item">

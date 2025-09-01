@@ -23,51 +23,15 @@
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-12">
                 <div class="research-details-desc">
-                    <h3>Challenge & Solution</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                        ipsum suspendisse ultrices gravida. Risus commodo viverra
-                        maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et.
-                    </p>
-
-                    <h3>Exerci tation ullamcorper suscipit lobortis</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                        ipsum suspendisse ultrices gravida. Risus commodo viverra
-                        maecenas accumsan lacus vel facilisis.
-                    </p>
-
-                    <h3>Occaecat sint occaecat suscipit dolore</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                        ipsum suspendisse ultrices gravida. Risus commodo viverra
-                        maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et.
-                    </p>
-
-                    <h3>Being a top us private facility for any kind</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                        ipsum suspendisse ultrices gravida. Risus commodo viverra
-                        maecenas accumsan lacus vel facilisis.
-                    </p>
-
-                    <h3>Our Process</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                        ipsum suspendisse ultrices gravida. Risus commodo viverra
-                        maecenas accumsan lacus vel facilisis. Lorem ipsum dolor sit
-                        amet, consectetur adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et.
-                    </p>
+                    @if($publication)
+                        {!! $publication->content !!}
+                    @else
+                        <div class="text-center py-5">
+                            <i class="fas fa-file-alt fa-4x text-muted mb-4"></i>
+                            <h3 class="text-muted">No Publications Available</h3>
+                            <p class="text-muted">We're working on adding our latest publications. Please check back soon!</p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

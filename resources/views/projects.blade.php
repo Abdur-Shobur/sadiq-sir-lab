@@ -21,47 +21,39 @@
 <section class="research-area pt-3 pt-md-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-research-box">
-                        <div class="research-image">
-                            <a href="single-research.html"><img src="assets/img/blog-img7.jpg" alt="image"></a>
-                        </div>
+                @if($projects->count() > 0)
+                    @foreach($projects as $project)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-research-box">
+                            <div class="research-image">
+                                <a href="{{ route('project.details', $project->id) }}">
+                                    @if($project->image)
+                                        <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}">
+                                    @else
+                                        <img src="{{ asset('assets/img/blog-img7.jpg') }}" alt="{{ $project->title }}">
+                                    @endif
+                                </a>
+                            </div>
 
-                        <div class="research-content">
-                            <span>Pathology</span>
-                            <h3><a href="single-research.html">Nuclear micro-reactors</a></h3>
-                            <p>Enhancing Your Vision sit ametcon sec tetur adipisicing.</p>
+                            <div class="research-content">
+                                <span>{{ $project->category->name }}</span>
+                                <h3><a href="{{ route('project.details', $project->id) }}">{{ $project->title }}</a></h3>
+                                <p>{{ $project->subtitle ?? 'Enhancing Your Vision sit ametcon sec tetur adipisicing.' }}</p>
+                                <a href="{{ route('project.details', $project->id) }}" class="read-more">
+                                    Read More <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-research-box">
-                        <div class="research-image">
-                            <a href="single-research.html"><img src="assets/img/blog-img8.jpg" alt="image"></a>
-                        </div>
-
-                        <div class="research-content">
-                            <span>Oncology</span>
-                            <h3><a href="single-research.html">Metabolism Regulation</a></h3>
-                            <p>Enhancing Your Vision sit ametcon sec tetur adipisicing.</p>
+                    @endforeach
+                @else
+                    <div class="col-12">
+                        <div class="text-center py-5">
+                            <h3>No Projects Available</h3>
+                            <p class="text-muted">Check back later for our latest research projects.</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-research-box">
-                        <div class="research-image">
-                            <a href="single-research.html"><img src="assets/img/blog-img9.jpg" alt="image"></a>
-                        </div>
-
-                        <div class="research-content">
-                            <span>Incubator</span>
-                            <h3><a href="single-research.html">Translational Research</a></h3>
-                            <p>Enhancing Your Vision sit ametcon sec tetur adipisicing.</p>
-                        </div>
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
     </section>
