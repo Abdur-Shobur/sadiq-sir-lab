@@ -32,8 +32,13 @@
                                     <tr>
                                         <td>{{ $blog->id }}</td>
                                         <td>
+                                            @if($blog->image)
                                             <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}"
                                                  class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                            @else
+                                                <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $blog->title }}"
+                                                     class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                            @endif
                                         </td>
                                         <td>
                                             <strong>{{ $blog->title }}</strong>

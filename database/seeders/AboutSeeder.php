@@ -12,20 +12,22 @@ class AboutSeeder extends Seeder
     public function run(): void
     {
         About::create([
-            'title'       => 'We Discoveries We Give Your Solution',
-            'subtitle'    => 'Leading Laboratory Research & Innovation',
-            'description' => 'Our state-of-the-art laboratory facility is dedicated to advancing scientific research and providing cutting-edge solutions for healthcare, environmental science, and industrial applications. With decades of experience and a team of expert researchers, we deliver accurate, reliable results that drive innovation and progress.',
+            'title'       => 'Innovating the Future Through Technology',
+            'subtitle'    => 'Leading Research in Computer Science & Engineering',
+            'image'       => 'abouts/about-img1.png',
+            'description' => 'Our advanced research lab, under the guidance of expert faculty, is committed to driving innovation in computing. We focus on cutting-edge technologies and real-world applications in areas such as artificial intelligence, cybersecurity, data science, and smart systems. Our mission is to empower students and researchers to build the technology of tomorrow.',
             'features'    => [
-                'Chemical Research',
-                'Pathology Testing',
-                'Sample Preparation',
-                'Healthcare Labs',
-                'Advanced Microscopy',
-                'Advanced Robotics',
-                'Environmental Testing',
-                'Anatomical Pathology',
+                'Artificial Intelligence',
+                'Cybersecurity & Privacy',
+                'Data Science & Analytics',
+                'Internet of Things (IoT)',
+                'Machine Learning Models',
+                'Cloud Computing',
+                'Robotics & Automation',
+                'High Performance Computing',
             ],
             'is_active'   => true,
         ]);
+
     }
 }

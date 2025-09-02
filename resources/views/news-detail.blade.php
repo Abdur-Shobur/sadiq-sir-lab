@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $news->title . ' - Labto')
+@section('title', $news->title . ' - ' . \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Laboratory'))
 
 @section('content')
 <!-- Start Page Title Area -->
@@ -24,9 +24,11 @@
         <div class="row">
             <div class="col-lg-8 col-md-12">
                 <div class="blog-details-desc">
+                    @if($news->image)
                     <div class="article-image">
                         <img src="{{ $news->image_url }}" alt="{{ $news->title }}" class="img-fluid rounded">
                     </div>
+                    @endif
 
                     <div class="article-content">
                         <div class="entry-meta">
@@ -148,8 +150,6 @@
 
                         <ul>
                             <li><a href="{{ route('home') }}">Home</a></li>
-                            <li><a href="{{ route('about') }}">About Us</a></li>
-                            <li><a href="{{ route('services') }}">Services</a></li>
                             <li><a href="{{ route('projects') }}">Projects</a></li>
                             <li><a href="{{ route('team') }}">Team</a></li>
                             <li><a href="{{ route('blog') }}">Blog</a></li>

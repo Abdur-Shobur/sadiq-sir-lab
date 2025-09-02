@@ -14,73 +14,34 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single-team-member">
-                    <div class="member-image">
-                        <img src="{{ asset('assets/img/team-img1.jpg') }}" alt="image" />
+            @forelse($teams->take(4) as $member)
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-team-member">
+                        <div class="member-image">
+                            @if($member->image)
+                                <img src="{{ $member->image_url }}" alt="{{ $member->name }}" />
+                            @else
+                                <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $member->name }}" />
+                            @endif
 
-                        <a href="{{ route('team.member', 'agaton-ronald') }}" class="details-btn">
-                            <i class="flaticon-add"></i>
-                        </a>
-                    </div>
+                            <a href="{{ route('team.member', $member->id) }}" class="details-btn">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
 
-                    <div class="member-content">
-                        <h3><a href="{{ route('team.member', 'agaton-ronald') }}">Agaton Ronald</a></h3>
-                        <span>Dental Assistant</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single-team-member">
-                    <div class="member-image">
-                        <img src="{{ asset('assets/img/team-img2.jpg') }}" alt="image" />
-
-                        <a href="{{ route('team.member', 'saray-taylor') }}" class="details-btn">
-                            <i class="flaticon-add"></i>
-                        </a>
-                    </div>
-
-                    <div class="member-content">
-                        <h3><a href="{{ route('team.member', 'saray-taylor') }}">Saray Taylor</a></h3>
-                        <span>Dentist Expert</span>
+                        <div class="member-content">
+                            <h3><a href="{{ route('team.member', $member->id) }}">{{ $member->name }}</a></h3>
+                            <span>{{ $member->designation }}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single-team-member">
-                    <div class="member-image">
-                        <img src="{{ asset('assets/img/team-img3.jpg') }}" alt="image" />
-
-                        <a href="{{ route('team.member', 'robert-reed') }}" class="details-btn">
-                            <i class="flaticon-add"></i>
-                        </a>
-                    </div>
-
-                    <div class="member-content">
-                        <h3><a href="{{ route('team.member', 'robert-reed') }}">Robert Reed</a></h3>
-                        <span>Neck Expert</span>
+            @empty
+                <div class="col-12">
+                    <div class="text-center">
+                        <p>No team members found.</p>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="single-team-member">
-                    <div class="member-image">
-                        <img src="{{ asset('assets/img/team-img4.jpg') }}" alt="image" />
-
-                        <a href="{{ route('team.member', 'joe-root') }}" class="details-btn">
-                            <i class="flaticon-add"></i>
-                        </a>
-                    </div>
-
-                    <div class="member-content">
-                        <h3><a href="{{ route('team.member', 'joe-root') }}">Joe Root</a></h3>
-                        <span>Medicine Expert</span>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $blog->title . ' - Labto')
+@section('title', $blog->title . ' - ' . \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Laboratory'))
 
 @section('content')
 <!-- Start Page Title Area -->
@@ -26,9 +26,11 @@
             <div class="col-lg-8">
                 <div class="blog-detail-content">
                     <!-- Featured Image -->
-                    <div class="blog-featured-image mb-4">
-                        <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}" class="img-fluid rounded">
-                    </div>
+                    @if($blog->image)
+                     <div class="blog-featured-image mb-4">
+                            <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}" class="img-fluid rounded">
+                        </div>
+                    @endif
 
                     <!-- Blog Meta -->
                     <div class="blog-meta mb-4">
@@ -109,8 +111,13 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <a href="{{ route('blog.detail', $relatedBlog->id) }}">
-                                            <img src="{{ $relatedBlog->image_url }}" alt="{{ $relatedBlog->title }}" 
+                                            @if($relatedBlog->image)
+                                            <img src="{{ $relatedBlog->image_url }}" alt="{{ $relatedBlog->title }}"
                                                  class="img-fluid rounded" style="width: 100%; height: 80px; object-fit: cover;">
+                                            @else
+                                                <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $relatedBlog->title }}"
+                                                     class="img-fluid rounded" style="width: 100%; height: 80px; object-fit: cover;">
+                                            @endif
                                         </a>
                                     </div>
                                     <div class="col-8">

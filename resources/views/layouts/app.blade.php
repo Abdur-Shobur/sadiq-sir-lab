@@ -10,11 +10,11 @@
     <!-- Animate Min CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}" />
     <!-- FontAwesome Min CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}" /> -->
     <!-- FontAwesome CDN for better compatibility -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <!-- Flaticon CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}" /> -->
     <!-- Magnific Popup Min CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.min.css') }}" />
     <!-- niceSelect CSS -->
@@ -32,7 +32,8 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
 
-    <title>@yield('title', 'Labto - Laboratory & Science Research')</title>
+    <title>@yield('title', \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Laboratory'))</title>
+    <meta name="description" content="{{ \App\Models\Setting::getValue('site_description', 'Prof. Sadiq Laboratory is a leading research laboratory and scientific services') }}">
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" />
 </head>
 

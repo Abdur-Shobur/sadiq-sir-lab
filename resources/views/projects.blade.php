@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Projects - Labto')
+@section('title', 'Projects - ' . \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Laboratory'))
 
 @section('content')
 <!-- Start Page Title Area -->
@@ -30,7 +30,7 @@
                                     @if($project->image)
                                         <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}">
                                     @else
-                                        <img src="{{ asset('assets/img/blog-img7.jpg') }}" alt="{{ $project->title }}">
+                                        <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $project->title }}">
                                     @endif
                                 </a>
                             </div>

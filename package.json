@@ -5,6 +5,7 @@
     "scripts": {
         "build": "vite build",
         "sass": "sass public/assets/css/style.scss public/assets/css/style.css --watch",
+        "sass-responsive": "sass public/assets/css/responsive.scss public/assets/css/responsive.css --watch",
         "sass:build": "sass public/assets/css/style.scss public/assets/css/style.css --style compressed",
         "dev": "vite"
     },

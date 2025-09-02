@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $project->title . ' - Labto')
+@section('title', $project->title . ' - ' . \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Laboratory'))
 
 @section('content')
 <!-- Start Page Title Area -->
@@ -26,8 +26,8 @@
                 <div class="research-details-desc">
                     @if($project->image)
                         <div class="project-image mb-4">
-                            <img src="{{ Storage::url($project->image) }}" 
-                                 alt="{{ $project->title }}" 
+                            <img src="{{ Storage::url($project->image) }}"
+                                 alt="{{ $project->title }}"
                                  style="max-width: 100%; height: auto; border-radius: 10px;">
                         </div>
                     @endif
@@ -35,7 +35,7 @@
                     <div class="project-meta mb-4">
                         <div class="row">
                             <div class="col-md-6">
-                                <p><strong>Category:</strong> 
+                                <p><strong>Category:</strong>
                                     <span class="badge bg-primary">{{ $project->category->name }}</span>
                                 </p>
                             </div>

@@ -41,13 +41,12 @@
                                     <tr>
                                         <td>
                                             @if($project->image)
-                                                <img src="{{ Storage::url($project->image) }}" 
-                                                     alt="{{ $project->title }}" 
+                                                <img src="{{ Storage::url($project->image) }}"
+                                                     alt="{{ $project->title }}"
                                                      style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
                                             @else
-                                                <div style="width: 50px; height: 50px; background: #f8f9fa; border-radius: 5px; display: flex; align-items: center; justify-content: center;">
-                                                    <i class="fas fa-image text-muted"></i>
-                                                </div>
+                                                <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $project->title }}"
+                                                     style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
                                             @endif
                                         </td>
                                         <td>
@@ -66,7 +65,7 @@
                                         </td>
                                         <td>{{ $project->created_at->format('M d, Y') }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
+                                            <div class="btn-group gap-2" role="group">
                                                 <a href="{{ route('dashboard.projects.show', $project) }}"
                                                    class="btn btn-sm btn-info" title="View">
                                                     <i class="fas fa-eye"></i>

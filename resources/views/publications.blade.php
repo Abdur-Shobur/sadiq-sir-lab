@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Publications - Labto')
+@section('title', 'Publications - ' . \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Laboratory'))
 
 @section('content')
 <!-- Start Page Title Area -->

@@ -61,14 +61,20 @@
                                             </td>
                                             <td>{{ $about->created_at->format('M d, Y') }}</td>
                                             <td>
+                                                <div class="btn-group gap-2" role="group">
                                                 <a href="{{ route('dashboard.abouts.show', $about) }}"
-                                                   class="btn btn-sm btn-outline-info">View</a>
+                                                   class="btn btn-sm btn-info">
+                                                    <i class="fas fa-eye"></i>
+                                                    </a>
                                                 <a href="{{ route('dashboard.abouts.edit', $about) }}"
-                                                   class="btn btn-sm btn-outline-primary">Edit</a>
-                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                   class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <button type="button" class="btn btn-sm btn-danger"
                                                         onclick="confirmDelete('{{ route('dashboard.abouts.destroy', $about) }}', '{{ $about->title }}')">
-                                                    Delete
-                                                </button>
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

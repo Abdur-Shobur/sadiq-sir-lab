@@ -1795,9 +1795,15 @@ Team Area CSS
 .single-team-member .member-image {
   position: relative;
   border-radius: 50%;
+  width: 100%;
+  height: 100%;
 }
 .single-team-member .member-image img {
   border-radius: 50%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  background-color: #e5e5e5;
+  display: block;
 }
 .single-team-member .member-image::before {
   content: "";
@@ -2199,6 +2205,10 @@ Blog Area CSS
 }
 .single-blog-post .post-image a img {
   transition: 0.5s;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  background-color: #e5e5e5;
+  display: block;
 }
 .single-blog-post .post-image .date {
   position: absolute;
@@ -2864,12 +2874,22 @@ Research Area CSS
   margin-bottom: 30px;
   background-color: #ffffff;
   box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.06);
+  height: 100%;
 }
 .single-research-box .research-image {
   overflow: hidden;
 }
+.single-research-box .research-image a {
+  display: block;
+}
 .single-research-box .research-image a img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #e5e5e5;
   transition: 0.5s;
+  height: 300px;
 }
 .single-research-box .research-content {
   padding: 25px;

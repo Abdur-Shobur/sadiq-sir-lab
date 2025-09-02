@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard') - Admin Panel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -16,7 +17,7 @@
             <button class="sidebar-toggle" id="sidebarToggle">
                 <i class="fas fa-bars"></i>
             </button>
-            <a href="{{ route('dashboard') }}" class="brand">
+            <a href="{{ route('home') }}" class="brand">
                 <i class="fas fa-flask me-2"></i>Lab Admin
             </a>
         </div>
@@ -50,9 +51,6 @@
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h5><i class="fas fa-tachometer-alt me-2"></i>Navigation</h5>
-        </div>
         <nav class="sidebar-menu">
             <ul class="nav flex-column">
                 <li class="nav-item">
@@ -60,11 +58,7 @@
                         <i class="fas fa-home"></i>Dashboard
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">
-                        <i class="fas fa-globe"></i>Website
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#contentSubmenu">
                         <i class="fas fa-file-alt"></i>Content Management
@@ -83,11 +77,6 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-home"></i>Home Content
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('dashboard.abouts.*') ? 'active' : '' }}" href="{{ route('dashboard.abouts.index') }}">
                                     <i class="fas fa-info-circle"></i>About Section
                                 </a>
@@ -102,25 +91,13 @@
                                     <i class="fas fa-phone-alt"></i>CTA Section
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('dashboard.teams.*') ? 'active' : '' }}" href="{{ route('dashboard.teams.index') }}">
-                                    <i class="fas fa-users"></i>Team Members
-                                </a>
-                            </li>
 
-                                                         <li class="nav-item">
-                                 <a class="nav-link" href="#">
-                                     <i class="fas fa-phone"></i>Contact Info
-                                 </a>
-                             </li>
-                             <li class="nav-item">
-                                 <a class="nav-link {{ request()->routeIs('dashboard.news.*') ? 'active' : '' }}" href="{{ route('dashboard.news.index') }}">
-                                     <i class="fas fa-newspaper"></i>News Articles
-                                 </a>
-                             </li>
+
+
+
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fas fa-cog"></i>General Settings
+                                <a class="nav-link {{ request()->routeIs('dashboard.social-media.*') ? 'active' : '' }}" href="{{ route('dashboard.social-media.index') }}">
+                                    <i class="fas fa-share-alt"></i>Social Media
                                 </a>
                             </li>
                         </ul>
@@ -146,11 +123,13 @@
                                     </ul>
                                 </div>
                             </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-users"></i>Users
-                    </a>
-                </li>
+
+                            <li class="nav-item">
+                                 <a class="nav-link {{ request()->routeIs('dashboard.news.*') ? 'active' : '' }}" href="{{ route('dashboard.news.index') }}">
+                                     <i class="fas fa-newspaper"></i>News Articles
+                                 </a>
+                             </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#projectsSubmenu">
                         <i class="fas fa-project-diagram"></i>Projects
@@ -181,13 +160,14 @@
                         <i class="fas fa-calendar"></i>Events
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-chart-bar"></i>Analytics
-                    </a>
-                </li>
+                                <a class="nav-link {{ request()->routeIs('dashboard.teams.*') ? 'active' : '' }}" href="{{ route('dashboard.teams.index') }}">
+                                    <i class="fas fa-users"></i>Team Members
+                                </a>
+                            </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('dashboard.settings.index') }}">
                         <i class="fas fa-cog"></i>Settings
                     </a>
                 </li>
@@ -206,6 +186,9 @@
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Stack for additional scripts -->
+    @stack('scripts')
 
     <!-- Toast Notifications -->
     <script>

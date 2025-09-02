@@ -14,7 +14,9 @@ class HomeController extends Controller
     public function index()
     {
         $banner = Banner::active()->first();
-        return view('home', compact('banner'));
+        $teams  = Team::active()->orderBy('created_at', 'desc')->take(4)->get();
+        $blogs  = Blog::with('category')->active()->latest()->take(3)->get();
+        return view('home', compact('banner', 'teams', 'blogs'));
     }
 
     public function projects()

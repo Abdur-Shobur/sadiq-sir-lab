@@ -2236,9 +2236,15 @@ Team Area CSS
     .member-image {
         position: relative;
         border-radius: 50%;
+        width: 100%;
+        height: 100%;
 
         img {
             border-radius: 50%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            background-color: #e5e5e5;
+            display: block;
         }
         &::before {
             content: "";
@@ -2720,6 +2726,10 @@ Blog Area CSS
         a {
             img {
                 transition: $transition;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                background-color: #e5e5e5;
+                display: block;
             }
         }
         .date {
@@ -3494,13 +3504,21 @@ Research Area CSS
     margin-bottom: 30px;
     background-color: $white-color;
     box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.06);
+    height: 100%;
 
     .research-image {
         overflow: hidden;
 
         a {
+            display: block;
             img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                background-color: #e5e5e5;
                 transition: $transition;
+                height: 300px;
             }
         }
     }

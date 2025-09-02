@@ -21,7 +21,6 @@
                                     <th>ID</th>
                                     <th>Image</th>
                                     <th>Title</th>
-                                    <th>Description</th>
                                     <th>Status</th>
                                     <th>Created At</th>
                                     <th>Actions</th>
@@ -32,15 +31,18 @@
                                     <tr>
                                         <td>{{ $article->id }}</td>
                                         <td>
-                                            <img src="{{ $article->image_url }}" alt="{{ $article->title }}" 
+                                            @if($article->image)
+                                            <img src="{{ $article->image_url }}" alt="{{ $article->title }}"
                                                  class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                            @else
+                                                <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $article->title }}"
+                                                     class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                            @endif
                                         </td>
                                         <td>
                                             <strong>{{ $article->title }}</strong>
                                         </td>
-                                        <td>
-                                            {{ Str::limit($article->description, 100) }}
-                                        </td>
+
                                         <td>
                                             @if($article->status)
                                                 <span class="badge bg-success">Active</span>
@@ -85,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const newsId = this.getAttribute('data-id');
             const newsTitle = this.getAttribute('data-title');
-            
+
             // Show confirmation toast
             Swal.fire({
                 title: 'Delete News Article?',
@@ -102,17 +104,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action = `/dashboard/news/${newsId}`;
-                    
+
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';
                     csrfToken.name = '_token';
                     csrfToken.value = '{{ csrf_token() }}';
-                    
+
                     const methodField = document.createElement('input');
                     methodField.type = 'hidden';
                     methodField.name = '_method';
                     methodField.value = 'DELETE';
-                    
+
                     form.appendChild(csrfToken);
                     form.appendChild(methodField);
                     document.body.appendChild(form);

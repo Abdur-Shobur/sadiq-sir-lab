@@ -49,14 +49,20 @@
                                             </td>
                                             <td>{{ $cta->created_at->format('M d, Y') }}</td>
                                             <td>
-                                                <a href="{{ route('dashboard.ctas.show', $cta) }}"
-                                                   class="btn btn-sm btn-outline-info">View</a>
-                                                <a href="{{ route('dashboard.ctas.edit', $cta) }}"
-                                                   class="btn btn-sm btn-outline-primary">Edit</a>
-                                                <button type="button" class="btn btn-sm btn-outline-danger"
-                                                        onclick="confirmDelete('{{ route('dashboard.ctas.destroy', $cta) }}', '{{ $cta->title }}')">
-                                                    Delete
-                                                </button>
+                                                <div class="btn-group gap-2" role="group">
+                                                    <a href="{{ route('dashboard.ctas.show', $cta) }}"
+                                                   class="btn btn-sm btn-info">
+                                                    <i class="fas fa-eye"></i>
+                                                    </a>
+                                                    <a href="{{ route('dashboard.ctas.edit', $cta) }}"
+                                                   class="btn btn-sm btn-primary">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                <button type="button" class="btn btn-sm btn-danger"
+                                                    onclick="confirmDelete('{{ route('dashboard.ctas.destroy', $cta) }}', '{{ $cta->title }}')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

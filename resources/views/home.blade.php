@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Labto - Laboratory & Science Research')
+@section('title', \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Laboratory'))
 
 @section('content')
     @include('components.banner')

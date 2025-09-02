@@ -17,10 +17,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Image</th>
+                            <th class="text-center">Image</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Designation</th>
@@ -32,31 +32,39 @@
                     <tbody>
                         @foreach($teams as $team)
                         <tr>
-                            <td>
+                            <td class="text-center">
+                                @if($team->image)
                                 <img src="{{ $team->image_url }}" alt="{{ $team->name }}"
                                      class="rounded-circle" width="50" height="50" style="object-fit: cover;">
+                                @else
+                                    <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $team->name }}"
+                                         class="rounded-circle" width="50" height="50" style="object-fit: cover;">
+                                @endif
                             </td>
                             <td>{{ $team->name }}</td>
                             <td>{{ $team->email }}</td>
                             <td>{{ $team->designation }}</td>
                             <td>
-                                <span class="badge badge-{{ $team->role === 'admin' ? 'danger' : 'info' }}">
+                                <span class="badge bg-{{ $team->role === 'admin' ? 'success' : 'info' }}">
                                     {{ ucfirst($team->role) }}
                                 </span>
                             </td>
                             <td>
-                                <span class="badge badge-{{ $team->is_active ? 'success' : 'secondary' }}">
+                                <span class="badge bg-{{ $team->is_active ? 'success' : 'secondary' }}">
                                     {{ $team->is_active ? 'Active' : 'Inactive' }}
                                 </span>
+
+
                             </td>
                             <td>
-                                <div class="btn-group" role="group">
+                                <div class="btn-group gap-2" role="group">
                                     <a href="{{ route('dashboard.teams.show', $team) }}"
                                        class="btn btn-sm btn-info" title="View Details">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     <a href="{{ route('dashboard.teams.edit', $team) }}"
-                                       class="btn btn-sm btn-warning" title="Edit">
+                                       class="btn btn-sm
+                                        btn-warning" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="{{ route('dashboard.teams.destroy', $team) }}"

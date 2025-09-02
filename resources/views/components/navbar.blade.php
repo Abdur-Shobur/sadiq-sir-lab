@@ -2,7 +2,13 @@
 <div class="navbar-area">
     <div class="labto-mobile-nav">
         <div class="logo">
-            <a href="{{ route('home') }}"><img src="{{ asset('assets/img/logo.png') }}" alt="logo" /></a>
+            <a href="{{ route('home') }}">
+                @if(\App\Models\Setting::getValue('logo'))
+                    <img src="{{ asset('storage/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'lab') }}" />
+                @else
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
+                @endif
+            </a>
         </div>
     </div>
 
@@ -10,7 +16,11 @@
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <img src="{{ asset('assets/img/logo.png') }}" alt="logo" />
+                    @if(\App\Models\Setting::getValue('logo'))
+                        <img src="{{ asset('storage/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
+                    @else
+                        <img src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
+                    @endif
                 </a>
 
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">

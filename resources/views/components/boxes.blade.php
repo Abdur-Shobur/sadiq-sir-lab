@@ -1,24 +1,24 @@
 <!-- Start Boxes Area -->
-<section class="boxes-area">
+<section class="boxes-area ptb-120">
     <div class="container">
         <div class="row section-title">
             <div class="col-12 text-center">
                 <h2 style="max-width:100%"  >Research Areas</h2>
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center gy-4">
             @php
                 $researchAreas = \App\Models\ResearchArea::active()->ordered()->get();
             @endphp
 
             @forelse($researchAreas as $researchArea)
                 <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-box {{ $researchArea->background_color }}">
+                    <div class="single-box h-100 {{ $researchArea->background_color }}">
                         <div class="icon">
                             @if($researchArea->image)
                                 <img src="{{ asset('storage/' . $researchArea->image) }}"
                                      alt="{{ $researchArea->title }}"
-                                     style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px;">
+                                     style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px; filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(2%) hue-rotate(80deg) brightness(104%) contrast(100%);">
                             @else
                                 <i class="flaticon-laboratory"></i>
                             @endif

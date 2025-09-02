@@ -55,13 +55,20 @@
                                             </td>
                                             <td>{{ $banner->created_at->format('M d, Y') }}</td>
                                             <td>
+                                                        <div class="btn-group gap-2" role="group">
                                                 <a href="{{ route('dashboard.banners.show', $banner) }}"
-                                                   class="btn btn-sm btn-outline-info">View</a>
+                                                   class="btn btn-sm btn-info">
+                                                    <i class="fas fa-eye"></i>
+                                                    </a>
                                                 <a href="{{ route('dashboard.banners.edit', $banner) }}"
-                                                   class="btn btn-sm btn-outline-primary">Edit</a>
-                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                   class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                    </a>
+                                                <button type="button" class="btn btn-sm btn-danger"
                                                         onclick="confirmDelete('{{ route('dashboard.banners.destroy', $banner) }}', '{{ $banner->title }}')">
-                                                    Delete
+                                                    <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
                                                 </button>
                                             </td>
                                         </tr>

@@ -3,99 +3,52 @@
 		<section class="blog-area ptb-120 bg-fff7f4">
 			<div class="container">
 				<div class="section-title text-center">
-					<span class="bg-ff5d24">News Update</span>
-					<h2>Labto News & Blog</h2>
+					<span class="bg-ff5d24">Blog Update</span>
+					<h2>Blog Posts</h2>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-						eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-						ipsum suspendisse ultrices gravida.
+						Stay updated with the latest blog posts from our team.
 					</p>
 				</div>
 
 				<div class="row justify-content-center">
-					<div class="col-lg-4 col-md-6">
-						<div class="single-blog-post">
-							<div class="post-image">
-								<a href="single-blog.html"
-									><img src="assets/img/blog-img9.jpg" alt="image"
-								/></a>
+					@forelse($blogs->take(3) as $blog)
+						<div class="col-lg-4 col-md-6">
+							<div class="single-blog-post">
+								<div class="post-image">
+									<a href="{{ route('blog.detail', $blog->id) }}">
+										@if($blog->image)
+										<img src="{{ $blog->image_url }}" alt="{{ $blog->title }}" />
+										@else
+											<img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $blog->title }}" />
+										@endif
+									</a>
 
-								<div class="date">12 Sep, 2024</div>
-							</div>
+									<div class="date">{{ $blog->created_at->format('d M, Y') }}</div>
+								</div>
 
-							<div class="post-content">
-								<span>By: <a href="single-blog.html">John Smith</a></span>
-								<h3>
-									<a href="single-blog.html"
-										>Quick Facts to Improve Antibody Half-Life Measurements</a
-									>
-								</h3>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-									do eiusmod tempor incididunt ut labore et dolore magna.
-								</p>
-								<a href="single-blog.html" class="learn-more-btn"
-									>Learn More <i class="flaticon-arrow-pointing-to-right"></i
-								></a>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6">
-						<div class="single-blog-post">
-							<div class="post-image">
-								<a href="single-blog.html"
-									><img src="assets/img/blog-img8.jpg" alt="image"
-								/></a>
-
-								<div class="date">14 Sep, 2024</div>
-							</div>
-
-							<div class="post-content">
-								<span>By: <a href="single-blog.html">Joe Root</a></span>
-								<h3>
-									<a href="single-blog.html"
-										>The Versatile Mouse Model for Rare Disease Research</a
-									>
-								</h3>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-									do eiusmod tempor incididunt ut labore et dolore magna.
-								</p>
-								<a href="single-blog.html" class="learn-more-btn"
-									>Learn More <i class="flaticon-arrow-pointing-to-right"></i
-								></a>
+								<div class="post-content">
+									<span>By: <a href="{{ route('blog.detail', $blog->id) }}">{{ $blog->author ?? 'Admin' }}</a></span>
+									<h3>
+										<a href="{{ route('blog.detail', $blog->id) }}">
+											{{ $blog->title }}
+										</a>
+									</h3>
+									<p>
+										{{ Str::limit($blog->subtitle ?? $blog->content, 120) }}
+									</p>
+									<a href="{{ route('blog.detail', $blog->id) }}" class="learn-more-btn">
+										Learn More <i class="flaticon-arrow-pointing-to-right"></i>
+									</a>
+								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6">
-						<div class="single-blog-post">
-							<div class="post-image">
-								<a href="single-blog.html"
-									><img src="assets/img/blog-img7.jpg" alt="image"
-								/></a>
-
-								<div class="date">16 Sep, 2024</div>
-							</div>
-
-							<div class="post-content">
-								<span>By: <a href="single-blog.html">Sarah</a></span>
-								<h3>
-									<a href="single-blog.html"
-										>If you’re happy and you know it, thank your bugs</a
-									>
-								</h3>
-								<p>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-									do eiusmod tempor incididunt ut labore et dolore magna.
-								</p>
-								<a href="single-blog.html" class="learn-more-btn"
-									>Learn More <i class="flaticon-arrow-pointing-to-right"></i
-								></a>
+					@empty
+						<div class="col-12">
+							<div class="text-center">
+								<p>No blog posts found.</p>
 							</div>
 						</div>
-					</div>
+					@endforelse
 				</div>
 			</div>
 		</section>

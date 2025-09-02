@@ -13,25 +13,44 @@ class ResearchAreaSeeder extends Seeder
     {
         $researchAreas = [
             [
-                'title'            => 'Biotechnology Research',
-                'description'      => 'Advanced research in genetic engineering, molecular biology, and bioprocessing technologies. Developing innovative solutions for healthcare, agriculture, and environmental sustainability.',
-                'background_color' => 'bg-default',
+                'title'            => 'Artificial Intelligence',
+                'description'      => 'Building intelligent systems that learn, adapt, and make decisions like humans.',
+                'background_color' => 'bg-43c784',
                 'order'            => 1,
                 'is_active'        => true,
+                'image'            => 'research-areas/1.png',
             ],
             [
-                'title'            => 'Analytical Chemistry',
-                'description'      => 'Cutting-edge analytical techniques and instrumentation for chemical analysis, quality control, and research applications in pharmaceuticals and materials science.',
-                'background_color' => 'bg-43c784',
+                'title'            => 'Cybersecurity & Privacy',
+                'description'      => 'Protecting digital systems through secure architectures and threat detection.',
+                'background_color' => 'bg-fe5d24',
                 'order'            => 2,
                 'is_active'        => true,
+                'image'            => 'research-areas/2.png',
             ],
             [
-                'title'            => 'Environmental Science',
-                'description'      => 'Research focused on environmental monitoring, pollution control, and sustainable development practices for a cleaner and healthier environment.',
+                'title'            => 'Data Science & Analytics',
+                'description'      => 'Extracting meaningful insights from complex datasets to drive smart decisions.',
                 'background_color' => 'bg-f59f00',
                 'order'            => 3,
                 'is_active'        => true,
+                'image'            => 'research-areas/3.png',
+            ],
+            [
+                'title'            => 'Internet of Things (IoT)',
+                'description'      => 'Connecting devices and systems to build smart, responsive environments.',
+                'background_color' => 'bg-43c784',
+                'order'            => 4,
+                'is_active'        => true,
+                'image'            => 'research-areas/4.png',
+            ],
+            [
+                'title'            => 'High Performance Computing (HPC)',
+                'description'      => 'Solving large-scale problems with advanced computing power and parallel processing.',
+                'background_color' => 'bg-fe5d24',
+                'order'            => 5,
+                'is_active'        => true,
+                'image'            => 'research-areas/5.png',
             ],
         ];
 

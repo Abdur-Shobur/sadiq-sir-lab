@@ -26,7 +26,7 @@
                         @if(is_array($about->features) && count($about->features) > 0)
                             <ul class="about-features-list">
                                 @foreach($about->features as $feature)
-                                    <li><i class="flaticon-check-mark"></i> {{ $feature }}</li>
+                                    <li><i class="fas fa-check"></i> {{ $feature }}</li>
                                 @endforeach
                             </ul>
                         @endif
@@ -45,23 +45,19 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="about-content">
                         <span>About Us</span>
-                        <h2>We Discoveries We Give Your Solution</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis
-                            ipsum suspendisse ultrices gravida. Risus commodo viverra
-                            maecenas accumsan lacus vel facilisis.
-                        </p>
+                        <h2>Innovating the Future Through Technology</h2>
+                        <p>Our advanced research lab, under the guidance of expert faculty, is committed to driving innovation in computing. We focus on cutting-edge technologies and real-world applications in areas such as artificial intelligence, cybersecurity, data science, and smart systems. Our mission is to empower students and researchers to build the technology of tomorrow.</p>
 
                         <ul class="about-features-list">
-                            <li><i class="flaticon-check-mark"></i> Chemical Research</li>
-                            <li><i class="flaticon-check-mark"></i> Pathology Testing</li>
-                            <li><i class="flaticon-check-mark"></i> Sample Preparation</li>
-                            <li><i class="flaticon-check-mark"></i> Healthcare Labs</li>
-                            <li><i class="flaticon-check-mark"></i> Advanced Microscopy</li>
-                            <li><i class="flaticon-check-mark"></i> Advanced Robotics</li>
-                            <li><i class="flaticon-check-mark"></i> Environmental Testing</li>
-                            <li><i class="flaticon-check-mark"></i> Anatomical Pathology</li>
+                            <li><i class="fas fa-check"></i> Artificial Intelligence</li>
+                            <li><i class="fas fa-check"></i> Cybersecurity & Privacy</li>
+                            <li><i class="fas fa-check"></i> Data Science & Analytics</li>
+                            <li><i class="fas fa-check"></i> Internet of Things (IoT)</li>
+                            <li><i class="fas fa-check"></i> Internet of Things (IoT)</li>
+                            <li><i class="fas fa-check"></i> Machine Learning Models</li>
+                            <li><i class="fas fa-check"></i> Cloud Computing</li>
+                            <li><i class="fas fa-check"></i> Robotics & Automation</li>
+                            <li><i class="fas fa-check"></i> High Performance Computing</li>
                         </ul>
                     </div>
                 </div>

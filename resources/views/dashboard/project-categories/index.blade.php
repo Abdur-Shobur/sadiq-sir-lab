@@ -48,7 +48,7 @@
                                         </td>
                                         <td>{{ $category->created_at->format('M d, Y') }}</td>
                                         <td>
-                                            <div class="btn-group" role="group">
+                                            <div class="btn-group gap-2" role="group">
                                                 <a href="{{ route('dashboard.project-categories.show', $category) }}"
                                                    class="btn btn-sm btn-info" title="View">
                                                     <i class="fas fa-eye"></i>

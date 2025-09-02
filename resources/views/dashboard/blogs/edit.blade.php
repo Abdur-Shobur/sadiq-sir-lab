@@ -17,16 +17,16 @@
                     <form action="{{ route('dashboard.blogs.update', $blog) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        
+
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="mb-3">
                                     <label for="blog_category_id" class="form-label">Category <span class="text-danger">*</span></label>
-                                    <select class="form-control @error('blog_category_id') is-invalid @enderror" 
+                                    <select class="form-control @error('blog_category_id') is-invalid @enderror"
                                             id="blog_category_id" name="blog_category_id" required>
                                         <option value="">Select Category</option>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" 
+                                            <option value="{{ $category->id }}"
                                                 {{ old('blog_category_id', $blog->blog_category_id) == $category->id ? 'selected' : '' }}>
                                                 {{ $category->name }}
                                             </option>
@@ -39,7 +39,7 @@
 
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('title') is-invalid @enderror" 
+                                    <input type="text" class="form-control @error('title') is-invalid @enderror"
                                            id="title" name="title" value="{{ old('title', $blog->title) }}" required>
                                     @error('title')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -48,7 +48,7 @@
 
                                 <div class="mb-3">
                                     <label for="subtitle" class="form-label">Subtitle</label>
-                                    <input type="text" class="form-control @error('subtitle') is-invalid @enderror" 
+                                    <input type="text" class="form-control @error('subtitle') is-invalid @enderror"
                                            id="subtitle" name="subtitle" value="{{ old('subtitle', $blog->subtitle) }}">
                                     @error('subtitle')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -68,12 +68,16 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Featured Image</label>
-                                    <input type="file" class="form-control @error('image') is-invalid @enderror" 
-                                           id="image" name="image" accept="image/*">
+                                    <input type="file" class="form-control @error('image') is-invalid @enderror"
+                                           id="image" name="image" accept="image/jpeg,image/png,image/jpg,image/gif,image/webp,image/bmp,image/svg+xml">
                                     @error('image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                    <div class="form-text">Recommended size: 800x600px, Max: 2MB</div>
+                                    <div class="form-text">
+                                        Supported formats: JPG, PNG, GIF, WebP, BMP, SVG<br>
+                                        Recommended size: 800x600px<br>
+                                        Max file size: 5MB
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">
@@ -93,7 +97,7 @@
                                     </div>
                                     <div class="card-body text-center">
                                         <div id="image-preview">
-                                            <img src="{{ $blog->image_url }}" 
+                                            <img src="{{ $blog->image_url }}"
                                                  alt="Preview" class="img-fluid" style="max-height: 200px;">
                                         </div>
                                     </div>
@@ -160,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                document.getElementById('image-preview').innerHTML = 
+                document.getElementById('image-preview').innerHTML =
                     `<img src="${e.target.result}" alt="Preview" class="img-fluid" style="max-height: 200px;">`;
             };
             reader.readAsDataURL(file);

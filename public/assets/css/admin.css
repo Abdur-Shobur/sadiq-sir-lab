@@ -40,6 +40,7 @@ body {
     padding: 0.5rem;
     border-radius: 5px;
     transition: all 0.3s ease;
+    display: none;
 }
 
 .sidebar-toggle:hover {
@@ -215,6 +216,10 @@ body {
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .sidebar-toggle {
+        display: block;
+    }
+
     .sidebar {
         transform: translateX(-100%);
     }

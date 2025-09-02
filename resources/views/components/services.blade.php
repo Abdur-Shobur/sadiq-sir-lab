@@ -5,17 +5,17 @@
             <span>Services</span>
             <h2>There is no Doubt To Get Your Service Over Year of Experience</h2>
 
-            <a href="{{ route('services') }}" class="btn btn-secondary">Tell Us More</a>
+            <a href="{{ route('projects') }}" class="btn btn-secondary">Tell Us More</a>
         </div>
 
-        <div class="row">
+        <div class="row gy-4">
             @php
                 $services = \App\Models\Service::active()->ordered()->get();
             @endphp
 
             @forelse($services as $service)
                 <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-services-box">
+                    <div class="single-services-box h-100">
                         <div class="icon" style="background-color: {{ $service->background_color }};">
                             <i class="{{ $service->icon }}"></i>
                         </div>

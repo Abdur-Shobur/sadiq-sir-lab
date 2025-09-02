@@ -67,11 +67,15 @@
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Featured Image</label>
                                     <input type="file" class="form-control @error('image') is-invalid @enderror"
-                                           id="image" name="image" accept="image/*">
+                                           id="image" name="image" accept="image/jpeg,image/png,image/jpg,image/gif,image/webp,image/bmp,image/svg+xml">
                                     @error('image')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
-                                    <div class="form-text">Recommended size: 800x600px, Max: 2MB</div>
+                                    <div class="form-text">
+                                        Supported formats: JPG, PNG, GIF, WebP, BMP, SVG<br>
+                                        Recommended size: 800x600px<br>
+                                        Max file size: 5MB
+                                    </div>
                                 </div>
 
                                 <div class="mb-3">

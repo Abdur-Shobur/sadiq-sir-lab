@@ -50,12 +50,9 @@
                                             <select class="form-select @error('background_color') is-invalid @enderror"
                                                     id="background_color" name="background_color" required>
                                                 <option value="">Select Color</option>
-                                                <option value="bg-default" {{ old('background_color') == 'bg-default' ? 'selected' : '' }}>Default</option>
                                                 <option value="bg-43c784" {{ old('background_color') == 'bg-43c784' ? 'selected' : '' }}>Green</option>
                                                 <option value="bg-f59f00" {{ old('background_color') == 'bg-f59f00' ? 'selected' : '' }}>Orange</option>
-                                                <option value="bg-007bff" {{ old('background_color') == 'bg-007bff' ? 'selected' : '' }}>Blue</option>
-                                                <option value="bg-6c757d" {{ old('background_color') == 'bg-6c757d' ? 'selected' : '' }}>Gray</option>
-                                                <option value="bg-dc3545" {{ old('background_color') == 'bg-dc3545' ? 'selected' : '' }}>Red</option>
+                                                <option value="bg-fe5d24" {{ old('background_color') == 'bg-fe5d24' ? 'selected' : '' }}>Red</option>
                                             </select>
                                             @error('background_color')
                                                 <div class="invalid-feedback">{{ $message }}</div>

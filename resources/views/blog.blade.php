@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Blog - Labto')
+@section('title', 'Blog - ' . \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Laboratory'))
 
 @section('content')
 <!-- Start Page Title Area -->
@@ -45,7 +45,11 @@
                 <div class="single-blog-post">
                     <div class="post-image">
                         <a href="{{ route('blog.detail', $blog->id) }}">
-                            <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}" />
+                            @if($blog->image)
+                                <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}" />
+                            @else
+                                <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $blog->title }}" />
+                            @endif
                         </a>
                         <div class="date">{{ $blog->created_at->format('d M, Y') }}</div>
                     </div>

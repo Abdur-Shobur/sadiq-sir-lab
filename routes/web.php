@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CtaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\ResearchAreaController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\TeamAuthController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamDashboardController;
@@ -52,7 +55,7 @@ Route::get('/contact', function () {
 })->name('contact');
 
 // Contact message submission
-Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // About page
 Route::get('/about', function () {
@@ -198,6 +201,15 @@ Route::middleware('auth')->group(function () {
     // Contact Messages Management Routes
     Route::resource('dashboard/contact-messages', ContactController::class, ['as' => 'dashboard'])->except(['create', 'edit', 'store']);
     Route::put('/dashboard/contact-messages/{contactMessage}/status', [ContactController::class, 'updateStatus'])->name('dashboard.contact-messages.update-status');
+
+    // Settings Management Routes
+    Route::get('/dashboard/settings', [SettingsController::class, 'index'])->name('dashboard.settings.index');
+    Route::put('/dashboard/settings', [SettingsController::class, 'update'])->name('dashboard.settings.update');
+
+    // Social Media Management Routes
+    Route::resource('dashboard/social-media', SocialMediaController::class, [
+        'as' => 'dashboard',
+    ])->parameters(['social-media' => 'socialMedia']);
 });
 
 // 404 Not Found Route (must be last)
