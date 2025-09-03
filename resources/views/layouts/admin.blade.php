@@ -9,6 +9,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="{{ asset('assets/css/admin.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .user-avatar-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
     <!-- Top Bar -->
@@ -25,14 +33,19 @@
         <div class="topbar-right">
             <div class="user-dropdown">
                 <a href="#" class="user-dropdown-toggle" data-bs-toggle="dropdown">
-                    <div class="user-avatar">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                    </div>
+                    @if(Auth::user()->profile_image)
+                        <img src="{{ Auth::user()->profile_image_url }}" alt="Profile" class="user-avatar-img">
+                    @else
+                        <div class="user-avatar">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                    @endif
                     <span>{{ Auth::user()->name }}</span>
                     <i class="fas fa-chevron-down"></i>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{{ route('dashboard.settings.index') }}"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ route('dashboard.profile.edit') }}"><i class="fas fa-user me-2"></i>My Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <a class="dropdown-item" href="{{ route('logout') }}"
@@ -59,11 +72,32 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#contentSubmenu">
-                        <i class="fas fa-file-alt"></i>Content Management
+                    <a class="nav-link {{ request()->routeIs([
+                        'dashboard.banners.*',
+                        'dashboard.research-areas.*',
+                        'dashboard.abouts.*',
+                        'dashboard.services.*',
+                        'dashboard.ctas.*',
+                        'dashboard.social-media.*',
+                    ]) ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#contentSubmenu" aria-expanded="{{ request()->routeIs([
+                        'dashboard.banners.*',
+                        'dashboard.research-areas.*',
+                        'dashboard.abouts.*',
+                        'dashboard.services.*',
+                        'dashboard.ctas.*',
+                        'dashboard.social-media.*',
+                    ]) ? 'true' : 'false' }}">
+                        <i class="fas fa-file-alt"></i>Contents
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
-                    <div class="collapse" id="contentSubmenu">
+                    <div class="collapse {{ request()->routeIs([
+                        'dashboard.banners.*',
+                        'dashboard.research-areas.*',
+                        'dashboard.abouts.*',
+                        'dashboard.services.*',
+                        'dashboard.ctas.*',
+                        'dashboard.social-media.*',
+                    ]) ? 'show' : '' }}" id="contentSubmenu">
                         <ul class="nav flex-column ms-3">
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('dashboard.banners.*') ? 'active' : '' }}" href="{{ route('dashboard.banners.index') }}">
@@ -103,11 +137,20 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                                <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#blogSubmenu">
-                                    <i class="fas fa-newspaper"></i>Blog Management
-                                    <i class="fas fa-chevron-down ms-auto"></i>
-                                </a>
-                                <div class="collapse" id="blogSubmenu">
+                <a class="nav-link {{ request()->routeIs([
+                    'dashboard.blogs.*',
+                    'dashboard.blog-categories.*',
+                ]) ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#blogSubmenu" aria-expanded="{{ request()->routeIs([
+                    'dashboard.blogs.*',
+                    'dashboard.blog-categories.*',
+                ]) ? 'true' : 'false' }}">
+                    <i class="fas fa-newspaper"></i>Blog Management
+                    <i class="fas fa-chevron-down ms-auto"></i>
+                </a>
+                <div class="collapse {{ request()->routeIs([
+                    'dashboard.blogs.*',
+                    'dashboard.blog-categories.*',
+                ]) ? 'show' : '' }}" id="blogSubmenu">
                                     <ul class="nav flex-column ms-3">
                                         <li class="nav-item">
                                             <a class="nav-link {{ request()->routeIs('dashboard.blogs.*') ? 'active' : '' }}" href="{{ route('dashboard.blogs.index') }}">
@@ -129,12 +172,21 @@
                                  </a>
                              </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#projectsSubmenu">
+                             <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs([
+                        'dashboard.project-categories.*',
+                        'dashboard.projects.*',
+                    ]) ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#projectsSubmenu" aria-expanded="{{ request()->routeIs([
+                        'dashboard.project-categories.*',
+                        'dashboard.projects.*',
+                    ]) ? 'true' : 'false' }}">
                         <i class="fas fa-project-diagram"></i>Projects
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
-                    <div class="collapse" id="projectsSubmenu">
+                    <div class="collapse {{ request()->routeIs([
+                        'dashboard.project-categories.*',
+                        'dashboard.projects.*',
+                    ]) ? 'show' : '' }}" id="projectsSubmenu">
                         <ul class="nav flex-column ms-3">
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('dashboard.project-categories.*') ? 'active' : '' }}" href="{{ route('dashboard.project-categories.index') }}">
@@ -165,8 +217,14 @@
                                     <i class="fas fa-users"></i>Team Members
                                 </a>
                             </li>
+                            <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard.newsletter-subscribers.*') ? 'active' : '' }}" href="{{ route('dashboard.newsletter-subscribers.index') }}">
+                        <i class="fas fa-envelope"></i>Newsletter Subscribers
+                    </a>
+                </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard.settings.index') }}">
+                    <a class="nav-link {{ request()->routeIs('dashboard.settings.*') ? 'active' : '' }}" href="{{ route('dashboard.settings.index') }}">
                         <i class="fas fa-cog"></i>Settings
                     </a>
                 </li>

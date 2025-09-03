@@ -70,6 +70,17 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="content-card">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="text-muted">Newsletter</div>
+                        <div class="h4 mb-0">{{ $stats['newsletter']['active'] }} active</div>
+                    </div>
+                    <i class="fas fa-envelope text-success" style="font-size: 1.8rem;"></i>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- More stats -->

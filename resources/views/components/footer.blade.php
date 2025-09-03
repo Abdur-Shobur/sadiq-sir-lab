@@ -18,23 +18,66 @@
                         </p>
                     </div>
 
-                    <div class="newsletter-box">
+                                        <div class="newsletter-box">
                         <h4>Newsletter</h4>
 
-                        <form class="newsletter-form" data-toggle="validator">
-                            <input
-                                type="email"
-                                class="form-control"
-                                placeholder="Your Email Address"
-                                name="EMAIL"
-                                required
-                                autocomplete="off"
-                            />
-                            <button type="submit">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                            <div id="validator-newsletter" class="form-result"></div>
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        <form class="newsletter-form" id="newsletterForm" action="{{ route('newsletter.subscribe') }}" method="POST">
+                            @csrf
+                            <div class="input-group">
+                                <input
+                                    type="email"
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    placeholder="Your Email Address"
+                                    name="email"
+                                    value="{{ old('email') }}"
+                                    required
+                                    autocomplete="off"
+                                />
+                                <button style="z-index: 9; padding: 0" type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            @error('email')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </form>
+
+                        <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const form = document.getElementById('newsletterForm');
+
+                            form.addEventListener('submit', function(e) {
+                                e.preventDefault();
+
+                                const email = form.querySelector('input[name="email"]').value.trim();
+                                if (!email) return;
+
+                                // Show confirmation popup
+                                Swal.fire({
+                                    title: 'Subscribe to Newsletter?',
+                                    text: `Are you sure you want to subscribe with ${email}?`,
+                                    icon: 'question',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Yes, Subscribe!',
+                                    cancelButtonText: 'Cancel'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        // Submit the form
+                                        form.submit();
+                                    }
+                                });
+                            });
+                        });
+                        </script>
                     </div>
                 </div>
             </div>

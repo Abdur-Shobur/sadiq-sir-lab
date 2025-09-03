@@ -5,6 +5,7 @@ use App\Models\Blog;
 use App\Models\ContactMessage;
 use App\Models\Event;
 use App\Models\News;
+use App\Models\NewsletterSubscriber;
 use App\Models\Project;
 use App\Models\Publication;
 use App\Models\SocialMedia;
@@ -23,6 +24,11 @@ class DashboardController extends Controller
             'messages'     => ['total' => ContactMessage::count(), 'unread' => ContactMessage::unread()->count()],
             'publications' => ['active' => Publication::active()->count()],
             'social'       => ['active' => SocialMedia::where('is_active', true)->count()],
+            'newsletter'   => [
+                'total'  => NewsletterSubscriber::count(),
+                'active' => NewsletterSubscriber::active()->count(),
+                'recent' => NewsletterSubscriber::latest()->take(5)->get(),
+            ],
         ];
 
         $recentBlogs    = Blog::with('category')->latest()->take(5)->get();

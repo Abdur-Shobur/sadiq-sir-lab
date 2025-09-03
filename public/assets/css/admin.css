@@ -185,7 +185,6 @@ body {
 #contentSubmenu {
     background: rgba(0, 0, 0, 0.02);
     border-left: 3px solid #e9ecef;
-    margin-left: 1.5rem;
 }
 
 #contentSubmenu .nav-link {
@@ -195,6 +194,11 @@ body {
     border-left: none;
 }
 
+#contentSubmenu .nav-link.active {
+    color: var(--primary-color);
+    background-color: rgba(102, 126, 234, 0.1);
+    border-left: 3px solid var(--primary-color);
+}
 #contentSubmenu .nav-link:hover {
     background-color: rgba(102, 126, 234, 0.1);
     color: var(--primary-color);

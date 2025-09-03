@@ -57,6 +57,9 @@ Route::get('/contact', function () {
 // Contact message submission
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+// Newsletter subscription routes
+Route::post('/newsletter/subscribe', [\App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, 'subscribe'])->name('newsletter.subscribe');
+
 // About page
 Route::get('/about', function () {
     return view('about');
@@ -206,10 +209,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/settings', [SettingsController::class, 'index'])->name('dashboard.settings.index');
     Route::put('/dashboard/settings', [SettingsController::class, 'update'])->name('dashboard.settings.update');
 
+    // Newsletter Subscribers Management Routes
+    Route::resource('dashboard/newsletter-subscribers', \App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, ['as' => 'dashboard']);
+    Route::put('/dashboard/newsletter-subscribers/{newsletterSubscriber}/status', [\App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, 'updateStatus'])->name('dashboard.newsletter-subscribers.update-status');
+    Route::get('/dashboard/newsletter-subscribers/export/csv', [\App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, 'export'])->name('dashboard.newsletter-subscribers.export');
+
     // Social Media Management Routes
     Route::resource('dashboard/social-media', SocialMediaController::class, [
         'as' => 'dashboard',
     ])->parameters(['social-media' => 'socialMedia']);
+
+    Route::get('/dashboard/profile', [\App\Http\Controllers\UserProfileController::class, 'edit'])->name('dashboard.profile.edit');
+    Route::put('/dashboard/profile', [\App\Http\Controllers\UserProfileController::class, 'update'])->name('dashboard.profile.update');
 });
 
 // 404 Not Found Route (must be last)
