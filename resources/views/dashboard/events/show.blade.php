@@ -37,9 +37,27 @@
                         <div class="col-md-8">
                             <div class="mb-3">
                                 <h5 class="mb-1">{{ $event->title }}</h5>
-                                @if($event->subtitle)
-                                    <div class="text-muted">{{ $event->subtitle }}</div>
+                                @if($event->description)
+                                    <div class="text-muted">{{ $event->description }}</div>
                                 @endif
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Event Date:</strong> {{ $event->formatted_event_date }}
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Time:</strong> {{ $event->time }}
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <strong>Location:</strong> {{ $event->location }}
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Order:</strong> {{ $event->order }}
+                                </div>
                             </div>
 
                             <div class="mb-3">
@@ -49,13 +67,11 @@
                                 @else
                                     <span class="badge bg-secondary">Inactive</span>
                                 @endif
-                            </div>
 
-                            <div class="mb-4">
-                                <h6 class="mb-2">Content</h6>
-                                <div class="border rounded p-3">
-                                    {!! $event->content !!}
-                                </div>
+                                <span class="ms-3 me-2">Event Status:</span>
+                                <span class="badge bg-{{ $event->status === 'upcoming' ? 'primary' : ($event->status === 'ongoing' ? 'warning' : 'secondary') }}">
+                                    {{ ucfirst($event->status) }}
+                                </span>
                             </div>
 
                             <div class="text-muted small">
@@ -65,24 +81,27 @@
                         </div>
 
                         <div class="col-md-4">
-                            <div class="card h-100">
-                                <div class="card-header">
-                                    <h6 class="mb-0">Icon</h6>
-                                </div>
-                                <div class="card-body text-center">
-                                    <div style="font-size: 48px; color: #007bff;">
-                                        @if($event->icon)
-                                            <i class="{{ $event->icon }}"></i>
-                                        @else
-                                            <i class="fas fa-calendar"></i>
-                                        @endif
+                            @if($event->image)
+                                <div class="card h-100">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Event Image</h6>
                                     </div>
-                                    <div class="mt-2">
-                                        <span class="text-muted small">Class:</span>
-                                        <code class="small">{{ $event->icon ?: 'fas fa-calendar' }}</code>
+                                    <div class="card-body text-center">
+                                        <img src="{{ $event->image_url }}" alt="{{ $event->title }}"
+                                             style="max-width: 100%; height: auto; border-radius: 5px;">
                                     </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="card h-100">
+                                    <div class="card-header">
+                                        <h6 class="mb-0">Event Image</h6>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-image fa-3x text-muted"></i>
+                                        <p class="text-muted mt-2">No image uploaded</p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -106,7 +125,7 @@
     </div>
 </div>
 
-<!-- Delete Confirmation Script (reuses SweetAlert just like index) -->
+<!-- Delete Confirmation Script -->
 <script>
     function confirmDelete(url, title) {
         Swal.fire({
@@ -123,10 +142,19 @@
                 const form = document.createElement('form');
                 form.method = 'POST';
                 form.action = url;
-                form.innerHTML = `
-                    @csrf
-                    @method('DELETE')
-                `;
+
+                const csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = '_token';
+                csrfToken.value = '{{ csrf_token() }}';
+
+                const methodField = document.createElement('input');
+                methodField.type = 'hidden';
+                methodField.name = '_method';
+                methodField.value = 'DELETE';
+
+                form.appendChild(csrfToken);
+                form.appendChild(methodField);
                 document.body.appendChild(form);
                 form.submit();
             }

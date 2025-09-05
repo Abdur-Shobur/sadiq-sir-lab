@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\BlogCategoryController;
@@ -9,12 +10,18 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CtaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\GalleryCategoryController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PortfolioAboutController;
+use App\Http\Controllers\PortfolioBannerController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\ResearchAreaController;
+use App\Http\Controllers\ResearchController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SocialMediaController;
@@ -33,6 +40,10 @@ Route::get('/publications', [PublicationController::class, 'publicIndex'])->name
 // Projects page
 Route::get('/projects', [ProjectController::class, 'publicIndex'])->name('projects');
 Route::get('/projects/{id}', [ProjectController::class, 'showProject'])->name('project.details');
+
+// Research routes
+Route::get('/research', [ResearchController::class, 'publicIndex'])->name('research');
+Route::get('/research/{research}', [ResearchController::class, 'publicShow'])->name('research.details');
 
 // Events routes
 Route::get('/events', [EventController::class, 'publicIndex'])->name('events');
@@ -112,10 +123,6 @@ Route::get('/team/{team}', function (App\Models\Team $team) {
 })->name('team.member');
 
 // Additional pages
-Route::get('/research', function () {
-    return view('research');
-})->name('research');
-
 Route::get('/pricing', function () {
     return view('pricing');
 })->name('pricing');
@@ -161,8 +168,26 @@ Route::middleware('team.auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Profile Management Routes
+    Route::resource('dashboard/profiles', ProfileController::class, ['as' => 'dashboard']);
+
+    // Gallery Category Management Routes
+    Route::resource('dashboard/gallery-categories', GalleryCategoryController::class, ['as' => 'dashboard']);
+
+    // Gallery Management Routes
+    Route::resource('dashboard/galleries', GalleryController::class, ['as' => 'dashboard']);
+
     // Banner Management Routes
     Route::resource('dashboard/banners', BannerController::class, ['as' => 'dashboard']);
+
+    // Portfolio Banner Management Routes
+    Route::resource('dashboard/portfolio-banners', PortfolioBannerController::class, ['as' => 'dashboard']);
+
+    // Portfolio About Management Routes
+    Route::resource('dashboard/portfolio-abouts', PortfolioAboutController::class, ['as' => 'dashboard']);
+
+    // Research Management Routes
+    Route::resource('dashboard/researches', ResearchController::class, ['as' => 'dashboard']);
 
     // Research Areas Management Routes
     Route::resource('dashboard/research-areas', ResearchAreaController::class, ['as' => 'dashboard']);
@@ -218,6 +243,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('dashboard/social-media', SocialMediaController::class, [
         'as' => 'dashboard',
     ])->parameters(['social-media' => 'socialMedia']);
+
+    // Achievement Management Routes
+    Route::resource('dashboard/achievements', AchievementController::class, ['as' => 'dashboard']);
 
     Route::get('/dashboard/profile', [\App\Http\Controllers\UserProfileController::class, 'edit'])->name('dashboard.profile.edit');
     Route::put('/dashboard/profile', [\App\Http\Controllers\UserProfileController::class, 'update'])->name('dashboard.profile.update');

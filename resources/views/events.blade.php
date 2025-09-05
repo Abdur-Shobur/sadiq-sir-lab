@@ -20,21 +20,51 @@
 <!-- Start Events Area -->
 <section class="services-area pt-3 pt-md-5">
     <div class="container">
-        <div class="row">
+        <div class="row gy-4">
             @if($events->count() > 0)
                 @foreach($events as $event)
                 <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-services-box">
+                    <div class="single-services-box h-100">
                         <div class="icon">
-                            @if($event->icon)
-                                <i class="{{ $event->icon }}"></i>
+                            @if($event->image)
+                                <img src="{{ $event->image_url }}" alt="{{ $event->title }}"
+                                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
                             @else
                                 <i class="fas fa-calendar"></i>
                             @endif
                         </div>
 
                         <h3>{{ $event->title }}</h3>
-                        <p>{{ $event->subtitle ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum sus.' }}</p>
+                        <p>{{ $event->description ?? 'Join us for this exciting event. More details available on the event page.' }}</p>
+
+                        <div class="event-meta mb-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="text-muted">
+                                        <i class="fas fa-calendar-alt"></i> {{ $event->formatted_event_date }}
+                                    </small>
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-muted">
+                                        <i class="fas fa-clock"></i> {{ $event->time }}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <small class="text-muted">
+                                        <i class="fas fa-map-marker-alt"></i> {{ Str::limit($event->location, 30) }}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <span class="badge bg-{{ $event->status === 'upcoming' ? 'primary' : ($event->status === 'ongoing' ? 'warning' : 'secondary') }}">
+                                        {{ ucfirst($event->status) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
                         <a href="{{ route('event.details', $event->id) }}" class="learn-more-btn">Learn More <i class="flaticon-arrow-pointing-to-right"></i></a>
                     </div>

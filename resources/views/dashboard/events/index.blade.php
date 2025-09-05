@@ -27,10 +27,14 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Icon</th>
+                                        <th>Order</th>
+                                        <th>Image</th>
                                         <th>Title</th>
-                                        <th>Subtitle</th>
+                                        <th>Event Date</th>
+                                        <th>Time</th>
+                                        <th>Location</th>
                                         <th>Status</th>
+                                        <th>Event Status</th>
                                         <th>Created</th>
                                         <th>Actions</th>
                                     </tr>
@@ -38,23 +42,35 @@
                                 <tbody>
                                     @foreach($events as $event)
                                     <tr>
+                                        <td>{{ $event->order }}</td>
                                         <td>
-                                            @if($event->icon)
-                                                <i class="{{ $event->icon }}" style="font-size: 24px; color: #007bff;"></i>
+                                            @if($event->image)
+                                                <img src="{{ $event->image_url }}" alt="{{ $event->title }}"
+                                                     class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
                                             @else
-                                                <i class="fas fa-calendar" style="font-size: 24px; color: #6c757d;"></i>
+                                                <span class="text-muted">No Image</span>
                                             @endif
                                         </td>
                                         <td>
                                             <strong>{{ $event->title }}</strong>
+                                            @if($event->description)
+                                                <br><small class="text-muted">{{ Str::limit($event->description, 50) }}</small>
+                                            @endif
                                         </td>
-                                        <td>{{ $event->subtitle ?? 'N/A' }}</td>
+                                        <td>{{ $event->formatted_event_date }}</td>
+                                        <td>{{ $event->time }}</td>
+                                        <td>{{ Str::limit($event->location, 30) }}</td>
                                         <td>
                                             @if($event->is_active)
                                                 <span class="badge bg-success">Active</span>
                                             @else
                                                 <span class="badge bg-secondary">Inactive</span>
                                             @endif
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-{{ $event->status === 'upcoming' ? 'primary' : ($event->status === 'ongoing' ? 'warning' : 'secondary') }}">
+                                                {{ ucfirst($event->status) }}
+                                            </span>
                                         </td>
                                         <td>{{ $event->created_at->format('M d, Y') }}</td>
                                         <td>
@@ -112,10 +128,19 @@
                 const form = document.createElement('form');
                 form.method = 'POST';
                 form.action = url;
-                form.innerHTML = `
-                    @csrf
-                    @method('DELETE')
-                `;
+
+                const csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = '_token';
+                csrfToken.value = '{{ csrf_token() }}';
+
+                const methodField = document.createElement('input');
+                methodField.type = 'hidden';
+                methodField.name = '_method';
+                methodField.value = 'DELETE';
+
+                form.appendChild(csrfToken);
+                form.appendChild(methodField);
                 document.body.appendChild(form);
                 form.submit();
             }

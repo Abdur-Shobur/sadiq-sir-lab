@@ -1,11 +1,9 @@
 <?php
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\Models\Setting;
-use App\Models\SocialMedia;
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,6 +37,12 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             SettingsSeeder::class,
             SocialMediaSeeder::class,
+            PortfolioBannerSeeder::class,
+            PortfolioAboutSeeder::class,
+            ResearchSeeder::class,
+            AchievementSeeder::class,
+            GalleryCategorySeeder::class,
+            GallerySeeder::class,
         ]);
     }
 }

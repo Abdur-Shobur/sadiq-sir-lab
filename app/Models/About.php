@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +18,7 @@ class About extends Model
     ];
 
     protected $casts = [
-        'features' => 'array',
+        'features'  => 'array',
         'is_active' => 'boolean',
     ];
 

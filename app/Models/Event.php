@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,14 +10,21 @@ class Event extends Model
 
     protected $fillable = [
         'title',
-        'subtitle',
-        'content',
-        'icon',
+        'description',
+        'image',
+        'event_date',
+        'event_time',
+        'time',
+        'location',
         'is_active',
+        'order',
+        'status',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'event_date' => 'date',
+        'event_time' => 'datetime',
+        'is_active'  => 'boolean',
     ];
 
     public function scopeActive($query)
@@ -28,6 +34,34 @@ class Event extends Model
 
     public function scopeOrdered($query)
     {
-        return $query->orderBy('created_at', 'desc');
+        return $query->orderBy('order', 'asc')->orderBy('created_at', 'desc');
+    }
+
+    public function scopeUpcoming($query)
+    {
+        return $query->where('status', 'upcoming');
+    }
+
+    public function scopePast($query)
+    {
+        return $query->where('status', 'past');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->image) {
+            return asset('storage/' . $this->image);
+        }
+        return null;
+    }
+
+    public function getFormattedEventDateAttribute()
+    {
+        return $this->event_date ? $this->event_date->format('M d, Y') : null;
+    }
+
+    public function getFormattedEventTimeAttribute()
+    {
+        return $this->event_time ? $this->event_time->format('h:i A') : null;
     }
 }

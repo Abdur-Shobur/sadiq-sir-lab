@@ -20,7 +20,7 @@
                     <h4>Create New Event</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('dashboard.events.store') }}" method="POST">
+                    <form action="{{ route('dashboard.events.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
@@ -35,31 +35,80 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="subtitle" class="form-label">Subtitle</label>
-                                    <input type="text" class="form-control @error('subtitle') is-invalid @enderror"
-                                           id="subtitle" name="subtitle" value="{{ old('subtitle') }}">
-                                    @error('subtitle')
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea class="form-control @error('description') is-invalid @enderror"
+                                              id="description" name="description" rows="3">{{ old('description') }}</textarea>
+                                    @error('description')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="event_date" class="form-label">Event Date <span class="text-danger">*</span></label>
+                                            <input type="date" class="form-control @error('event_date') is-invalid @enderror"
+                                                   id="event_date" name="event_date" value="{{ old('event_date') }}" required>
+                                            @error('event_date')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="event_time" class="form-label">Event Time <span class="text-danger">*</span></label>
+                                            <input type="datetime-local" class="form-control @error('event_time') is-invalid @enderror"
+                                                   id="event_time" name="event_time" value="{{ old('event_time') }}" required>
+                                            @error('event_time')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="time" class="form-label">Display Time <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control @error('time') is-invalid @enderror"
+                                                   id="time" name="time" value="{{ old('time') }}"
+                                                   placeholder="e.g., 10:00 AM" required>
+                                            @error('time')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="order" class="form-label">Order</label>
+                                            <input type="number" class="form-control @error('order') is-invalid @enderror"
+                                                   id="order" name="order" value="{{ old('order', 0) }}" min="0">
+                                            @error('order')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="location" class="form-label">Location <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('location') is-invalid @enderror"
+                                           id="location" name="location" value="{{ old('location') }}" required>
+                                    @error('location')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="icon" class="form-label">Icon Class</label>
-                                    <input type="text" class="form-control @error('icon') is-invalid @enderror"
-                                           id="icon" name="icon" value="{{ old('icon') }}" 
-                                           placeholder="e.g., flaticon-coding, fas fa-calendar">
-                                    @error('icon')
+                                    <label for="status" class="form-label">Event Status <span class="text-danger">*</span></label>
+                                    <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required>
+                                        <option value="">Select Status</option>
+                                        <option value="upcoming" {{ old('status') === 'upcoming' ? 'selected' : '' }}>Upcoming</option>
+                                        <option value="ongoing" {{ old('status') === 'ongoing' ? 'selected' : '' }}>Ongoing</option>
+                                        <option value="past" {{ old('status') === 'past' ? 'selected' : '' }}>Past</option>
+                                    </select>
+                                    @error('status')
                                         <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                    <div class="form-text">Enter FontAwesome or Flaticon class name</div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="content" class="form-label">Content <span class="text-danger">*</span></label>
-                                    <div id="editor" style="height: 300px;">{!! old('content') !!}</div>
-                                    <input type="hidden" name="content" id="content-input">
-                                    @error('content')
-                                        <div class="text-danger small mt-1">{{ $message }}</div>
                                     @enderror
                                 </div>
 
@@ -75,15 +124,20 @@
                             </div>
 
                             <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h6>Icon Preview</h6>
-                                    </div>
-                                    <div class="card-body text-center">
-                                        <div id="icon-preview" style="font-size: 48px; color: #007bff;">
-                                            <i class="fas fa-calendar"></i>
-                                        </div>
-                                        <small class="text-muted">Icon will appear here</small>
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">Event Image</label>
+                                    <input type="file" class="form-control @error('image') is-invalid @enderror"
+                                           id="image" name="image" accept="image/*">
+                                    @error('image')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-text">Recommended size: 800x600px. Max file size: 2MB.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div id="image-preview" class="d-none">
+                                        <img id="preview-img" src="" alt="Preview"
+                                             style="max-width: 100%; height: auto; border-radius: 5px;">
                                     </div>
                                 </div>
                             </div>
@@ -100,50 +154,23 @@
     </div>
 </div>
 
-<!-- Include Quill CSS -->
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
-<!-- Include Quill JS -->
-<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Quill editor
-    var quill = new Quill('#editor', {
-        theme: 'snow',
-        modules: {
-            toolbar: [
-                [{ 'header': [1, 2, 3, false] }],
-                ['bold', 'italic', 'underline', 'strike'],
-                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                [{ 'script': 'sub'}, { 'script': 'super' }],
-                [{ 'indent': '-1'}, { 'indent': '+1' }],
-                [{ 'direction': 'rtl' }],
-                [{ 'size': ['small', false, 'large', 'huge'] }],
-                [{ 'color': [] }, { 'background': [] }],
-                [{ 'font': [] }],
-                [{ 'align': [] }],
-                ['link', 'image', 'video'],
-                ['clean']
-            ]
-        },
-        placeholder: 'Write your event content here...'
-    });
+    // Image preview functionality
+    document.getElementById('image').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const preview = document.getElementById('image-preview');
+        const previewImg = document.getElementById('preview-img');
 
-    // Update hidden input before form submission
-    document.querySelector('form').addEventListener('submit', function() {
-        document.getElementById('content-input').value = quill.root.innerHTML;
-    });
-
-    // Icon preview
-    const iconInput = document.getElementById('icon');
-    const iconPreview = document.getElementById('icon-preview');
-
-    iconInput.addEventListener('input', function() {
-        if (this.value.trim()) {
-            iconPreview.innerHTML = `<i class="${this.value}"></i>`;
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                preview.classList.remove('d-none');
+            }
+            reader.readAsDataURL(file);
         } else {
-            iconPreview.innerHTML = '<i class="fas fa-calendar"></i>';
+            preview.classList.add('d-none');
         }
     });
 });

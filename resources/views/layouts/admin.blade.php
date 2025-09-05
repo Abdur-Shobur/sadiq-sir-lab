@@ -87,7 +87,7 @@
                         'dashboard.ctas.*',
                         'dashboard.social-media.*',
                     ]) ? 'true' : 'false' }}">
-                        <i class="fas fa-file-alt"></i>Contents
+                        <i class="fas fa-file-alt"></i>Lab Contents
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
                     <div class="collapse {{ request()->routeIs([
@@ -110,6 +110,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.achievements.*') ? 'active' : '' }}" href="{{ route('dashboard.achievements.index') }}">
+                                    <i class="fas fa-trophy"></i>Achievements
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('dashboard.abouts.*') ? 'active' : '' }}" href="{{ route('dashboard.abouts.index') }}">
                                     <i class="fas fa-info-circle"></i>About Section
                                 </a>
@@ -124,13 +129,62 @@
                                     <i class="fas fa-phone-alt"></i>CTA Section
                                 </a>
                             </li>
-
-
-
-
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('dashboard.social-media.*') ? 'active' : '' }}" href="{{ route('dashboard.social-media.index') }}">
                                     <i class="fas fa-share-alt"></i>Social Media
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs([
+                        'dashboard.portfolio-banners.*',
+                        'dashboard.portfolio-abouts.*',
+                        'dashboard.gallery-categories.*',
+                        'dashboard.galleries.*',
+                        'dashboard.profiles.*',
+                    ]) ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#portfolioSubmenu" aria-expanded="{{ request()->routeIs([
+                        'dashboard.portfolio-banners.*',
+                        'dashboard.portfolio-abouts.*',
+                        'dashboard.gallery-categories.*',
+                        'dashboard.galleries.*',
+                        'dashboard.profiles.*',
+                    ]) ? 'true' : 'false' }}">
+                        <i class="fas fa-briefcase"></i>Portfolio Content
+                        <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <div class="collapse {{ request()->routeIs([
+                        'dashboard.portfolio-banners.*',
+                        'dashboard.portfolio-abouts.*',
+                        'dashboard.gallery-categories.*',
+                        'dashboard.galleries.*',
+                        'dashboard.profiles.*',
+                    ]) ? 'show' : '' }}" id="portfolioSubmenu">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.portfolio-banners.*') ? 'active' : '' }}" href="{{ route('dashboard.portfolio-banners.index') }}">
+                                    <i class="fas fa-image"></i>Portfolio Banner
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.portfolio-abouts.*') ? 'active' : '' }}" href="{{ route('dashboard.portfolio-abouts.index') }}">
+                                    <i class="fas fa-info-circle"></i>Portfolio About
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.gallery-categories.*') ? 'active' : '' }}" href="{{ route('dashboard.gallery-categories.index') }}">
+                                    <i class="fas fa-folder"></i>Gallery Categories
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.galleries.*') ? 'active' : '' }}" href="{{ route('dashboard.galleries.index') }}">
+                                    <i class="fas fa-images"></i>Gallery
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.profiles.*') ? 'active' : '' }}" href="{{ route('dashboard.profiles.index') }}">
+                                    <i class="fas fa-user"></i>Profiles
                                 </a>
                             </li>
                         </ul>
@@ -165,6 +219,18 @@
                                     </ul>
                                 </div>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.researches.*') ? 'active' : '' }}" href="{{ route('dashboard.researches.index') }}">
+                                    <i class="fas fa-microscope"></i>Research
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.achievements.*') ? 'active' : '' }}" href="{{ route('dashboard.achievements.index') }}">
+                                    <i class="fas fa-trophy"></i>Achievements
+                                </a>
+                            </li>
+
 
                             <li class="nav-item">
                                  <a class="nav-link {{ request()->routeIs('dashboard.news.*') ? 'active' : '' }}" href="{{ route('dashboard.news.index') }}">

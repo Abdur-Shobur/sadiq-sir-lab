@@ -29,6 +29,9 @@
                             <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('research') }}" class="nav-link {{ request()->routeIs('research*') ? 'active' : '' }}">Research</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('publications') }}" class="nav-link {{ request()->routeIs('publications') ? 'active' : '' }}">Publications</a>
                         </li>
                         <li class="nav-item">

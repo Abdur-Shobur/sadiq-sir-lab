@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -12,7 +14,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::orderBy('created_at', 'desc')->get();
+        $events = Event::ordered()->get();
         return view('dashboard.events.index', compact('events'));
     }
 
@@ -31,14 +33,30 @@ class EventController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'content' => 'required|string',
-            'icon' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'event_date' => 'required|date',
+            'event_time' => 'required|date',
+            'time' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
             'is_active' => 'boolean',
+            'order' => 'nullable|integer|min:0',
+            'status' => 'required|in:upcoming,ongoing,past',
         ]);
 
         $data = $request->all();
         $data['is_active'] = $request->boolean('is_active');
+        $data['order'] = $request->input('order', 0);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('events', 'public');
+        }
+
+        // Parse event_time
+        if ($request->event_time) {
+            $data['event_time'] = Carbon::parse($request->event_time);
+        }
 
         Event::create($data);
 
@@ -69,14 +87,34 @@ class EventController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'subtitle' => 'nullable|string|max:255',
-            'content' => 'required|string',
-            'icon' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'event_date' => 'required|date',
+            'event_time' => 'required|date',
+            'time' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
             'is_active' => 'boolean',
+            'order' => 'nullable|integer|min:0',
+            'status' => 'required|in:upcoming,ongoing,past',
         ]);
 
         $data = $request->all();
         $data['is_active'] = $request->boolean('is_active');
+        $data['order'] = $request->input('order', 0);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if ($event->image) {
+                Storage::disk('public')->delete($event->image);
+            }
+            $data['image'] = $request->file('image')->store('events', 'public');
+        }
+
+        // Parse event_time
+        if ($request->event_time) {
+            $data['event_time'] = Carbon::parse($request->event_time);
+        }
 
         $event->update($data);
 
@@ -90,6 +128,11 @@ class EventController extends Controller
     public function destroy(Event $event)
     {
         try {
+            // Delete image if exists
+            if ($event->image) {
+                Storage::disk('public')->delete($event->image);
+            }
+
             $event->delete();
 
             return redirect()->route('dashboard.events.index')
