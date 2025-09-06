@@ -31,7 +31,6 @@
                                         <th>Image</th>
                                         <th>Title</th>
                                         <th>Period</th>
-                                        <th>Description</th>
                                         <th>Link</th>
                                         <th>Status</th>
                                         <th>Created</th>
@@ -51,7 +50,6 @@
                                             </td>
                                             <td>{{ $achievement->title }}</td>
                                             <td>{{ $achievement->period }}</td>
-                                            <td>{{ Str::limit($achievement->description, 100) }}</td>
                                             <td>
                                                 @if($achievement->link)
                                                     <a href="{{ $achievement->link }}" target="_blank" class="btn btn-sm btn-outline-primary">

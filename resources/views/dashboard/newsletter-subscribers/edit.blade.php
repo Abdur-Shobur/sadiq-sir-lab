@@ -4,8 +4,8 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Edit Newsletter Subscriber</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4 gap-2">
+    <h1 class="h3 mb-0 text-gray-800">Edit Newsletter</h1>
     <a href="{{ route('dashboard.newsletter-subscribers.index') }}" class="btn btn-secondary btn-sm">
         <i class="fas fa-arrow-left"></i> Back to List
     </a>
@@ -22,7 +22,7 @@
     <div class="col-lg-8">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Edit Subscriber Information</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Edit Information</h6>
             </div>
             <div class="card-body">
                 <form action="{{ route('dashboard.newsletter-subscribers.update', $newsletterSubscriber) }}" method="POST">
@@ -58,7 +58,7 @@
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Update Subscriber
+                            <i class="fas fa-save"></i> Update
                         </button>
                         <a href="{{ route('dashboard.newsletter-subscribers.index') }}" class="btn btn-secondary">
                             Cancel

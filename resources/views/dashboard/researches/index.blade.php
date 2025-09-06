@@ -30,7 +30,6 @@
                                     <tr>
                                         <th>Image</th>
                                         <th>Title</th>
-                                        <th>Description</th>
                                         <th>Link</th>
                                         <th>Status</th>
                                         <th>Created</th>
@@ -49,7 +48,6 @@
                                                 @endif
                                             </td>
                                             <td>{{ $research->title }}</td>
-                                            <td>{{ Str::limit($research->description, 100) }}</td>
                                             <td>
                                                 @if($research->link)
                                                     <a href="{{ $research->link }}" target="_blank" class="btn btn-sm btn-outline-primary">

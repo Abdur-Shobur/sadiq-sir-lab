@@ -109,11 +109,7 @@
                                     <i class="fas fa-flask"></i>Research Areas
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('dashboard.achievements.*') ? 'active' : '' }}" href="{{ route('dashboard.achievements.index') }}">
-                                    <i class="fas fa-trophy"></i>Achievements
-                                </a>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('dashboard.abouts.*') ? 'active' : '' }}" href="{{ route('dashboard.abouts.index') }}">
                                     <i class="fas fa-info-circle"></i>About Section
@@ -286,6 +282,12 @@
                             <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('dashboard.newsletter-subscribers.*') ? 'active' : '' }}" href="{{ route('dashboard.newsletter-subscribers.index') }}">
                         <i class="fas fa-envelope"></i>Newsletter Subscribers
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard.contact-messages.*') ? 'active' : '' }}" href="{{ route('dashboard.contact-messages.index') }}">
+                        <i class="fas fa-envelope"></i>Contact Messages
                     </a>
                 </li>
 

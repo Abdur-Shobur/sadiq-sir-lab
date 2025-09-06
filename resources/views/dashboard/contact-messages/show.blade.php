@@ -3,7 +3,7 @@
 @section('title', 'View Message - Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div  >
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -11,7 +11,8 @@
                     <h4 class="mb-0">Message Details</h4>
                     <div>
                         <a href="{{ route('dashboard.contact-messages.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to Messages
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
                         </a>
                     </div>
                 </div>
@@ -34,7 +35,7 @@
                                         <strong>Name:</strong> {{ $contactMessage->name }}
                                     </div>
                                     <div class="col-md-6">
-                                        <strong>Email:</strong> 
+                                        <strong>Email:</strong>
                                         <a href="mailto:{{ $contactMessage->email }}" class="text-decoration-none">
                                             {{ $contactMessage->email }}
                                         </a>
@@ -43,7 +44,7 @@
                                 @if($contactMessage->phone_number)
                                     <div class="row mt-2">
                                         <div class="col-md-6">
-                                            <strong>Phone:</strong> 
+                                            <strong>Phone:</strong>
                                             <a href="tel:{{ $contactMessage->phone_number }}" class="text-decoration-none">
                                                 {{ $contactMessage->phone_number }}
                                             </a>
@@ -71,7 +72,7 @@
                                     <form action="{{ route('dashboard.contact-messages.update-status', $contactMessage) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        
+
                                         <div class="mb-3">
                                             <label for="status" class="form-label">Current Status</label>
                                             <select name="status" id="status" class="form-select">
@@ -89,7 +90,7 @@
 
                                         <div class="mb-3">
                                             <label for="admin_notes" class="form-label">Admin Notes</label>
-                                            <textarea name="admin_notes" id="admin_notes" rows="4" class="form-control" 
+                                            <textarea name="admin_notes" id="admin_notes" rows="4" class="form-control"
                                                       placeholder="Add any internal notes about this message...">{{ $contactMessage->admin_notes }}</textarea>
                                         </div>
 
@@ -107,12 +108,12 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-grid gap-2">
-                                        <a href="mailto:{{ $contactMessage->email }}?subject=Re: {{ $contactMessage->subject }}" 
+                                        <a href="mailto:{{ $contactMessage->email }}?subject=Re: {{ $contactMessage->subject }}"
                                            class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-reply"></i> Reply via Email
                                         </a>
                                         @if($contactMessage->phone_number)
-                                            <a href="tel:{{ $contactMessage->phone_number }}" 
+                                            <a href="tel:{{ $contactMessage->phone_number }}"
                                                class="btn btn-outline-success btn-sm">
                                                 <i class="fas fa-phone"></i> Call
                                             </a>
@@ -138,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.delete-message').addEventListener('click', function() {
         const messageId = this.getAttribute('data-id');
         const messageName = this.getAttribute('data-name');
-        
+
         // Show confirmation dialog
         Swal.fire({
             title: 'Delete Message?',
@@ -155,17 +156,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const form = document.createElement('form');
                 form.method = 'POST';
                 form.action = `/dashboard/contact-messages/${messageId}`;
-                
+
                 const csrfToken = document.createElement('input');
                 csrfToken.type = 'hidden';
                 csrfToken.name = '_token';
                 csrfToken.value = '{{ csrf_token() }}';
-                
+
                 const methodField = document.createElement('input');
                 methodField.type = 'hidden';
                 methodField.name = '_method';
                 methodField.value = 'DELETE';
-                
+
                 form.appendChild(csrfToken);
                 form.appendChild(methodField);
                 document.body.appendChild(form);

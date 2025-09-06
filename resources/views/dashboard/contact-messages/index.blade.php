@@ -3,7 +3,7 @@
 @section('title', 'Contact Messages - Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div  >
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -68,7 +68,7 @@
                                         <td>
                                             <a href="{{ route('dashboard.contact-messages.show', $message) }}"
                                                class="btn btn-sm btn-info">
-                                                <i class="fas fa-eye"></i> View
+                                                <i class="fas fa-eye"></i>
                                             </a>
                                             <button type="button" class="btn btn-sm btn-danger delete-message"
                                                     data-id="{{ $message->id }}" data-name="{{ $message->name }}">
@@ -84,7 +84,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     @if($messages->hasPages())
                         <div class="d-flex justify-content-center mt-4">
                             {{ $messages->links() }}
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const messageId = this.getAttribute('data-id');
             const messageName = this.getAttribute('data-name');
-            
+
             // Show confirmation dialog
             Swal.fire({
                 title: 'Delete Message?',
@@ -120,17 +120,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action = `/dashboard/contact-messages/${messageId}`;
-                    
+
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';
                     csrfToken.name = '_token';
                     csrfToken.value = '{{ csrf_token() }}';
-                    
+
                     const methodField = document.createElement('input');
                     methodField.type = 'hidden';
                     methodField.name = '_method';
                     methodField.value = 'DELETE';
-                    
+
                     form.appendChild(csrfToken);
                     form.appendChild(methodField);
                     document.body.appendChild(form);
