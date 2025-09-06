@@ -137,10 +137,11 @@
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Update Profile
+                            <i class="fas fa-save"></i> Update
                         </button>
                         <a href="{{ route('dashboard') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to Dashboard</span>
                         </a>
                     </div>
                 </form>
@@ -148,7 +149,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-4 d-none d-lg-block">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Profile Information</h6>

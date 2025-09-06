@@ -3,7 +3,7 @@
 @section('title', 'Gallery Categories')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div>
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -18,7 +18,8 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>Gallery Categories</h4>
                     <a href="{{ route('dashboard.gallery-categories.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add New Category
+                        <i class="fas fa-plus"></i>
+                        <span class="d-none d-lg-inline-block">Create New</span>
                     </a>
                 </div>
                 <div class="card-body">

@@ -3,7 +3,7 @@
 @section('title', 'Achievement Details')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -16,18 +16,21 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex gap-2 flex-wrap justify-content-between align-items-center">
                     <h4 class="mb-0">Achievement Details</h4>
                     <div class="d-flex gap-2">
                         <a href="{{ route('dashboard.achievements.edit', $achievement) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
                         </a>
                         <button type="button" class="btn btn-danger"
                                 onclick="confirmDelete('{{ route('dashboard.achievements.destroy', $achievement) }}', '{{ $achievement->title }}')">
-                            <i class="fas fa-trash"></i> Delete
+                            <i class="fas fa-trash"></i>
+                            <span class="d-none d-lg-inline-block">Delete</span>
                         </button>
                         <a href="{{ route('dashboard.achievements.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
                         </a>
                     </div>
                 </div>
@@ -98,20 +101,8 @@
                         </div>
                     </div>
 
-                    <hr class="my-4">
 
-                    <div class="d-flex justify-content-end gap-2">
-                        <a href="{{ route('dashboard.achievements.edit', $achievement) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <button type="button" class="btn btn-danger"
-                                onclick="confirmDelete('{{ route('dashboard.achievements.destroy', $achievement) }}', '{{ $achievement->title }}')">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                        <a href="{{ route('dashboard.achievements.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to list
-                        </a>
-                    </div>
+
                 </div>
             </div>
         </div>

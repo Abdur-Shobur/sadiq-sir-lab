@@ -3,7 +3,7 @@
 @section('title', 'Edit Project')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div  >
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -50,7 +50,7 @@
                                             id="project_category_id" name="project_category_id" required>
                                         <option value="">Select Category</option>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" 
+                                            <option value="{{ $category->id }}"
                                                 {{ old('project_category_id', $project->project_category_id) == $category->id ? 'selected' : '' }}>
                                                 {{ $category->name }}
                                             </option>
@@ -95,7 +95,7 @@
                                 @if($project->image)
                                 <div class="mb-3">
                                     <label class="form-label">Current Image</label>
-                                    <img src="{{ Storage::url($project->image) }}" 
+                                    <img src="{{ Storage::url($project->image) }}"
                                          alt="{{ $project->title }}"
                                          style="max-width: 100%; height: auto; border-radius: 5px;">
                                 </div>

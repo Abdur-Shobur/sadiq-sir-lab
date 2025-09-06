@@ -3,18 +3,20 @@
 @section('title', 'View News Article - Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div  >
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">View News Article</h4>
+                    <h4 class="mb-0">View News</h4>
                     <div>
                         <a href="{{ route('dashboard.news.edit', $news) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
                         </a>
                         <a href="{{ route('dashboard.news.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to List
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
                         </a>
                     </div>
                 </div>
@@ -87,44 +89,7 @@
                                 </div>
                             </div>
 
-                            <div class="mt-3">
-                                <h6 class="text-muted">Quick Actions</h6>
-                                <div class="d-grid gap-2">
-                                    <a href="{{ route('dashboard.news.edit', $news) }}"
-                                       class="btn btn-outline-warning">
-                                        <i class="fas fa-edit"></i> Edit Article
-                                    </a>
-                                    <button type="button" class="btn btn-outline-danger delete-news"
-                                            data-id="{{ $news->id }}" data-title="{{ $news->title }}">
-                                        <i class="fas fa-trash"></i> Delete Article
-                                    </button>
-                                    @if($news->status)
-                                    <form action="{{ route('dashboard.news.update', $news) }}" method="POST" style="display: inline;">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="title" value="{{ $news->title }}">
-                                        <input type="hidden" name="description" value="{{ $news->description }}">
-                                        <input type="hidden" name="content" value="{{ $news->content }}">
-                                        <input type="hidden" name="status" value="0">
-                                        <button type="submit" class="btn btn-outline-secondary w-100">
-                                            <i class="fas fa-eye-slash"></i> Deactivate
-                                        </button>
-                                    </form>
-                                    @else
-                                    <form action="{{ route('dashboard.news.update', $news) }}" method="POST" style="display: inline;">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="title" value="{{ $news->title }}">
-                                        <input type="hidden" name="description" value="{{ $news->description }}">
-                                        <input type="hidden" name="content" value="{{ $news->content }}">
-                                        <input type="hidden" name="status" value="1">
-                                        <button type="submit" class="btn btn-outline-success w-100">
-                                            <i class="fas fa-eye"></i> Activate
-                                        </button>
-                                    </form>
-                                    @endif
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@
 @section('title', 'View Research')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div  >
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -20,16 +20,19 @@
                     <h4>Research Details</h4>
                     <div>
                         <a href="{{ route('dashboard.researches.edit', $research) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
                         </a>
                         <a href="{{ route('dashboard.researches.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to Researches
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to Researches</span>
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
+                            <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tr>
                                     <th width="150">Title:</th>
@@ -68,6 +71,7 @@
                                     <td>{{ $research->updated_at->format('M d, Y H:i') }}</td>
                                 </tr>
                             </table>
+                            </div>
 
                             @if($research->long_description)
                                 <div class="mt-4">

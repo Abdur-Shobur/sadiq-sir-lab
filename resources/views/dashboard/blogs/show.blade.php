@@ -3,7 +3,7 @@
 @section('title', 'Blog Post Details - Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div  >
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -11,10 +11,12 @@
                     <h4 class="mb-0">Blog Post Details</h4>
                     <div>
                         <a href="{{ route('dashboard.blogs.edit', $blog) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
                         </a>
                         <a href="{{ route('dashboard.blogs.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to List
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
                         </a>
                     </div>
                 </div>
@@ -47,7 +49,8 @@
                                     <h6>Blog Information</h6>
                                 </div>
                                 <div class="card-body">
-                                    <table class="table table-borderless">
+                                   <div class="table-responsive">
+                                   <table class="table table-borderless">
                                         <tr>
                                             <th width="120">ID:</th>
                                             <td>{{ $blog->id }}</td>
@@ -77,18 +80,7 @@
                                             <td>{{ $blog->updated_at->format('M d, Y H:i:s') }}</td>
                                         </tr>
                                     </table>
-                                </div>
-                            </div>
-
-                            <div class="card mt-3">
-                                <div class="card-header">
-                                    <h6>Actions</h6>
-                                </div>
-                                <div class="card-body">
-                                    <button type="button" class="btn btn-danger delete-blog"
-                                            data-id="{{ $blog->id }}" data-title="{{ $blog->title }}">
-                                        <i class="fas fa-trash"></i> Delete Blog Post
-                                    </button>
+                                   </div>
                                 </div>
                             </div>
                         </div>

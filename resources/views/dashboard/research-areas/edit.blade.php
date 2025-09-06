@@ -3,7 +3,7 @@
 @section('title', 'Edit Research Area')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">

@@ -3,7 +3,7 @@
 @section('title', 'Banner Management')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -16,7 +16,10 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>Banner Management</h4>
-                    <a href="{{ route('dashboard.banners.create') }}" class="btn btn-primary">Add New Banner</a>
+                    <a href="{{ route('dashboard.banners.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        <span class="d-none d-sm-inline-block">Add New Banner</span>
+                    </a>
                 </div>
                 <div class="card-body">
                     @if($banners->count() > 0)

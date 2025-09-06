@@ -3,7 +3,7 @@
 @section('title', 'View About Section')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -17,16 +17,23 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4>About Section Details</h4>
+                    <h4>About Details</h4>
                     <div>
-                        <a href="{{ route('dashboard.abouts.edit', $about) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ route('dashboard.abouts.index') }}" class="btn btn-secondary">Back to List</a>
+                        <a href="{{ route('dashboard.abouts.edit', $about) }}" class="btn btn-primary">
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
+                        </a>
+                        <a href="{{ route('dashboard.abouts.index') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <table class="table table-borderless">
+                            <div class="table-responsive" style="white-space:wrap;">
+                                <table class="table table-borderless">
                                 <tr>
                                     <th width="150">Title:</th>
                                     <td>{{ $about->title }}</td>
@@ -72,18 +79,19 @@
                                     <td>{{ $about->updated_at->format('F d, Y \a\t g:i A') }}</td>
                                 </tr>
                             </table>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header">
                                     <h6>Image</h6>
                                 </div>
-                                <div class="card-body text-center">
+                                <div class="card-body text-center overflow-hidden">
                                     @if($about->image)
-                                        <img src="{{ asset('storage/' . $about->image) }}" 
-                                             alt="{{ $about->title }}" 
-                                             class="img-fluid" 
-                                             style="max-width: 100%; border-radius: 10px;">
+                                        <img src="{{ asset('storage/' . $about->image) }}"
+                                             alt="{{ $about->title }}"
+                                             class="img-fluid"
+                                             style="max-width: 100%; width:100%; border-radius: 10px;">
                                     @else
                                         <div class="text-muted">
                                             <i class="fas fa-image fa-3x mb-2"></i>
@@ -101,9 +109,9 @@
                             <div class="col-md-6">
                                 <div class="about-image">
                                     @if($about->image)
-                                        <img src="{{ asset('storage/' . $about->image) }}" alt="{{ $about->title }}" />
+                                        <img class="w-100" src="{{ asset('storage/' . $about->image) }}" alt="{{ $about->title }}" />
                                     @else
-                                        <img src="{{ asset('assets/img/about-img1.png') }}" alt="Default About Image" />
+                                        <img class="w-100" src="{{ asset('assets/img/about-img1.png') }}" alt="Default About Image" />
                                     @endif
                                 </div>
                             </div>

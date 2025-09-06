@@ -3,7 +3,7 @@
 @section('title', 'Edit Gallery Item')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div>
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -128,7 +128,7 @@
 
                         <div class="d-flex justify-content-end gap-2">
                             <a href="{{ route('dashboard.galleries.index') }}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Update Gallery Item</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>

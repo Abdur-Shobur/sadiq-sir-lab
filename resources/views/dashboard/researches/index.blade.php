@@ -3,7 +3,7 @@
 @section('title', 'Researches')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div  >
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -18,13 +18,14 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>Researches</h4>
                     <a href="{{ route('dashboard.researches.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add New Research
+                        <i class="fas fa-plus"></i>
+                        <span class="d-none d-lg-inline-block">Create New</span>
                     </a>
                 </div>
                 <div class="card-body">
                     @if($researches->count() > 0)
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Image</th>

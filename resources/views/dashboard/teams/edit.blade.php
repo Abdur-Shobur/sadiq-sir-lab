@@ -1,27 +1,28 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid">
+<div >
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Edit Team Member</h1>
+        <h1 class="h3 mb-0 text-gray-800">Edit Team</h1>
         <a href="{{ route('dashboard.teams.index') }}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Back to List
+            <i class="fas fa-arrow-left"></i>
+            <span class="d-none d-lg-inline-block">Back to List</span>
         </a>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Team Member Information</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Team Information</h6>
         </div>
         <div class="card-body">
             <form action="{{ route('dashboard.teams.update', $team) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
-                <div class="row">
+                <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="name">Name *</label>
+                            <label class="form-label" for="name">Name *</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                    id="name" name="name" value="{{ old('name', $team->name) }}" required>
                             @error('name')
@@ -32,7 +33,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="email">Email *</label>
+                            <label class="form-label" for="email">Email *</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror"
                                    id="email" name="email" value="{{ old('email', $team->email) }}" required>
                             @error('email')
@@ -42,10 +43,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="designation">Designation *</label>
+                            <label class="form-label" for="designation">Designation *</label>
                             <input type="text" class="form-control @error('designation') is-invalid @enderror"
                                    id="designation" name="designation" value="{{ old('designation', $team->designation) }}" required>
                             @error('designation')
@@ -56,7 +57,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="role">Role *</label>
+                            <label class="form-label" for="role">Role *</label>
                             <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
                                 <option value="">Select Role</option>
                                 <option value="team" {{ old('role', $team->role) == 'team' ? 'selected' : '' }}>Team Member</option>
@@ -69,10 +70,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="phone">Phone</label>
+                            <label class="form-label" for="phone">Phone</label>
                             <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                    id="phone" name="phone" value="{{ old('phone', $team->phone) }}">
                             @error('phone')
@@ -83,7 +84,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="website">Website</label>
+                            <label class="form-label" for="website">Website</label>
                             <input type="url" class="form-control @error('website') is-invalid @enderror"
                                    id="website" name="website" value="{{ old('website', $team->website) }}">
                             @error('website')
@@ -94,7 +95,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Address</label>
+                    <label class="form-label" for="address">Address</label>
                     <textarea class="form-control @error('address') is-invalid @enderror"
                               id="address" name="address" rows="3">{{ old('address', $team->address) }}</textarea>
                     @error('address')
@@ -103,7 +104,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="image">Profile Image</label>
+                    <label class="form-label" for="image">Profile Image</label>
                     @if($team->image)
                         <div class="mb-2">
                             <img src="{{ $team->image_url }}" alt="Current Image" class="img-thumbnail" width="100">
@@ -117,7 +118,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Specialities</label>
+                    <label class="form-label">Specialities</label>
                     <div id="specialities-container">
                         @if($team->specialities)
                             @foreach($team->specialities as $index => $speciality)
@@ -140,7 +141,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Education</label>
+                    <label class="form-label">Education</label>
                     <div id="education-container">
                         @if($team->education)
                             @foreach($team->education as $index => $education)
@@ -163,7 +164,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Experience</label>
+                    <label class="form-label">Experience</label>
                     <div id="experience-container">
                         @if($team->experience)
                             @foreach($team->experience as $index => $experience)
@@ -186,7 +187,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Social Media</label>
+                    <label class="form-label">Social Media</label>
                     <div id="social-media-container">
                         @if($team->social_media)
                             @foreach($team->social_media as $index => $social)
@@ -219,10 +220,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row gy-3    ">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="password">New Password (leave blank to keep current)</label>
+                            <label class="form-label" for="password">New Password (leave blank to keep current)</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
                                    id="password" name="password">
                             @error('password')
@@ -233,16 +234,16 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="password_confirmation">Confirm New Password</label>
+                            <label class="form-label" for="password_confirmation">Confirm New Password</label>
                             <input type="password" class="form-control"
                                    id="password_confirmation" name="password_confirmation">
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-3">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Update Team Member
+                        <i class="fas fa-save"></i> Update
                     </button>
                 </div>
             </form>

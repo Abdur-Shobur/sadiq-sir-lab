@@ -1,26 +1,27 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid">
+<div  >
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Add Team Member</h1>
+        <h1 class="h3 mb-0 text-gray-800">Create Team</h1>
         <a href="{{ route('dashboard.teams.index') }}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i> Back to List
+            <i class="fas fa-arrow-left"></i>
+            <span class="d-none d-lg-inline-block">Back to List</span>
         </a>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Team Member Information</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Team Information</h6>
         </div>
         <div class="card-body">
             <form action="{{ route('dashboard.teams.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <div class="row">
+                <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="name">Name *</label>
+                            <label class="form-label" for="name">Name *</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                    id="name" name="name" value="{{ old('name') }}" required>
                             @error('name')
@@ -31,7 +32,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="email">Email *</label>
+                            <label class="form-label" for="email">Email *</label>
                             <input type="email" class="form-control @error('email') is-invalid @enderror"
                                    id="email" name="email" value="{{ old('email') }}" required>
                             @error('email')
@@ -41,10 +42,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="designation">Designation *</label>
+                            <label class="form-label" for="designation">Designation *</label>
                             <input type="text" class="form-control @error('designation') is-invalid @enderror"
                                    id="designation" name="designation" value="{{ old('designation') }}" required>
                             @error('designation')
@@ -55,7 +56,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="role">Role *</label>
+                            <label class="form-label" for="role">Role *</label>
                             <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
                                 <option value="">Select Role</option>
                                 <option value="team" {{ old('role') == 'team' ? 'selected' : '' }}>Team Member</option>
@@ -68,10 +69,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="phone">Phone</label>
+                            <label class="form-label" for="phone">Phone</label>
                             <input type="text" class="form-control @error('phone') is-invalid @enderror"
                                    id="phone" name="phone" value="{{ old('phone') }}">
                             @error('phone')
@@ -82,7 +83,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="website">Website</label>
+                            <label class="form-label" for="website">Website</label>
                             <input type="url" class="form-control @error('website') is-invalid @enderror"
                                    id="website" name="website" value="{{ old('website') }}">
                             @error('website')
@@ -93,7 +94,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Address</label>
+                    <label class="form-label" for="address">Address</label>
                     <textarea class="form-control @error('address') is-invalid @enderror"
                               id="address" name="address" rows="3">{{ old('address') }}</textarea>
                     @error('address')
@@ -102,7 +103,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="image">Profile Image</label>
+                    <label class="form-label" for="image">Profile Image</label>
                     <input type="file" class="form-control-file @error('image') is-invalid @enderror"
                            id="image" name="image" accept="image/*">
                     @error('image')
@@ -111,7 +112,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Specialities</label>
+                    <label class="form-label">Specialities</label>
                     <div id="specialities-container">
                         <div class="input-group mb-2">
                             <input type="text" class="form-control" name="specialities[]" placeholder="Enter speciality">
@@ -123,7 +124,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Education</label>
+                    <label class="form-label">Education</label>
                     <div id="education-container">
                         <div class="input-group mb-2">
                             <input type="text" class="form-control" name="education[]" placeholder="Enter education">
@@ -135,7 +136,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Experience</label>
+                    <label class="form-label">Experience</label>
                     <div id="experience-container">
                         <div class="input-group mb-2">
                             <input type="text" class="form-control" name="experience[]" placeholder="Enter experience">
@@ -147,7 +148,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Social Media</label>
+                    <label class="form-label">Social Media</label>
                     <div id="social-media-container">
                         <div class="row mb-2">
                             <div class="col-md-5">
@@ -163,10 +164,10 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="password">Password *</label>
+                            <label class="form-label" for="password">Password *</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
                                    id="password" name="password" required>
                             @error('password')
@@ -177,16 +178,16 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="password_confirmation">Confirm Password *</label>
+                            <label class="form-label" for="password_confirmation">Confirm Password *</label>
                             <input type="password" class="form-control"
                                    id="password_confirmation" name="password_confirmation" required>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-3">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Create Team Member
+                        <i class="fas fa-save"></i> Create
                     </button>
                 </div>
             </form>

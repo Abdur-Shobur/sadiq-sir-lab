@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
@@ -31,11 +30,11 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:255',
+            'logo'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'email'   => 'nullable|email|max:255',
+            'phone'   => 'nullable|string|max:255',
             'address' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $data = $request->all();
@@ -61,7 +60,6 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        $profile->load('socialMedia');
         return view('dashboard.profiles.show', compact('profile'));
     }
 
@@ -79,11 +77,11 @@ class ProfileController extends Controller
     public function update(Request $request, Profile $profile)
     {
         $request->validate([
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:255',
+            'logo'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'email'   => 'nullable|email|max:255',
+            'phone'   => 'nullable|string|max:255',
             'address' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $data = $request->all();

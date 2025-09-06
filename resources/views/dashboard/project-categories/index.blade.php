@@ -3,7 +3,7 @@
 @section('title', 'Project Categories Management')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div  >
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -16,9 +16,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4>Project Categories Management</h4>
+                    <h4>Project Categories</h4>
                     <a href="{{ route('dashboard.project-categories.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add New Category
+                        <i class="fas fa-plus"></i>
+                        <span class="d-none d-lg-inline-block">Create New</span>
                     </a>
                 </div>
                 <div class="card-body">

@@ -3,25 +3,28 @@
 @section('title', 'Blog Category Details - Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div  >
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Blog Category Details</h4>
-                    <div>
+                    <div class="d-flex gap-2">
                         <a href="{{ route('dashboard.blog-categories.edit', $blogCategory) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
                         </a>
                         <a href="{{ route('dashboard.blog-categories.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to List
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <table class="table table-borderless">
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
                                 <tr>
                                     <th width="150">ID:</th>
                                     <td>{{ $blogCategory->id }}</td>
@@ -46,9 +49,10 @@
                                 </tr>
                                 <tr>
                                     <th>Updated At:</th>
-                                    <td>{{ $blogCategory->updated_at->format('M d, Y H:i:s') }}</td>
-                                </tr>
-                            </table>
+                                        <td>{{ $blogCategory->updated_at->format('M d, Y H:i:s') }}</td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
 

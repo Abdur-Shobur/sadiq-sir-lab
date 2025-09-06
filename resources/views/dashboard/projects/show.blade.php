@@ -3,7 +3,7 @@
 @section('title', 'View Project')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div  >
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -16,14 +16,16 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header gap-2 d-flex justify-content-between align-items-center">
                     <h4>Project Details</h4>
-                    <div>
+                    <div class="d-flex gap-2">
                         <a href="{{ route('dashboard.projects.edit', $project) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
                         </a>
                         <a href="{{ route('dashboard.projects.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back</span>
                         </a>
                     </div>
                 </div>
@@ -37,10 +39,10 @@
 
                             <div class="row mt-4">
                                 <div class="col-md-6">
-                                    <p><strong>Category:</strong> 
+                                    <p><strong>Category:</strong>
                                         <span class="badge bg-info">{{ $project->category->name }}</span>
                                     </p>
-                                    <p><strong>Status:</strong> 
+                                    <p><strong>Status:</strong>
                                         @if($project->is_active)
                                             <span class="badge bg-success">Active</span>
                                         @else
@@ -69,7 +71,7 @@
                                         <h6>Project Image</h6>
                                     </div>
                                     <div class="card-body">
-                                        <img src="{{ Storage::url($project->image) }}" 
+                                        <img src="{{ Storage::url($project->image) }}"
                                              alt="{{ $project->title }}"
                                              style="max-width: 100%; height: auto; border-radius: 5px;">
                                     </div>
@@ -87,7 +89,7 @@
                                         <p><strong>Subtitle:</strong> {{ $project->subtitle }}</p>
                                     @endif
                                     <p><strong>Category:</strong> {{ $project->category->name }}</p>
-                                    <p><strong>Status:</strong> 
+                                    <p><strong>Status:</strong>
                                         @if($project->is_active)
                                             <span class="badge bg-success">Active</span>
                                         @else

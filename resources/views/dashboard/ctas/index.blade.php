@@ -3,7 +3,7 @@
 @section('title', 'CTA Management')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -16,7 +16,10 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>CTA Management</h4>
-                    <a href="{{ route('dashboard.ctas.create') }}" class="btn btn-primary">Add New CTA</a>
+                    <a href="{{ route('dashboard.ctas.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        <span class="d-none d-sm-inline-block">Add New CTA</span>
+                    </a>
                 </div>
                 <div class="card-body">
                     @if($ctas->count() > 0)

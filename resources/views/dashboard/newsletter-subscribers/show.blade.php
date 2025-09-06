@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+<div class="d-sm-flex align-items-center justify-content-between mb-4 gap-2">
     <h1 class="h3 mb-0 text-gray-800">Subscriber Details</h1>
     <div>
         <a href="{{ route('dashboard.newsletter-subscribers.edit', $newsletterSubscriber) }}" class="btn btn-primary btn-sm">
@@ -92,7 +92,8 @@
 
                 <div class="d-flex gap-2">
                     <a href="{{ route('dashboard.newsletter-subscribers.edit', $newsletterSubscriber) }}" class="btn btn-primary">
-                        <i class="fas fa-edit"></i> Edit Subscriber
+                        <i class="fas fa-edit"></i>
+                        <span class="d-none d-lg-inline-block">Edit</span>
                     </a>
 
                     @if($newsletterSubscriber->status !== 'active')
@@ -101,7 +102,8 @@
                             @method('PUT')
                             <input type="hidden" name="status" value="active">
                             <button type="submit" class="btn btn-success" onclick="return confirm('Mark as active?')">
-                                <i class="fas fa-check"></i> Mark Active
+                                <i class="fas fa-check"></i>
+                                <span class="d-none d-lg-inline-block">Mark as Active</span>
                             </button>
                         </form>
                     @endif
@@ -112,7 +114,8 @@
                             @method('PUT')
                             <input type="hidden" name="status" value="inactive">
                             <button type="submit" class="btn btn-warning" onclick="return confirm('Mark as inactive?')">
-                                <i class="fas fa-pause"></i> Mark Inactive
+                                <i class="fas fa-pause"></i>
+                                <span class="d-none d-lg-inline-block">Mark as Inactive</span>
                             </button>
                         </form>
                     @endif
@@ -123,7 +126,8 @@
                             @method('PUT')
                             <input type="hidden" name="status" value="unsubscribed">
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Mark as unsubscribed?')">
-                                <i class="fas fa-times"></i> Mark Unsubscribed
+                                <i class="fas fa-times"></i>
+                                <span class="d-none d-lg-inline-block">Mark as Unsubscribed</span>
                             </button>
                         </form>
                     @endif
@@ -140,15 +144,18 @@
             <div class="card-body">
                 <div class="d-grid gap-2">
                     <a href="{{ route('dashboard.newsletter-subscribers.edit', $newsletterSubscriber) }}" class="btn btn-primary">
-                        <i class="fas fa-edit me-2"></i>Edit Subscriber
+                        <i class="fas fa-edit me-2"></i>
+                        <span class="d-none d-lg-inline-block">Edit</span>
                     </a>
 
                     <a href="{{ route('dashboard.newsletter-subscribers.index') }}" class="btn btn-secondary">
-                        <i class="fas fa-list me-2"></i>View All Subscribers
+                        <i class="fas fa-list me-2"></i>
+                        <span class="d-none d-lg-inline-block">View All</span>
                     </a>
 
                     <a href="{{ route('dashboard.newsletter-subscribers.create') }}" class="btn btn-success">
-                        <i class="fas fa-plus me-2"></i>Add New Subscriber
+                        <i class="fas fa-plus me-2"></i>
+                        <span class="d-none d-lg-inline-block">Add New</span>
                     </a>
                 </div>
             </div>

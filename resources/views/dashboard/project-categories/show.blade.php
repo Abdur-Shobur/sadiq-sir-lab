@@ -3,7 +3,7 @@
 @section('title', 'View Project Category')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div  >
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -16,14 +16,16 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4>Project Category Details</h4>
-                    <div>
+                <div class="card-header gap-2 d-flex justify-content-between align-items-center">
+                    <h4>Category Details</h4>
+                    <div class="d-flex gap-2">
                         <a href="{{ route('dashboard.project-categories.edit', $projectCategory) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
                         </a>
                         <a href="{{ route('dashboard.project-categories.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back</span>
                         </a>
                     </div>
                 </div>
@@ -34,7 +36,7 @@
 
                             <div class="row mt-4">
                                 <div class="col-md-6">
-                                    <p><strong>Status:</strong> 
+                                    <p><strong>Status:</strong>
                                         @if($projectCategory->is_active)
                                             <span class="badge bg-success">Active</span>
                                         @else
@@ -57,7 +59,7 @@
                                 <div class="card-body">
                                     <p><strong>ID:</strong> {{ $projectCategory->id }}</p>
                                     <p><strong>Name:</strong> {{ $projectCategory->name }}</p>
-                                    <p><strong>Status:</strong> 
+                                    <p><strong>Status:</strong>
                                         @if($projectCategory->is_active)
                                             <span class="badge bg-success">Active</span>
                                         @else

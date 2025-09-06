@@ -1,15 +1,17 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid">
+<div >
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Team Member Details</h1>
+        <h1 class="h3 mb-0 text-gray-800">Team Details</h1>
         <div>
             <a href="{{ route('dashboard.teams.edit', $team) }}" class="btn btn-warning">
-                <i class="fas fa-edit"></i> Edit
+                <i class="fas fa-edit"></i>
+                <span class="d-none d-lg-inline-block">Edit</span>
             </a>
             <a href="{{ route('dashboard.teams.index') }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Back to List
+                <i class="fas fa-arrow-left"></i>
+                <span class="d-none d-lg-inline-block">Back to List</span>
             </a>
         </div>
     </div>

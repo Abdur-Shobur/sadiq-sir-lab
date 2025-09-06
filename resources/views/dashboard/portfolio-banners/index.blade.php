@@ -3,14 +3,15 @@
 @section('title', 'Portfolio Banners')
 
 @section('content')
-<div class="container-fluid">
+<div>
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">Portfolio Banners</h3>
                     <a href="{{ route('dashboard.portfolio-banners.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add New Portfolio Banner
+                        <i class="fas fa-plus"></i>
+                        <span class="d-none d-lg-inline-block">Create New</span>
                     </a>
                 </div>
                 <div class="card-body">

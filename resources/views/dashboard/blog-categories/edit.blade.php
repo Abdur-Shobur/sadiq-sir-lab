@@ -3,14 +3,15 @@
 @section('title', 'Edit Blog Category - Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div  >
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Edit Blog Category</h4>
+                    <h4 class="mb-0">Edit Category</h4>
                     <a href="{{ route('dashboard.blog-categories.index') }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back to List
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="d-none d-lg-inline-block">Back to List</span>
                     </a>
                 </div>
                 <div class="card-body">
@@ -47,7 +48,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Update Category
+                                    <i class="fas fa-save"></i> Update
                                 </button>
                                 <a href="{{ route('dashboard.blog-categories.index') }}" class="btn btn-secondary">
                                     Cancel

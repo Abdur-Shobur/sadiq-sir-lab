@@ -3,7 +3,7 @@
 @section('title', 'Create Project')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div  >
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -17,7 +17,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Create New Project</h4>
+                    <h4>Create Project</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('dashboard.projects.store') }}" method="POST" enctype="multipart/form-data">

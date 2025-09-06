@@ -3,25 +3,28 @@
 @section('title', 'View Portfolio About')
 
 @section('content')
-<div class="container-fluid">
+<div >
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title">Portfolio About Details</h3>
-                    <div>
+                    <h3 class="card-title">Portfolio Details</h3>
+                    <div class="d-flex gap-2">
                         <a href="{{ route('dashboard.portfolio-abouts.edit', $portfolioAbout) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit About</span>
                         </a>
                         <a href="{{ route('dashboard.portfolio-abouts.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to Portfolio Abouts
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <table class="table table-borderless">
+                            <div class="table-responsive" >
+                                <table class="table table-borderless">
                                 <tr>
                                     <th width="150">Title:</th>
                                     <td>{{ $portfolioAbout->title }}</td>
@@ -51,6 +54,7 @@
                                     <td>{{ $portfolioAbout->updated_at->format('M d, Y H:i') }}</td>
                                 </tr>
                             </table>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">

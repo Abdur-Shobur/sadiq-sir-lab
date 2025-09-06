@@ -1,21 +1,27 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Team Management</h1>
-        <a href="{{ route('dashboard.teams.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Add Team Member
-        </a>
-    </div>
+<div  >
+     <!-- Breadcrumb -->
+     <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Teams</li>
+        </ol>
+    </nav>
 
 
-
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">All Team Members</h6>
-        </div>
-        <div class="card-body">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>Teams</h4>
+                    <a href="{{ route('dashboard.teams.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        <span class="d-none d-lg-inline-block">Create New</span>
+                    </a>
+                </div>
+                <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -67,16 +73,12 @@
                                         btn-warning" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form action="{{ route('dashboard.teams.destroy', $team) }}"
-                                          method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this team member?')"
-                                                title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
+                                    <button type="button" class="btn btn-sm btn-danger delete-team"
+                                            data-id="{{ $team->id }}"
+                                            data-name="{{ $team->name }}"
+                                            title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -91,7 +93,14 @@
                 </div>
             @endif
         </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
+
 </div>
 
 @if($teams->isEmpty())
@@ -109,9 +118,9 @@
 
 @push('scripts')
 <script>
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Initialize DataTable if you're using it
-    if ($.fn.DataTable) {
+    if (typeof $ !== 'undefined' && $.fn.DataTable) {
         $('#dataTable').DataTable({
             "pageLength": 10,
             "order": [[1, "asc"]], // Sort by name column
@@ -127,8 +136,55 @@ $(document).ready(function() {
 
     // Auto-hide success messages after 5 seconds
     setTimeout(function() {
-        $('.alert-success').fadeOut('slow');
+        const alerts = document.querySelectorAll('.alert-success');
+        alerts.forEach(alert => {
+            alert.style.transition = 'opacity 0.5s';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500);
+        });
     }, 5000);
+
+    // Handle delete team buttons
+    document.querySelectorAll('.delete-team').forEach(button => {
+        button.addEventListener('click', function() {
+            const teamId = this.getAttribute('data-id');
+            const teamName = this.getAttribute('data-name');
+
+            // Show confirmation toast
+            Swal.fire({
+                title: 'Delete Team Member?',
+                text: `Are you sure you want to delete "${teamName}"?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Create form and submit
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = `/dashboard/teams/${teamId}`;
+
+                    const csrfToken = document.createElement('input');
+                    csrfToken.type = 'hidden';
+                    csrfToken.name = '_token';
+                    csrfToken.value = '{{ csrf_token() }}';
+
+                    const methodField = document.createElement('input');
+                    methodField.type = 'hidden';
+                    methodField.name = '_method';
+                    methodField.value = 'DELETE';
+
+                    form.appendChild(csrfToken);
+                    form.appendChild(methodField);
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            });
+        });
+    });
 });
 </script>
 @endpush

@@ -3,13 +3,13 @@
 @section('title', 'Gallery Item Details')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div>
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{ route('dashboard.galleries.index') }}">Gallery</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Gallery Item Details</li>
+            <li class="breadcrumb-item active" aria-current="page">Gallery Details</li>
         </ol>
     </nav>
 
@@ -17,17 +17,20 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">Gallery Item Details</h4>
+                    <h4 class="mb-0">Details</h4>
                     <div class="d-flex gap-2">
                         <a href="{{ route('dashboard.galleries.edit', $gallery) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
                         </a>
                         <button type="button" class="btn btn-danger"
                                 onclick="confirmDelete('{{ route('dashboard.galleries.destroy', $gallery) }}', '{{ $gallery->title }}')">
-                            <i class="fas fa-trash"></i> Delete
+                            <i class="fas fa-trash"></i>
+                            <span class="d-none d-lg-inline-block">Delete</span>
                         </button>
                         <a href="{{ route('dashboard.galleries.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back</span>
                         </a>
                     </div>
                 </div>
@@ -103,20 +106,6 @@
                         </div>
                     </div>
 
-                    <hr class="my-4">
-
-                    <div class="d-flex justify-content-end gap-2">
-                        <a href="{{ route('dashboard.galleries.edit', $gallery) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <button type="button" class="btn btn-danger"
-                                onclick="confirmDelete('{{ route('dashboard.galleries.destroy', $gallery) }}', '{{ $gallery->title }}')">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                        <a href="{{ route('dashboard.galleries.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to list
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>

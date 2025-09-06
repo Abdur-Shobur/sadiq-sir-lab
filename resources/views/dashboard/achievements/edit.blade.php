@@ -3,7 +3,7 @@
 @section('title', 'Edit Achievement')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -109,7 +109,7 @@
 
                         <div class="d-flex justify-content-end gap-2">
                             <a href="{{ route('dashboard.achievements.index') }}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Update Achievement</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>

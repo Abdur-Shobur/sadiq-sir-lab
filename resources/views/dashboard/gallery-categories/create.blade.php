@@ -3,7 +3,7 @@
 @section('title', 'Create Gallery Category')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div>
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -17,7 +17,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Create New Gallery Category</h4>
+                    <h4>Create New</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('dashboard.gallery-categories.store') }}" method="POST">
@@ -68,7 +68,7 @@
 
                         <div class="d-flex justify-content-end gap-2">
                             <a href="{{ route('dashboard.gallery-categories.index') }}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Create Category</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </form>
                 </div>

@@ -3,7 +3,7 @@
 @section('title', 'Edit Banner')
 
 @section('content')
-<div class="container mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">

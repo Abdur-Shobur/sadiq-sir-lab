@@ -3,14 +3,15 @@
 @section('title', 'Edit Portfolio About')
 
 @section('content')
-<div class="container-fluid">
+<div>
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Edit Portfolio About</h3>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">Edit About</h3>
                     <a href="{{ route('dashboard.portfolio-abouts.index') }}" class="btn btn-secondary float-end">
-                        <i class="fas fa-arrow-left"></i> Back to Portfolio Abouts
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="d-none d-lg-inline-block">Back to List</span>
                     </a>
                 </div>
                 <div class="card-body">
@@ -97,7 +98,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Update Portfolio About
+                                    <i class="fas fa-save"></i> Update
                                 </button>
                                 <a href="{{ route('dashboard.portfolio-abouts.index') }}" class="btn btn-secondary">
                                     <i class="fas fa-times"></i> Cancel

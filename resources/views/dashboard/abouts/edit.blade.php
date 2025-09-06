@@ -3,7 +3,7 @@
 @section('title', 'Edit About Section')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -23,12 +23,12 @@
                     <form action="{{ route('dashboard.abouts.update', $about) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        
+
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('title') is-invalid @enderror" 
+                                    <input type="text" class="form-control @error('title') is-invalid @enderror"
                                            id="title" name="title" value="{{ old('title', $about->title) }}" required>
                                     @error('title')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -37,7 +37,7 @@
 
                                 <div class="mb-3">
                                     <label for="subtitle" class="form-label">Subtitle <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('subtitle') is-invalid @enderror" 
+                                    <input type="text" class="form-control @error('subtitle') is-invalid @enderror"
                                            id="subtitle" name="subtitle" value="{{ old('subtitle', $about->subtitle) }}" required>
                                     @error('subtitle')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -46,7 +46,7 @@
 
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
-                                    <textarea class="form-control @error('description') is-invalid @enderror" 
+                                    <textarea class="form-control @error('description') is-invalid @enderror"
                                               id="description" name="description" rows="4" required>{{ old('description', $about->description) }}</textarea>
                                     @error('description')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -60,9 +60,9 @@
                                             @foreach($about->features as $index => $feature)
                                                 <div class="feature-item mb-2">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control" name="features[]" 
+                                                        <input type="text" class="form-control" name="features[]"
                                                                value="{{ $feature }}" placeholder="Enter feature text">
-                                                        <button type="button" class="btn btn-outline-danger remove-feature" 
+                                                        <button type="button" class="btn btn-outline-danger remove-feature"
                                                                 {{ count($about->features) == 1 ? 'style=display:none' : '' }}>
                                                             <i class="fas fa-trash"></i>
                                                         </button>
@@ -90,7 +90,7 @@
 
                                 <div class="mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active"
                                                value="1" {{ old('is_active', $about->is_active) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="is_active">
                                             Active
@@ -102,7 +102,7 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="image" class="form-label">Image</label>
-                                    <input type="file" class="form-control @error('image') is-invalid @enderror" 
+                                    <input type="file" class="form-control @error('image') is-invalid @enderror"
                                            id="image" name="image" accept="image/*">
                                     @error('image')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -114,14 +114,14 @@
                                     @if($about->image)
                                         <div class="mb-2">
                                             <label class="form-label">Current Image:</label>
-                                            <img src="{{ asset('storage/' . $about->image) }}" 
-                                                 alt="Current Image" 
+                                            <img src="{{ asset('storage/' . $about->image) }}"
+                                                 alt="Current Image"
                                                  style="max-width: 100%; height: auto; border-radius: 5px;">
                                         </div>
                                     @endif
                                     <div id="image-preview" class="d-none">
                                         <label class="form-label">New Image Preview:</label>
-                                        <img id="preview-img" src="" alt="Preview" 
+                                        <img id="preview-img" src="" alt="Preview"
                                              style="max-width: 100%; height: auto; border-radius: 5px;">
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
 
                         <div class="d-flex justify-content-end gap-2">
                             <a href="{{ route('dashboard.abouts.index') }}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Update About Section</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>
@@ -145,7 +145,7 @@
         const file = e.target.files[0];
         const preview = document.getElementById('image-preview');
         const previewImg = document.getElementById('preview-img');
-        
+
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -187,7 +187,7 @@
     function updateRemoveButtons() {
         const featureItems = document.querySelectorAll('.feature-item');
         const removeButtons = document.querySelectorAll('.remove-feature');
-        
+
         if (featureItems.length === 1) {
             removeButtons[0].style.display = 'none';
         } else {

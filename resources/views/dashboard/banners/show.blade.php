@@ -3,7 +3,7 @@
 @section('title', 'View Banner')
 
 @section('content')
-<div class="container  mt-4">
+<div class="   mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -13,24 +13,32 @@
         </ol>
     </nav>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-xxl-8">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
                     <h4>Banner Details</h4>
-                    <div>
-                        <a href="{{ route('dashboard.banners.edit', $banner) }}" class="btn btn-primary">Edit Banner</a>
+                    <div class="d-flex flex-wrap" style="gap: 8px;">
+                        <a href="{{ route('dashboard.banners.edit', $banner) }}" class="btn btn-primary">
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit Banner</span>
+                        </a>
                         <button type="button" class="btn btn-danger"
                                 onclick="confirmDelete('{{ route('dashboard.banners.destroy', $banner) }}', '{{ $banner->title }}')">
-                            Delete Banner
+                            <i class="fas fa-trash-alt"></i>
+                              <span class="d-none d-lg-inline-block">Delete Banner</span>
                         </button>
-                        <a href="{{ route('dashboard.banners.index') }}" class="btn btn-secondary">Back to List</a>
+                        <a href="{{ route('dashboard.banners.index') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <h5>Content Information</h5>
-                            <table class="table table-borderless">
+                       <div class="table-responsive">
+                             <table class="table table-borderless" style="white-space:wrap;">
                                 <tr>
                                     <td><strong>Title:</strong></td>
                                     <td>{{ $banner->title }}</td>
@@ -70,6 +78,7 @@
                                     <td>{{ $banner->updated_at->format('M d, Y H:i') }}</td>
                                 </tr>
                             </table>
+                       </div>
                         </div>
                         <div class="col-md-6">
                             <h5>Banner Image</h5>

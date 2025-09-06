@@ -3,7 +3,7 @@
 @section('title', 'Create About Section')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -17,7 +17,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Create New About Section</h4>
+                    <h4>Create About</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('dashboard.abouts.store') }}" method="POST" enctype="multipart/form-data">
@@ -105,7 +105,7 @@
 
                         <div class="d-flex justify-content-end gap-2">
                             <a href="{{ route('dashboard.abouts.index') }}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Create About Section</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </form>
                 </div>

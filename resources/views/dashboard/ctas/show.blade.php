@@ -3,7 +3,7 @@
 @section('title', 'View CTA')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -19,14 +19,21 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>CTA Details</h4>
                     <div>
-                        <a href="{{ route('dashboard.ctas.edit', $cta) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ route('dashboard.ctas.index') }}" class="btn btn-secondary">Back to List</a>
+                        <a href="{{ route('dashboard.ctas.edit', $cta) }}" class="btn btn-primary">
+                            <i class="fas fa-edit"></i>
+                            <span class="d-none d-lg-inline-block">Edit</span>
+                        </a>
+                        <a href="{{ route('dashboard.ctas.index') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <table class="table table-borderless">
+                         <div class="table-responsive" style="white-space:wrap;">
+                               <table class="table table-borderless">
                                 <tr>
                                     <th width="150">Title:</th>
                                     <td>{{ $cta->title }}</td>
@@ -66,6 +73,7 @@
                                     <td>{{ $cta->updated_at->format('F d, Y \a\t g:i A') }}</td>
                                 </tr>
                             </table>
+                         </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card">

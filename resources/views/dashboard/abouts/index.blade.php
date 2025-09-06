@@ -3,20 +3,23 @@
 @section('title', 'About Sections Management')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active" aria-current="page">About Sections Management</li>
+            <li class="breadcrumb-item active" aria-current="page">About</li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4>About Sections Management</h4>
-                    <a href="{{ route('dashboard.abouts.create') }}" class="btn btn-primary">Add New About Section</a>
+                    <h4>About Sections</h4>
+                    <a href="{{ route('dashboard.abouts.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        <span class="d-none d-sm-inline-block">Add New</span>
+                    </a>
                 </div>
                 <div class="card-body">
                     @if($abouts->count() > 0)

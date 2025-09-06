@@ -3,7 +3,7 @@
 @section('title', 'Create Profile')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div >
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">

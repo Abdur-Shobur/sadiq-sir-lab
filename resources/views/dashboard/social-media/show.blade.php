@@ -3,22 +3,24 @@
 @section('title', 'View Social Media Link')
 
 @section('content')
-<div class="container-fluid">
+<div class="">
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Social Media Link Details</h3>
-                    <div class="card-tools">
+                <div class="card-header d-flex gap-2 justify-content-between align-items-center">
+                    <h3 class="card-title">Details</h3>
+                    <div class="card-tools ">
                         <a href="{{ route('dashboard.social-media.index') }}" class="btn btn-secondary">
-                            <i class="fas fa-arrow-left"></i> Back to List
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="d-none d-lg-inline-block">Back to List</span>
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <table class="table table-bordered">
+                            <div class="table-responsive" style="white-space: wrap;">
+                                <table class="table table-bordered">
                                 <tr>
                                     <th width="200">ID:</th>
                                     <td>{{ $socialMedia->id }}</td>
@@ -57,6 +59,7 @@
                                     <td>{{ $socialMedia->updated_at->format('F d, Y \a\t g:i A') }}</td>
                                 </tr>
                             </table>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="card bg-light">

@@ -3,14 +3,15 @@
 @section('title', 'Create Blog Post - Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div  >
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="mb-0">Create Blog Post</h4>
                     <a href="{{ route('dashboard.blogs.index') }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back to List
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="d-none d-lg-inline-block">Back to List</span>
                     </a>
                 </div>
                 <div class="card-body">
@@ -103,10 +104,10 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Create Blog Post
+                                    <i class="fas fa-save"></i> Create
                                 </button>
                                 <a href="{{ route('dashboard.blogs.index') }}" class="btn btn-secondary">
                                     Cancel

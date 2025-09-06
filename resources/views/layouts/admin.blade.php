@@ -40,8 +40,8 @@
                             {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                         </div>
                     @endif
-                    <span>{{ Auth::user()->name }}</span>
-                    <i class="fas fa-chevron-down"></i>
+                    <span class="d-none d-sm-inline-block">{{ Auth::user()->name }}</span>
+                    <i class="fas fa-chevron-down d-none d-sm-inline-block"></i>
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{{ route('dashboard.settings.index') }}"><i class="fas fa-cog me-2"></i>Settings</a></li>

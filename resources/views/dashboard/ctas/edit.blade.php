@@ -3,7 +3,7 @@
 @section('title', 'Edit CTA')
 
 @section('content')
-<div class="container-fluid mt-4">
+<div class="mt-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -23,12 +23,12 @@
                     <form action="{{ route('dashboard.ctas.update', $cta) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        
+
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control @error('title') is-invalid @enderror" 
+                                    <input type="text" class="form-control @error('title') is-invalid @enderror"
                                            id="title" name="title" value="{{ old('title', $cta->title) }}" required>
                                     @error('title')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -37,7 +37,7 @@
 
                                 <div class="mb-3">
                                     <label for="subtitle" class="form-label">Subtitle</label>
-                                    <input type="text" class="form-control @error('subtitle') is-invalid @enderror" 
+                                    <input type="text" class="form-control @error('subtitle') is-invalid @enderror"
                                            id="subtitle" name="subtitle" value="{{ old('subtitle', $cta->subtitle) }}">
                                     @error('subtitle')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -46,7 +46,7 @@
 
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
-                                    <textarea class="form-control @error('description') is-invalid @enderror" 
+                                    <textarea class="form-control @error('description') is-invalid @enderror"
                                               id="description" name="description" rows="4" required>{{ old('description', $cta->description) }}</textarea>
                                     @error('description')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -57,7 +57,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="phone_number" class="form-label">Phone Number <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror" 
+                                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror"
                                                    id="phone_number" name="phone_number" value="{{ old('phone_number', $cta->phone_number) }}" required>
                                             @error('phone_number')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -67,7 +67,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="button_text" class="form-label">Button Text</label>
-                                            <input type="text" class="form-control @error('button_text') is-invalid @enderror" 
+                                            <input type="text" class="form-control @error('button_text') is-invalid @enderror"
                                                    id="button_text" name="button_text" value="{{ old('button_text', $cta->button_text) }}">
                                             @error('button_text')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -78,7 +78,7 @@
 
                                 <div class="mb-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" 
+                                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active"
                                                value="1" {{ old('is_active', $cta->is_active) ? 'checked' : '' }}>
                                         <label class="form-check-label" for="is_active">
                                             Active
@@ -104,9 +104,9 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-end gap-2">
+                        <div class="d-flex justify-content-end gap-2 mt-4">
                             <a href="{{ route('dashboard.ctas.index') }}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Update CTA</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>
