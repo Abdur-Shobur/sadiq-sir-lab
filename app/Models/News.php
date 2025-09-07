@@ -42,7 +42,7 @@ class News extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset('storage/' . $this->image);
+            return asset('uploads/' . $this->image);
         }
         return asset('assets/img/blog-img7.jpg');
     }

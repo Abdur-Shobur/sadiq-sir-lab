@@ -41,7 +41,7 @@
                                             <td>{{ $researchArea->order }}</td>
                                             <td>
                                                 @if($researchArea->image)
-                                                    <img src="{{ asset('storage/' . $researchArea->image) }}"
+                                                    <img src="{{ asset('uploads/' . $researchArea->image) }}"
                                                          alt="Research Area"
                                                          style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
                                                 @else

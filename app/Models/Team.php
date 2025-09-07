@@ -80,7 +80,7 @@ class Team extends Authenticatable
     public function getImageUrlAttribute(): string
     {
         if ($this->image) {
-            return asset('storage/' . $this->image);
+            return asset('uploads/' . $this->image);
         }
         return asset('assets/img/default-avatar.png');
     }

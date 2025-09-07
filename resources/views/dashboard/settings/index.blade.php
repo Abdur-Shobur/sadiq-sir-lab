@@ -113,7 +113,7 @@
                                         @if($settings->get('logo')?->value)
                                             <div class="mb-3">
                                                 <label class="form-label">Current Logo</label>
-                                                <img src="{{ asset('storage/' . $settings->get('logo')->value) }}"
+                                                <img src="{{ asset('uploads/' . $settings->get('logo')->value) }}"
                                                      alt="Current Logo" class="img-fluid" style="max-height: 60px;">
                                             </div>
                                         @endif
@@ -131,7 +131,7 @@
                                         @if($settings->get('footer_logo')?->value)
                                             <div class="mb-3">
                                                 <label class="form-label">Current Footer Logo</label>
-                                                <img src="{{ asset('storage/' . $settings->get('footer_logo')->value) }}"
+                                                <img src="{{ asset('uploads/' . $settings->get('footer_logo')->value) }}"
                                                      alt="Current Footer Logo" class="img-fluid" style="max-height: 60px;">
                                             </div>
                                         @endif

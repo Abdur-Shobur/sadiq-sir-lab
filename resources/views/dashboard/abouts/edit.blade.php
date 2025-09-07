@@ -114,7 +114,7 @@
                                     @if($about->image)
                                         <div class="mb-2">
                                             <label class="form-label">Current Image:</label>
-                                            <img src="{{ asset('storage/' . $about->image) }}"
+                                            <img src="{{ asset('uploads/' . $about->image) }}"
                                                  alt="Current Image"
                                                  style="max-width: 100%; height: auto; border-radius: 5px;">
                                         </div>

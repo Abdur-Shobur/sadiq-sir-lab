@@ -10,7 +10,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="about-image">
                         @if($about->image)
-                            <img src="{{ asset('storage/' . $about->image) }}" alt="{{ $about->title }}" />
+                            <img src="{{ asset('uploads/' . $about->image) }}" alt="{{ $about->title }}" />
                         @else
                             <img src="{{ asset('assets/img/about-img1.png') }}" alt="About Us" />
                         @endif

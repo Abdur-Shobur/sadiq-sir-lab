@@ -75,7 +75,7 @@
                                 </div>
                                 <div class="card-body text-center">
                                     @if($researchArea->image)
-                                        <img src="{{ asset('storage/' . $researchArea->image) }}"
+                                        <img src="{{ asset('uploads/' . $researchArea->image) }}"
                                              alt="{{ $researchArea->title }}"
                                              class="img-fluid"
                                              style="max-width: 200px; border-radius: 10px;">

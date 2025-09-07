@@ -84,7 +84,7 @@
                             <h5>Banner Image</h5>
                             @if($banner->banner_image)
                                 <div class="text-center">
-                                    <img src="{{ asset('storage/' . $banner->banner_image) }}"
+                                    <img src="{{ asset('uploads/' . $banner->banner_image) }}"
                                          alt="Banner Image"
                                          class="img-fluid rounded"
                                          style="max-width: 100%; height: auto;">

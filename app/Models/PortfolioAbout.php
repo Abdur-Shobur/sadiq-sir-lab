@@ -32,7 +32,7 @@ class PortfolioAbout extends Model
     public function getImage1UrlAttribute()
     {
         if ($this->image1) {
-            return asset('storage/' . $this->image1);
+            return asset('uploads/' . $this->image1);
         }
         return null;
     }
@@ -41,7 +41,7 @@ class PortfolioAbout extends Model
     public function getImage2UrlAttribute()
     {
         if ($this->image2) {
-            return asset('storage/' . $this->image2);
+            return asset('uploads/' . $this->image2);
         }
         return null;
     }

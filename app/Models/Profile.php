@@ -19,7 +19,7 @@ class Profile extends Model
     public function getLogoUrlAttribute()
     {
         if ($this->logo) {
-            return asset('storage/' . $this->logo);
+            return asset('uploads/' . $this->logo);
         }
         return null;
     }
@@ -27,7 +27,7 @@ class Profile extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset('storage/' . $this->image);
+            return asset('uploads/' . $this->image);
         }
         return null;
     }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,7 +51,7 @@ class Blog extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset('storage/' . $this->image);
+            return asset('uploads/' . $this->image);
         }
         return asset('assets/img/default-blog.jpg');
     }

@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="card-body text-center overflow-hidden">
                                     @if($about->image)
-                                        <img src="{{ asset('storage/' . $about->image) }}"
+                                        <img src="{{ asset('uploads/' . $about->image) }}"
                                              alt="{{ $about->title }}"
                                              class="img-fluid"
                                              style="max-width: 100%; width:100%; border-radius: 10px;">
@@ -109,7 +109,7 @@
                             <div class="col-md-6">
                                 <div class="about-image">
                                     @if($about->image)
-                                        <img class="w-100" src="{{ asset('storage/' . $about->image) }}" alt="{{ $about->title }}" />
+                                        <img class="w-100" src="{{ asset('uploads/' . $about->image) }}" alt="{{ $about->title }}" />
                                     @else
                                         <img class="w-100" src="{{ asset('assets/img/about-img1.png') }}" alt="Default About Image" />
                                     @endif

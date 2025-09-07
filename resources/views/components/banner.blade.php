@@ -26,7 +26,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="banner-image">
                     @if(isset($banner) && $banner->banner_image)
-                        <img src="{{ asset('storage/' . $banner->banner_image) }}" alt="Banner Image" />
+                        <img src="{{ asset('uploads/' . $banner->banner_image) }}" alt="Banner Image" />
                     @else
                         <img src="{{ asset('assets/img/banner-img1.png') }}" alt="image" />
                     @endif

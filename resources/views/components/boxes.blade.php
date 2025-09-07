@@ -16,7 +16,7 @@
                     <div class="single-box h-100 {{ $researchArea->background_color }}">
                         <div class="icon">
                             @if($researchArea->image)
-                                <img src="{{ asset('storage/' . $researchArea->image) }}"
+                                <img src="{{ asset('uploads/' . $researchArea->image) }}"
                                      alt="{{ $researchArea->title }}"
                                      style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px; filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(2%) hue-rotate(80deg) brightness(104%) contrast(100%);">
                             @else

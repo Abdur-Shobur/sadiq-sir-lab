@@ -30,7 +30,7 @@ class Gallery extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image) {
-            return asset('storage/' . $this->image);
+            return asset('uploads/' . $this->image);
         }
         return null;
     }

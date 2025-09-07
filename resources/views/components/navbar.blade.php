@@ -4,7 +4,7 @@
         <div class="logo">
             <a href="{{ route('home') }}">
                 @if(\App\Models\Setting::getValue('logo'))
-                    <img src="{{ asset('storage/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'lab') }}" />
+                    <img src="{{ asset('uploads/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'lab') }}" />
                 @else
                     <img src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
                 @endif
@@ -17,7 +17,7 @@
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     @if(\App\Models\Setting::getValue('logo'))
-                        <img src="{{ asset('storage/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
+                        <img src="{{ asset('uploads/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
                     @else
                         <img src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
                     @endif

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -46,7 +45,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
@@ -56,7 +55,7 @@ class User extends Authenticatable
     public function getProfileImageUrlAttribute()
     {
         if ($this->profile_image) {
-            return asset('storage/' . $this->profile_image);
+            return asset('uploads/' . $this->profile_image);
         }
         return null;
     }

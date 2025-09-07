@@ -87,7 +87,7 @@
                             <label for="banner_image" class="form-label">Banner Image</label>
                             @if($banner->banner_image)
                                 <div class="mb-2">
-                                    <img src="{{ asset('storage/' . $banner->banner_image) }}"
+                                    <img src="{{ asset('uploads/' . $banner->banner_image) }}"
                                          alt="Current Banner"
                                          style="max-width: 200px; height: auto;" class="img-thumbnail">
                                     <p class="text-muted small">Current image</p>

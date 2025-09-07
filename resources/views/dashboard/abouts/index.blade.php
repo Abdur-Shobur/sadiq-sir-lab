@@ -41,7 +41,7 @@
                                         <tr>
                                             <td>
                                                 @if($about->image)
-                                                    <img src="{{ asset('storage/' . $about->image) }}"
+                                                    <img src="{{ asset('uploads/' . $about->image) }}"
                                                          alt="About Section"
                                                          style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
                                                 @else

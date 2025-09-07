@@ -99,7 +99,7 @@
                                     @if($researchArea->image)
                                         <div class="mb-2">
                                             <label class="form-label">Current Image:</label>
-                                            <img src="{{ asset('storage/' . $researchArea->image) }}"
+                                            <img src="{{ asset('uploads/' . $researchArea->image) }}"
                                                  alt="Current Image"
                                                  style="max-width: 100%; height: auto; border-radius: 5px;">
                                         </div>
