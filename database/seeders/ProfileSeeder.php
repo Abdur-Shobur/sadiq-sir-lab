@@ -13,10 +13,10 @@ class ProfileSeeder extends Seeder
     {
         $profiles = [
             [
-                'email'   => 'info@sadiqlab.com',
-                'phone'   => '+880 1234 567890',
-                'address' => 'Department of Computer Science & Engineering, Bangladesh University, Dhaka, Bangladesh',
-                'logo'    => null,
+                'email'   => 'sadiq.iqbal@bu.edu.bd',
+                'phone'   => '+880 1755559312',
+                'address' => 'Bangladesh University, Department of Computer Science & Engineering, Dhaka, Bangladesh',
+                'logo'    => 'profiles/logo.webp',
                 'image'   => null,
             ],
         ];

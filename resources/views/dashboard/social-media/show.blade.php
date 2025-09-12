@@ -23,27 +23,27 @@
                                 <table class="table table-bordered">
                                 <tr>
                                     <th width="200">ID:</th>
-                                    <td>{{ $socialMedia->id }}</td>
+                                    <td>{{ $social_medium->id }}</td>
                                 </tr>
                                 <tr>
                                     <th>Platform:</th>
                                     <td>
-                                        <i class="{{ $socialMedia->getIconClass() }}"></i>
-                                        {{ ucfirst($socialMedia->platform) }}
+                                        <i class="{{ $social_medium->getIconClass() }}"></i>
+                                        {{ ucfirst($social_medium->platform) }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>URL:</th>
                                     <td>
-                                        <a href="{{ $socialMedia->url }}" target="_blank" class="text-primary">
-                                            {{ $socialMedia->url }}
+                                        <a href="{{ $social_medium->url }}" target="_blank" class="text-primary">
+                                            {{ $social_medium->url }}
                                         </a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Status:</th>
                                     <td>
-                                        @if($socialMedia->is_active)
+                                        @if($social_medium->is_active)
                                             <span class="badge bg-success">Active</span>
                                         @else
                                             <span class="badge bg-danger">Inactive</span>
@@ -52,11 +52,11 @@
                                 </tr>
                                 <tr>
                                     <th>Created At:</th>
-                                    <td>{{ $socialMedia->created_at->format('F d, Y \a\t g:i A') }}</td>
+                                    <td>{{ $social_medium->created_at ? $social_medium->created_at->format('F d, Y \a\t g:i A') : 'Not available' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Updated At:</th>
-                                    <td>{{ $socialMedia->updated_at->format('F d, Y \a\t g:i A') }}</td>
+                                    <td>{{ $social_medium->updated_at ? $social_medium->updated_at->format('F d, Y \a\t g:i A') : 'Not available' }}</td>
                                 </tr>
                             </table>
                             </div>
@@ -68,16 +68,16 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="d-grid gap-2">
-                                        <a href="{{ route('dashboard.social-media.edit', $socialMedia->id) }}"
+                                        <a href="{{ route('dashboard.social-media.edit', $social_medium) }}"
                                            class="btn btn-warning">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
-                                        <a href="{{ $socialMedia->url }}" target="_blank"
+                                        <a href="{{ $social_medium->url }}" target="_blank"
                                            class="btn btn-info">
                                             <i class="fas fa-external-link-alt"></i> Visit Link
                                         </a>
                                         <button type="button" class="btn btn-danger delete-btn"
-                                                data-id="{{ $socialMedia->id }}">
+                                                data-id="{{ $social_medium->id }}">
                                             <i class="fas fa-trash"></i> Delete
                                         </button>
                                     </div>
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle delete button
     document.querySelector('.delete-btn').addEventListener('click', function() {
         const socialMediaId = this.getAttribute('data-id');
-        const platformName = '{{ ucfirst($socialMedia->platform) }}';
+        const platformName = '{{ ucfirst($social_medium->platform) }}';
 
         // Show confirmation toast
         Swal.fire({

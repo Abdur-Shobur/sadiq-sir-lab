@@ -3,135 +3,159 @@
 @section('title', 'Team Dashboard')
 
 @section('content')
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Team Dashboard</h1>
-</div>
+<div>
+	@if($team->hasPermission('dashboard.view'))
+		<div class="page-header">
+			<h1 class="page-title">Dashboard</h1>
+			<p class="page-subtitle">Welcome back, {{ $team->name }}!</p>
+		</div>
 
-<!-- Content Row -->
-<div class="row">
-    <!-- Welcome Card -->
-    <div class="col-xl-12 col-md-12 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Welcome Back!
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {{ $team->name }} - {{ $team->designation }}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-user fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+		<div class="row">
 
-<!-- Content Row -->
-<div class="row">
-    <!-- Profile Information -->
-    <div class="col-xl-6 col-lg-7">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Profile Information</h6>
-                <a href="{{ route('team.profile') }}" class="btn btn-sm btn-primary">
-                    <i class="fas fa-edit"></i> Edit Profile
-                </a>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 text-center">
-                        <img src="{{ $team->image_url }}" alt="{{ $team->name }}"
-                             class="img-fluid rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;">
-                    </div>
-                    <div class="col-md-8">
-                        <h5>{{ $team->name }}</h5>
-                        <p class="text-muted">{{ $team->designation }}</p>
-                        <p><strong>Email:</strong> {{ $team->email }}</p>
-                        @if($team->phone)
-                            <p><strong>Phone:</strong> {{ $team->phone }}</p>
-                        @endif
-                        @if($team->website)
-                            <p><strong>Website:</strong> <a href="{{ $team->website }}" target="_blank">{{ $team->website }}</a></p>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+			@if($team->hasPermission('blog.view'))
+			<div class="col-md-4">
+				<div class="content-card d-flex justify-content-between align-items-center">
+					<div>
+						<div class="text-muted">Blogs</div>
+						<div class="h5 mb-0">{{ $stats['blogs']['active'] }} / {{ $stats['blogs']['total'] }}</div>
+					</div>
+					<a href="{{ route('team.blogs.index') }}" class="btn btn-sm btn-outline-primary">View</a>
+				</div>
+			</div>
+			@endif
+			@if($team->hasPermission('contact.view'))
+			<div class="col-md-4">
+				<div class="content-card d-flex justify-content-between align-items-center">
+					<div>
+						<div class="text-muted">Contacts</div>
+						<div class="h5 mb-0">{{ $stats['contacts']['unread'] }} unread / {{ $stats['contacts']['total'] }}</div>
+					</div>
+					<a href="{{ route('team.contacts.index') }}" class="btn btn-sm btn-outline-primary">View</a>
+				</div>
+			</div>
+			@endif
+			@if($team->hasPermission('event.view'))
+			<div class="col-md-4">
+				<div class="content-card d-flex justify-content-between align-items-center">
+					<div>
+						<div class="text-muted">Events</div>
+						<div class="h5 mb-0">{{ $stats['events']['active'] }} / {{ $stats['events']['total'] }}</div>
+					</div>
+					<a href="{{ route('team.events.index') }}" class="btn btn-sm btn-outline-primary">View</a>
+				</div>
+			</div>
+			@endif
 
-    <!-- Quick Stats -->
-    <div class="col-xl-6 col-lg-5">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Quick Information</h6>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                @if($team->specialities)
-                    <div class="mb-3">
-                        <h6 class="font-weight-bold">Specialities:</h6>
-                        @foreach($team->specialities as $speciality)
-                            <span class="badge badge-primary mr-1 mb-1">{{ $speciality }}</span>
-                        @endforeach
-                    </div>
-                @endif
+			@if($team->hasPermission('gallery.view'))
+			<div class="col-md-4 mt-3">
+				<div class="content-card d-flex justify-content-between align-items-center">
+					<div>
+						<div class="text-muted">Galleries</div>
+						<div class="h5 mb-0">{{ $stats['galleries']['active'] }} / {{ $stats['galleries']['total'] }}</div>
+					</div>
+					<a href="{{ route('team.galleries.index') }}" class="btn btn-sm btn-outline-primary">View</a>
+				</div>
+			</div>
+			@endif
+			@if($team->hasPermission('project.view'))
+			<div class="col-md-4 mt-3">
+				<div class="content-card d-flex justify-content-between align-items-center">
+					<div>
+						<div class="text-muted">Projects</div>
+						<div class="h5 mb-0">{{ $stats['projects']['active'] }} / {{ $stats['projects']['total'] }}</div>
+					</div>
+					<a href="{{ route('team.projects.index') }}" class="btn btn-sm btn-outline-primary">View</a>
+				</div>
+			</div>
+			@endif
+			@if($team->hasPermission('research.view'))
+			<div class="col-md-4 mt-3">
+				<div class="content-card d-flex justify-content-between align-items-center">
+					<div>
+						<div class="text-muted">Research</div>
+						<div class="h5 mb-0">{{ $stats['research']['active'] }} / {{ $stats['research']['total'] }}</div>
+					</div>
+					<a href="{{ route('team.researches.index') }}" class="btn btn-sm btn-outline-primary">View</a>
+				</div>
+			</div>
+			@endif
+		</div>
 
-                @if($team->education)
-                    <div class="mb-3">
-                        <h6 class="font-weight-bold">Education:</h6>
-                        <ul class="list-unstyled">
-                            @foreach($team->education as $education)
-                                <li><i class="fas fa-graduation-cap text-primary mr-2"></i>{{ $education }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+		<div class="row mt-4">
+			<div class="col-lg-6">
+				@if($team->hasPermission('blog.view'))
+				<div class="content-card">
+					<h6 class="mb-3">Recent Blogs</h6>
+					<ul class="list-group list-group-flush">
+						@forelse($recent['blogs'] as $item)
+							<li class="list-group-item px-0 d-flex justify-content-between">
+								<span>{{ $item->title }}</span>
+								<span class="text-muted small">{{ $item->created_at->diffForHumans() }}</span>
+							</li>
+						@empty
+							<li class="list-group-item px-0 text-muted">No blogs yet.</li>
+						@endforelse
+					</ul>
+				</div>
+				@endif
+				@if($team->hasPermission('project.view'))
+				<div class="content-card mt-3">
+					<h6 class="mb-3">Recent Projects</h6>
+					<ul class="list-group list-group-flush">
+						@forelse($recent['projects'] as $item)
+							<li class="list-group-item px-0 d-flex justify-content-between">
+								<span>{{ $item->title }}</span>
+								<span class="text-muted small">{{ $item->created_at->diffForHumans() }}</span>
+							</li>
+						@empty
+							<li class="list-group-item px-0 text-muted">No projects yet.</li>
+						@endforelse
+					</ul>
+				</div>
+				@endif
+			</div>
 
-                @if($team->social_media)
-                    <div class="mb-3">
-                        <h6 class="font-weight-bold">Social Media:</h6>
-                        @foreach($team->social_media as $social)
-                            <a href="{{ $social['url'] }}" target="_blank" class="btn btn-outline-primary btn-sm mr-2 mb-2">
-                                <i class="fab fa-{{ strtolower($social['platform']) }}"></i> {{ $social['platform'] }}
-                            </a>
-                        @endforeach
-                    </div>
-                @endif
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Content Row -->
-<div class="row">
-    <!-- Recent Activity -->
-    <div class="col-xl-12">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Welcome to Your Team Dashboard</h6>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <p>Welcome to your team dashboard! Here you can:</p>
-                <ul>
-                    <li>View and update your profile information</li>
-                    <li>Manage your specialities, education, and experience</li>
-                    <li>Update your contact information and social media links</li>
-                    <li>Change your password</li>
-                </ul>
-                <p>Use the navigation menu on the left to access different sections of your dashboard.</p>
-            </div>
-        </div>
-    </div>
+			<div class="col-lg-6">
+				@if($team->hasPermission('contact.view'))
+				<div class="content-card">
+					<h6 class="mb-3">Latest Contacts</h6>
+					<ul class="list-group list-group-flush">
+						@forelse($recent['contacts'] as $item)
+							<li class="list-group-item px-0 d-flex justify-content-between align-items-start">
+								<div class="me-2">
+									<div class="fw-semibold">{{ $item->name }} <span class="text-muted">({{ $item->email }})</span></div>
+									<div class="text-muted small">{{ \Illuminate\Support\Str::limit($item->subject ?? $item->message, 60) }}</div>
+								</div>
+								<div class="text-nowrap small text-muted">{{ $item->created_at->diffForHumans() }}</div>
+							</li>
+						@empty
+							<li class="list-group-item px-0 text-muted">No messages yet.</li>
+						@endforelse
+					</ul>
+				</div>
+				@endif
+				@if($team->hasPermission('research.view'))
+				<div class="content-card mt-3">
+					<h6 class="mb-3">Recent Research</h6>
+					<ul class="list-group list-group-flush">
+						@forelse($recent['research'] as $item)
+							<li class="list-group-item px-0 d-flex justify-content-between">
+								<span>{{ $item->title }}</span>
+								<span class="text-muted small">{{ $item->created_at->diffForHumans() }}</span>
+							</li>
+						@empty
+							<li class="list-group-item px-0 text-muted">No research yet.</li>
+						@endforelse
+					</ul>
+				</div>
+			</div>
+			@endif
+		</div>
+	@else
+		<div class="content-card">
+			<h3 class="mb-2">Welcome, {{ $team->name }}!</h3>
+			<p class="text-muted mb-0">You don’t have permission to view the dashboard. Please contact an administrator if you need access.</p>
+		</div>
+	@endif
 </div>
 @endsection

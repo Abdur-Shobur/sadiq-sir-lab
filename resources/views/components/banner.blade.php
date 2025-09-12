@@ -36,29 +36,6 @@
         </div>
     </div>
 
-    <div class="shape-img1 rotateme">
-        <img src="{{ asset('assets/img/shape-image/1.png') }}" alt="image" />
-    </div>
-    <div class="shape-img2">
-        <img src="{{ asset('assets/img/shape-image/2.png') }}" alt="image" />
-    </div>
-    <div class="shape-img3 rotateme">
-        <img src="{{ asset('assets/img/shape-image/3.png') }}" alt="image" />
-    </div>
-    <div class="shape-img4">
-        <img src="{{ asset('assets/img/shape-image/4.png') }}" alt="image" />
-    </div>
-    <div class="shape-img5">
-        <img src="{{ asset('assets/img/shape-image/5.png') }}" alt="image" />
-    </div>
-    <div class="shape-img6">
-        <img src="{{ asset('assets/img/shape-image/6.png') }}" alt="image" />
-    </div>
-    <div class="shape-img7">
-        <img src="{{ asset('assets/img/shape-image/7.png') }}" alt="image" />
-    </div>
-    <div class="shape-img8">
-        <img src="{{ asset('assets/img/shape-image/8.png') }}" alt="image" />
-    </div>
+
 </div>
 <!-- End Main Banner Area -->

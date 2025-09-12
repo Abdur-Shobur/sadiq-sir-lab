@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'Research')
+@section('title', 'Publications')
 
 @section('content')
 <!-- Start Page Title Area -->
 <div class="page-title-area">
     <div class="container">
         <div class="page-title-content">
-            <h2>Research</h2>
+            <h2>Publications</h2>
             <ul>
                 <li><a href="{{ route('home') }}">Home</a></li>
-                <li>Research</li>
+                <li>Publications</li>
             </ul>
         </div>
     </div>
 </div>
 <!-- End Page Title Area -->
 
-<!-- Start Research Area -->
+<!-- Start Publications Area -->
 <section class="research-area pt-3 pt-md-5 pb-70">
     <div class="container">
 

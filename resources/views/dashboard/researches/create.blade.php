@@ -90,6 +90,14 @@
                                              style="max-width: 100%; height: auto; border-radius: 5px;">
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="order" class="form-label">Order</label>
+                                    <input type="number" class="form-control @error('order') is-invalid @enderror"
+                                           id="order" name="order" value="{{ old('order', 0) }}" min="0">
+                                    @error('order')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 

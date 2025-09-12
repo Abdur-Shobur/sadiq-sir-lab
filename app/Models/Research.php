@@ -17,6 +17,7 @@ class Research extends Model
         'image',
         'link',
         'is_active',
+        'order',
     ];
 
     protected $casts = [
@@ -30,7 +31,7 @@ class Research extends Model
 
     public function scopeOrdered($query)
     {
-        return $query->orderBy('created_at', 'desc');
+        return $query->orderBy('order', 'asc')->orderBy('created_at', 'desc');
     }
 
     // Accessor for image URL

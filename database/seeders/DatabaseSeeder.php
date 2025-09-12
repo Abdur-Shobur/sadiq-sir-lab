@@ -21,7 +21,10 @@ class DatabaseSeeder extends Seeder
 
         // Create admin user for dashboard
         $this->call([
-            UserSeeder::class,
+            UserSeeder::class, // Add this line
+            PermissionSeeder::class,
+            TeamSeeder::class,
+            AssignTeamRolesSeeder::class, // Add this to assign roles to existing teams
             BannerSeeder::class,
             AboutSeeder::class,
             ServiceSeeder::class,
@@ -30,7 +33,6 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             PublicationSeeder::class,
             EventSeeder::class,
-            TeamSeeder::class,
             ResearchAreaSeeder::class,
             BlogCategorySeeder::class,
             BlogSeeder::class,
@@ -43,6 +45,7 @@ class DatabaseSeeder extends Seeder
             AchievementSeeder::class,
             GalleryCategorySeeder::class,
             GallerySeeder::class,
+            ProfileSeeder::class,
         ]);
     }
 }

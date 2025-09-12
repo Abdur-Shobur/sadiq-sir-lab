@@ -46,23 +46,23 @@ class SocialMediaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SocialMedia $socialMedia)
+    public function show(SocialMedia $social_medium)
     {
-        return view('dashboard.social-media.show', compact('socialMedia'));
+        return view('dashboard.social-media.show', compact('social_medium'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SocialMedia $socialMedia)
+    public function edit(SocialMedia $social_medium)
     {
-        return view('dashboard.social-media.edit', compact('socialMedia'));
+        return view('dashboard.social-media.edit', compact('social_medium'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SocialMedia $socialMedia)
+    public function update(Request $request, SocialMedia $social_medium)
     {
         $request->validate([
             'platform'  => 'required|string|max:255',
@@ -73,7 +73,7 @@ class SocialMediaController extends Controller
         $data              = $request->all();
         $data['is_active'] = $request->boolean('is_active');
 
-        $socialMedia->update($data);
+        $social_medium->update($data);
 
         return redirect()->route('dashboard.social-media.index')
             ->with('success', 'Social media link updated successfully.');
@@ -82,9 +82,9 @@ class SocialMediaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SocialMedia $socialMedia)
+    public function destroy(SocialMedia $social_medium)
     {
-        $socialMedia->delete();
+        $social_medium->delete();
 
         return redirect()->route('dashboard.social-media.index')
             ->with('success', 'Social media link deleted successfully.');

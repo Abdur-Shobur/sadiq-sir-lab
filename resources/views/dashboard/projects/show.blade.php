@@ -71,7 +71,7 @@
                                         <h6>Project Image</h6>
                                     </div>
                                     <div class="card-body">
-                                        <img src="{{ Storage::url($project->image) }}"
+                                        <img src="{{ asset('uploads/'.$project->image) }}"
                                              alt="{{ $project->title }}"
                                              style="max-width: 100%; height: auto; border-radius: 5px;">
                                     </div>

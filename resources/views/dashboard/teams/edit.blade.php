@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div >
+<div>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800">Edit Team</h1>
         <a href="{{ route('dashboard.teams.index') }}" class="btn btn-secondary">
@@ -57,13 +57,10 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="form-label" for="role">Role *</label>
-                            <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
-                                <option value="">Select Role</option>
-                                <option value="team" {{ old('role', $team->role) == 'team' ? 'selected' : '' }}>Team Member</option>
-                                <option value="admin" {{ old('role', $team->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                            </select>
-                            @error('role')
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror"
+                                   id="phone" name="phone" value="{{ old('phone', $team->phone) }}">
+                            @error('phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -73,10 +70,10 @@
                 <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="form-label" for="phone">Phone</label>
-                            <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                   id="phone" name="phone" value="{{ old('phone', $team->phone) }}">
-                            @error('phone')
+                            <label class="form-label" for="website">Website</label>
+                            <input type="url" class="form-control @error('website') is-invalid @enderror"
+                                   id="website" name="website" value="{{ old('website', $team->website) }}">
+                            @error('website')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -84,10 +81,16 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="form-label" for="website">Website</label>
-                            <input type="url" class="form-control @error('website') is-invalid @enderror"
-                                   id="website" name="website" value="{{ old('website', $team->website) }}">
-                            @error('website')
+                            <label class="form-label" for="image">Profile Image</label>
+                            <input type="file" class="form-control-file @error('image') is-invalid @enderror"
+                                   id="image" name="image" accept="image/*">
+                            @if($team->image)
+                                <div class="mt-2">
+                                    <img src="{{ $team->image_url }}" alt="Current image" class="img-thumbnail" style="max-width: 100px;">
+                                    <small class="text-muted d-block">Current image</small>
+                                </div>
+                            @endif
+                            @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -103,129 +106,145 @@
                     @enderror
                 </div>
 
+                <!-- Roles Selection -->
                 <div class="form-group">
-                    <label class="form-label" for="image">Profile Image</label>
-                    @if($team->image)
-                        <div class="mb-2">
-                            <img src="{{ $team->image_url }}" alt="Current Image" class="img-thumbnail" width="100">
+                    <label class="form-label">Roles *</label>
+                    <div class="row">
+                        @php
+                            $roles = \App\Models\Role::where('is_active', true)->get();
+                            $teamRoleIds = $team->roles->pluck('id')->toArray();
+                        @endphp
+                        @foreach($roles as $role)
+                        <div class="col-md-4 mb-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" 
+                                       name="roles[]" value="{{ $role->id }}" 
+                                       id="role_{{ $role->id }}"
+                                       {{ in_array($role->id, old('roles', $teamRoleIds)) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="role_{{ $role->id }}">
+                                    {{ $role->name }}
+                                    @if($role->description)
+                                        <small class="text-muted d-block">{{ $role->description }}</small>
+                                    @endif
+                                </label>
+                            </div>
                         </div>
-                    @endif
-                    <input type="file" class="form-control-file @error('image') is-invalid @enderror"
-                           id="image" name="image" accept="image/*">
-                    @error('image')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                        @endforeach
+                    </div>
+                    @error('roles')
+                        <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Specialities</label>
                     <div id="specialities-container">
-                        @if($team->specialities)
+                        @if($team->specialities && count($team->specialities) > 0)
                             @foreach($team->specialities as $index => $speciality)
-                                <div class="input-group mb-2">
-                                    <input type="text" class="form-control" name="specialities[]"
-                                           value="{{ $speciality }}" placeholder="Enter speciality">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-danger remove-field">-</button>
-                                    </div>
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" name="specialities[]" value="{{ $speciality }}" placeholder="Enter speciality">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-danger remove-field">-</button>
                                 </div>
-                            @endforeach
-                        @endif
-                        <div class="input-group mb-2">
-                            <input type="text" class="form-control" name="specialities[]" placeholder="Enter speciality">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-outline-secondary add-speciality">+</button>
                             </div>
-                        </div>
+                            @endforeach
+                        @else
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" name="specialities[]" placeholder="Enter speciality">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary add-speciality">+</button>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Education</label>
                     <div id="education-container">
-                        @if($team->education)
+                        @if($team->education && count($team->education) > 0)
                             @foreach($team->education as $index => $education)
-                                <div class="input-group mb-2">
-                                    <input type="text" class="form-control" name="education[]"
-                                           value="{{ $education }}" placeholder="Enter education">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-danger remove-field">-</button>
-                                    </div>
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" name="education[]" value="{{ $education }}" placeholder="Enter education">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-danger remove-field">-</button>
                                 </div>
-                            @endforeach
-                        @endif
-                        <div class="input-group mb-2">
-                            <input type="text" class="form-control" name="education[]" placeholder="Enter education">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-outline-secondary add-education">+</button>
                             </div>
-                        </div>
+                            @endforeach
+                        @else
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" name="education[]" placeholder="Enter education">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary add-education">+</button>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Experience</label>
                     <div id="experience-container">
-                        @if($team->experience)
+                        @if($team->experience && count($team->experience) > 0)
                             @foreach($team->experience as $index => $experience)
-                                <div class="input-group mb-2">
-                                    <input type="text" class="form-control" name="experience[]"
-                                           value="{{ $experience }}" placeholder="Enter experience">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-outline-danger remove-field">-</button>
-                                    </div>
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" name="experience[]" value="{{ $experience }}" placeholder="Enter experience">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-danger remove-field">-</button>
                                 </div>
-                            @endforeach
-                        @endif
-                        <div class="input-group mb-2">
-                            <input type="text" class="form-control" name="experience[]" placeholder="Enter experience">
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-outline-secondary add-experience">+</button>
                             </div>
-                        </div>
+                            @endforeach
+                        @else
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" name="experience[]" placeholder="Enter experience">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary add-experience">+</button>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Social Media</label>
                     <div id="social-media-container">
-                        @if($team->social_media)
+                        @if($team->social_media && count($team->social_media) > 0)
                             @foreach($team->social_media as $index => $social)
-                                <div class="row mb-2">
-                                    <div class="col-md-5">
-                                        <input type="text" class="form-control" name="social_media[{{ $index }}][platform]"
-                                               value="{{ $social['platform'] }}" placeholder="Platform (e.g., LinkedIn)">
-                                    </div>
-                                    <div class="col-md-5">
-                                        <input type="url" class="form-control" name="social_media[{{ $index }}][url]"
-                                               value="{{ $social['url'] }}" placeholder="URL">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="button" class="btn btn-outline-danger remove-field">-</button>
-                                    </div>
+                            <div class="row mb-2">
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" name="social_media[{{ $index }}][platform]" value="{{ $social['platform'] ?? '' }}" placeholder="Platform (e.g., LinkedIn)">
                                 </div>
+                                <div class="col-md-5">
+                                    <input type="url" class="form-control" name="social_media[{{ $index }}][url]" value="{{ $social['url'] ?? '' }}" placeholder="URL">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-outline-danger remove-field">-</button>
+                                </div>
+                            </div>
                             @endforeach
+                        @else
+                            <div class="row mb-2">
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control" name="social_media[0][platform]" placeholder="Platform (e.g., LinkedIn)">
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="url" class="form-control" name="social_media[0][url]" placeholder="URL">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-outline-secondary add-social-media">+</button>
+                                </div>
+                            </div>
                         @endif
-                        <div class="row mb-2">
-                            <div class="col-md-5">
-                                <input type="text" class="form-control" name="social_media[{{ count($team->social_media ?? []) }}][platform]" placeholder="Platform (e.g., LinkedIn)">
-                            </div>
-                            <div class="col-md-5">
-                                <input type="url" class="form-control" name="social_media[{{ count($team->social_media ?? []) }}][url]" placeholder="URL">
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-outline-secondary add-social-media">+</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <div class="row gy-3    ">
+                <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="form-label" for="password">New Password (leave blank to keep current)</label>
+                            <label class="form-label" for="password">Password</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
                                    id="password" name="password">
+                            <small class="text-muted">Leave blank to keep current password</small>
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -234,7 +253,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="form-label" for="password_confirmation">Confirm New Password</label>
+                            <label class="form-label" for="password_confirmation">Confirm Password</label>
                             <input type="password" class="form-control"
                                    id="password_confirmation" name="password_confirmation">
                         </div>
@@ -254,7 +273,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Add speciality field
-    document.querySelector('.add-speciality').addEventListener('click', function() {
+    document.querySelector('.add-speciality')?.addEventListener('click', function() {
         const container = document.getElementById('specialities-container');
         const newField = document.createElement('div');
         newField.className = 'input-group mb-2';
@@ -268,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add education field
-    document.querySelector('.add-education').addEventListener('click', function() {
+    document.querySelector('.add-education')?.addEventListener('click', function() {
         const container = document.getElementById('education-container');
         const newField = document.createElement('div');
         newField.className = 'input-group mb-2';
@@ -282,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add experience field
-    document.querySelector('.add-experience').addEventListener('click', function() {
+    document.querySelector('.add-experience')?.addEventListener('click', function() {
         const container = document.getElementById('experience-container');
         const newField = document.createElement('div');
         newField.className = 'input-group mb-2';
@@ -296,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add social media field
-    document.querySelector('.add-social-media').addEventListener('click', function() {
+    document.querySelector('.add-social-media')?.addEventListener('click', function() {
         const container = document.getElementById('social-media-container');
         const index = container.children.length;
         const newField = document.createElement('div');

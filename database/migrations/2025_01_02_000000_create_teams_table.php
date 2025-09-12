@@ -16,16 +16,16 @@ return new class extends Migration
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('designation');
-            $table->json('specialities')->nullable(); // JSON array for creatable fields
-            $table->json('education')->nullable(); // JSON array for creatable fields
-            $table->json('experience')->nullable(); // JSON array for creatable fields
+            $table->json('specialities')->nullable();
+            $table->json('education')->nullable();
+            $table->json('experience')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->string('website')->nullable();
-            $table->json('social_media')->nullable(); // JSON array for creatable fields
+            $table->json('social_media')->nullable();
             $table->string('password');
-            $table->enum('role', ['admin', 'team'])->default('team');
+            $table->enum('role', ['admin', 'team_member', 'advisor'])->default('team_member'); // Updated roles
             $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();

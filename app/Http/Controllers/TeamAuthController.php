@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Team;
@@ -23,24 +22,26 @@ class TeamAuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required',
         ]);
 
-        // Check if team member exists and is active
-        $team = Team::where('email', $credentials['email'])->where('is_active', true)->first();
+        $remember = (bool) $request->boolean('remember');
 
-        if (!$team || !Hash::check($credentials['password'], $team->password)) {
+        // Use guard attempt and require is_active = true
+        if (! Auth::guard('team')->attempt([
+            'email'     => $credentials['email'],
+            'password'  => $credentials['password'],
+            'is_active' => true,
+        ], $remember)) {
             return back()->withErrors([
-                'email' => 'The provided credentials do not match our records.',
+                'email' => 'Invalid credentials or inactive account.',
             ])->onlyInput('email');
         }
 
-        // Login the team member
-        Auth::guard('team')->login($team);
         $request->session()->regenerate();
 
-        return redirect()->intended('/team-dashboard');
+        return redirect()->intended(route('team.dashboard'));
     }
 
     /**
@@ -72,24 +73,24 @@ class TeamAuthController extends Controller
         $team = Auth::guard('team')->user();
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'designation' => 'required|string|max:255',
-            'specialities' => 'nullable|array',
-            'specialities.*' => 'string|max:255',
-            'education' => 'nullable|array',
-            'education.*' => 'string|max:500',
-            'experience' => 'nullable|array',
-            'experience.*' => 'string|max:500',
-            'address' => 'nullable|string|max:500',
-            'phone' => 'nullable|string|max:20',
-            'email' => ['required', 'email', \Illuminate\Validation\Rule::unique('teams')->ignore($team->id)],
-            'website' => 'nullable|url|max:255',
-            'social_media' => 'nullable|array',
+            'name'                    => 'required|string|max:255',
+            'image'                   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'designation'             => 'required|string|max:255',
+            'specialities'            => 'nullable|array',
+            'specialities.*'          => 'string|max:255',
+            'education'               => 'nullable|array',
+            'education.*'             => 'string|max:500',
+            'experience'              => 'nullable|array',
+            'experience.*'            => 'string|max:500',
+            'address'                 => 'nullable|string|max:500',
+            'phone'                   => 'nullable|string|max:20',
+            'email'                   => ['required', 'email', \Illuminate\Validation\Rule::unique('teams')->ignore($team->id)],
+            'website'                 => 'nullable|url|max:255',
+            'social_media'            => 'nullable|array',
             'social_media.*.platform' => 'required|string|max:50',
-            'social_media.*.url' => 'required|url|max:255',
-            'current_password' => 'nullable|required_with:new_password',
-            'new_password' => 'nullable|string|min:8|confirmed',
+            'social_media.*.url'      => 'required|url|max:255',
+            'current_password'        => 'nullable|required_with:new_password',
+            'new_password'            => 'nullable|string|min:8|confirmed',
         ]);
 
         $data = $request->except(['current_password', 'new_password', 'new_password_confirmation']);
@@ -100,13 +101,13 @@ class TeamAuthController extends Controller
             if ($team->image) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($team->image);
             }
-            $imagePath = $request->file('image')->store('teams', 'public');
+            $imagePath     = $request->file('image')->store('teams', 'public');
             $data['image'] = $imagePath;
         }
 
         // Update password if provided
         if ($request->filled('new_password')) {
-            if (!Hash::check($request->current_password, $team->password)) {
+            if (! Hash::check($request->current_password, $team->password)) {
                 return back()->withErrors(['current_password' => 'Current password is incorrect.']);
             }
             $data['password'] = Hash::make($request->new_password);

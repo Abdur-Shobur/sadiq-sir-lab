@@ -95,7 +95,7 @@
                                 @if($project->image)
                                 <div class="mb-3">
                                     <label class="form-label">Current Image</label>
-                                    <img src="{{ Storage::url($project->image) }}"
+                                    <img src="{{ asset('uploads/'.$project->image) }}"
                                          alt="{{ $project->title }}"
                                          style="max-width: 100%; height: auto; border-radius: 5px;">
                                 </div>

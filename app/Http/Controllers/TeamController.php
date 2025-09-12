@@ -49,10 +49,11 @@ class TeamController extends Controller
             'social_media.*.platform' => 'nullable|string|max:50',
             'social_media.*.url'      => 'nullable|url|max:255',
             'password'                => 'required|string|min:8|confirmed',
-            'role'                    => 'required|in:admin,team',
+            'roles'                   => 'required|array',
+            'roles.*'                 => 'exists:roles,id',
         ]);
 
-        $data = $request->all();
+        $data = $request->except(['roles']);
 
         // Clean up empty array values
         $data['specialities'] = $this->cleanArrayData($request->specialities);
@@ -69,7 +70,12 @@ class TeamController extends Controller
         // Hash password
         $data['password'] = Hash::make($request->password);
 
-        Team::create($data);
+        $team = Team::create($data);
+
+        // Assign roles
+        if ($request->has('roles')) {
+            $team->roles()->attach($request->roles);
+        }
 
         return redirect()->route('dashboard.teams.index')
             ->with('success', 'Team member created successfully.');
@@ -114,10 +120,11 @@ class TeamController extends Controller
             'social_media.*.platform' => 'nullable|string|max:50',
             'social_media.*.url'      => 'nullable|url|max:255',
             'password'                => 'nullable|string|min:8|confirmed',
-            'role'                    => 'required|in:admin,team',
+            'roles'                   => 'required|array',
+            'roles.*'                 => 'exists:roles,id',
         ]);
 
-        $data = $request->except(['password', 'password_confirmation']);
+        $data = $request->except(['password', 'password_confirmation', 'roles']);
 
         // Clean up empty array values
         $data['specialities'] = $this->cleanArrayData($request->specialities);
@@ -141,6 +148,13 @@ class TeamController extends Controller
         }
 
         $team->update($data);
+
+        // Sync roles
+        if ($request->has('roles')) {
+            $team->roles()->sync($request->roles);
+        } else {
+            $team->roles()->detach();
+        }
 
         return redirect()->route('dashboard.teams.index')
             ->with('success', 'Team member updated successfully.');

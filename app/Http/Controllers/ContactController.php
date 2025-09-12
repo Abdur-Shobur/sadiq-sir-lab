@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMessageNotification;
 use App\Models\ContactMessage;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
@@ -28,7 +31,7 @@ class ContactController extends Controller
         }
 
         try {
-            ContactMessage::create([
+            $contactMessage = ContactMessage::create([
                 'name'         => $request->name,
                 'email'        => $request->email,
                 'phone_number' => $request->phone_number,
@@ -36,6 +39,9 @@ class ContactController extends Controller
                 'message'      => $request->message,
                 'status'       => 'unread',
             ]);
+
+            // Send email notification to admin
+            $this->sendEmailNotification($contactMessage);
 
             return response()->json([
                 'success' => true,
@@ -117,5 +123,23 @@ class ContactController extends Controller
         $contactMessage->delete();
         return redirect()->route('dashboard.contact-messages.index')
             ->with('success', 'Message deleted successfully.');
+    }
+
+    /**
+     * Send email notification for new contact message
+     */
+    private function sendEmailNotification(ContactMessage $contactMessage)
+    {
+        try {
+            // Get the contact email from settings
+            $contactEmail = Setting::getValue('contact_email');
+
+            if ($contactEmail) {
+                Mail::to($contactEmail)->send(new ContactMessageNotification($contactMessage));
+            }
+        } catch (\Exception $e) {
+            // Log the error but don't fail the contact form submission
+            \Log::error('Failed to send contact message notification: ' . $e->getMessage());
+        }
     }
 }

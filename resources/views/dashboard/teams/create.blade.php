@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div  >
+<div>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800">Create Team</h1>
         <a href="{{ route('dashboard.teams.index') }}" class="btn btn-secondary">
@@ -56,13 +56,10 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="form-label" for="role">Role *</label>
-                            <select class="form-control @error('role') is-invalid @enderror" id="role" name="role" required>
-                                <option value="">Select Role</option>
-                                <option value="team" {{ old('role') == 'team' ? 'selected' : '' }}>Team Member</option>
-                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                            </select>
-                            @error('role')
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror"
+                                   id="phone" name="phone" value="{{ old('phone') }}">
+                            @error('phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -72,10 +69,10 @@
                 <div class="row gy-3">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="form-label" for="phone">Phone</label>
-                            <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                   id="phone" name="phone" value="{{ old('phone') }}">
-                            @error('phone')
+                            <label class="form-label" for="website">Website</label>
+                            <input type="url" class="form-control @error('website') is-invalid @enderror"
+                                   id="website" name="website" value="{{ old('website') }}">
+                            @error('website')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -83,10 +80,10 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="form-label" for="website">Website</label>
-                            <input type="url" class="form-control @error('website') is-invalid @enderror"
-                                   id="website" name="website" value="{{ old('website') }}">
-                            @error('website')
+                            <label class="form-label" for="image">Profile Image</label>
+                            <input type="file" class="form-control-file @error('image') is-invalid @enderror"
+                                   id="image" name="image" accept="image/*">
+                            @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -102,12 +99,32 @@
                     @enderror
                 </div>
 
+                <!-- Roles Selection -->
                 <div class="form-group">
-                    <label class="form-label" for="image">Profile Image</label>
-                    <input type="file" class="form-control-file @error('image') is-invalid @enderror"
-                           id="image" name="image" accept="image/*">
-                    @error('image')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    <label class="form-label">Roles *</label>
+                    <div class="row">
+                        @php
+                            $roles = \App\Models\Role::where('is_active', true)->get();
+                        @endphp
+                        @foreach($roles as $role)
+                        <div class="col-md-4 mb-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" 
+                                       name="roles[]" value="{{ $role->id }}" 
+                                       id="role_{{ $role->id }}"
+                                       {{ in_array($role->id, old('roles', [])) ? 'checked' : '' }}>
+                                <label class="form-check-label" for="role_{{ $role->id }}">
+                                    {{ $role->name }}
+                                    @if($role->description)
+                                        <small class="text-muted d-block">{{ $role->description }}</small>
+                                    @endif
+                                </label>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    @error('roles')
+                        <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -268,4 +285,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 @endsection
-```

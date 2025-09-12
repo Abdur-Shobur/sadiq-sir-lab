@@ -4,9 +4,9 @@
         <div class="logo">
             <a href="{{ route('home') }}">
                 @if(\App\Models\Setting::getValue('logo'))
-                    <img src="{{ asset('uploads/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'lab') }}" />
+                    <img style="max-height: 60px;" src="{{ asset('uploads/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'lab') }}" />
                 @else
-                    <img src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
+                    <img style="max-height: 60px;" src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
                 @endif
             </a>
         </div>
@@ -17,9 +17,9 @@
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     @if(\App\Models\Setting::getValue('logo'))
-                        <img src="{{ asset('uploads/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
+                        <img style="max-height: 60px;" src="{{ asset('uploads/' . \App\Models\Setting::getValue('logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
                     @else
-                        <img src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
+                        <img style="max-height: 60px;" src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'Prof. Sadiq Lab') }}" />
                     @endif
                 </a>
 
@@ -28,9 +28,9 @@
                         <li class="nav-item">
                             <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('research') }}" class="nav-link {{ request()->routeIs('research*') ? 'active' : '' }}">Research</a>
-                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="{{ route('research') }}" class="nav-link {{ request()->routeIs('research*') ? 'active' : '' }}">Publications</a>
+                        </li> -->
                         <li class="nav-item">
                             <a href="{{ route('publications') }}" class="nav-link {{ request()->routeIs('publications') ? 'active' : '' }}">Publications</a>
                         </li>
@@ -40,9 +40,7 @@
                         <li class="nav-item">
                             <a href="{{ route('team') }}" class="nav-link {{ request()->routeIs('team') ? 'active' : '' }}">Team</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('news') }}" class="nav-link {{ request()->routeIs('news') ? 'active' : '' }}">News</a>
-                        </li>
+
                         <li class="nav-item">
                             <a href="{{ route('blog') }}" class="nav-link {{ request()->routeIs('blog') ? 'active' : '' }}">Blog</a>
                         </li>

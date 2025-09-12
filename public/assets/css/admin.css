@@ -185,29 +185,29 @@ table {
     transform: rotate(180deg);
 }
 
-#contentSubmenu {
+.db-submenu {
     background: rgba(0, 0, 0, 0.02);
     border-left: 3px solid #e9ecef;
 }
 
-#contentSubmenu .nav-link {
+.db-submenu .nav-link {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
     color: #666;
     border-left: none;
 }
 
-#contentSubmenu .nav-link.active {
+.db-submenu .nav-link.active {
     color: var(--primary-color);
     background-color: rgba(102, 126, 234, 0.1);
     border-left: 3px solid var(--primary-color);
 }
-#contentSubmenu .nav-link:hover {
+.db-submenu .nav-link:hover {
     background-color: rgba(102, 126, 234, 0.1);
     color: var(--primary-color);
 }
 
-#contentSubmenu .nav-link i {
+.db-submenu .nav-link i {
     width: 16px;
     font-size: 0.8rem;
 }

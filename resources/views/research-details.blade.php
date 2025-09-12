@@ -10,7 +10,7 @@
             <h2>{{ $research->title }}</h2>
             <ul>
                 <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('research') }}">Research</a></li>
+                <li><a href="{{ route('publications') }}">Publications</a></li>
                 <li>{{ $research->title }}</li>
             </ul>
         </div>

@@ -6026,3 +6026,365 @@ Go Top CSS
         color: $white-color;
     }
 }
+
+/*================================================
+Pagination Utility Classes
+=================================================*/
+
+// Pagination positioning
+.pagination-left {
+    justify-content: flex-start;
+}
+
+.pagination-right {
+    justify-content: flex-end;
+}
+
+.pagination-center {
+    justify-content: center;
+}
+
+// Pagination spacing
+.pagination-spaced {
+    gap: 1rem;
+}
+
+.pagination-tight {
+    gap: 0.25rem;
+}
+
+// Pagination with background
+.pagination-bg {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.pagination-bg-dark {
+    background-color: #343a40;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+// Pagination with border
+.pagination-bordered {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: $white-color;
+}
+
+// Pagination shadow
+.pagination-shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: $white-color;
+}
+
+// Pagination with custom colors
+.pagination-primary {
+    .page-item .page-link {
+        &:hover,
+        &:focus {
+            background-color: $main-color;
+            border-color: $main-color;
+            color: $white-color;
+        }
+    }
+
+    .page-item.active .page-link {
+        background-color: $main-color;
+        border-color: $main-color;
+        color: $white-color;
+    }
+}
+
+.pagination-success {
+    .page-item .page-link {
+        &:hover,
+        &:focus {
+            background-color: $optional-color;
+            border-color: $optional-color;
+            color: $white-color;
+        }
+    }
+
+    .page-item.active .page-link {
+        background-color: $optional-color;
+        border-color: $optional-color;
+        color: $white-color;
+    }
+}
+
+// Pagination with rounded corners
+.pagination-rounded {
+    .page-item .page-link {
+        border-radius: 50%;
+    }
+}
+
+.pagination-rounded-lg {
+    .page-item .page-link {
+        border-radius: 12px;
+    }
+}
+
+// Pagination with different sizes
+.pagination-xs {
+    .page-item .page-link {
+        min-width: 28px;
+        height: 28px;
+        font-size: 11px;
+        padding: 0.125rem 0.25rem;
+    }
+}
+
+.pagination-xl {
+    .page-item .page-link {
+        min-width: 60px;
+        height: 60px;
+        font-size: 18px;
+        padding: 1rem 1.25rem;
+    }
+}
+
+// Pagination with text labels
+.pagination-with-labels {
+    .page-item .page-link {
+        padding: 0.5rem 1rem;
+        min-width: auto;
+
+        &.prev::before {
+            content: "Previous";
+            margin-right: 0.5rem;
+        }
+
+        &.next::after {
+            content: "Next";
+            margin-left: 0.5rem;
+        }
+    }
+}
+
+// Pagination with dots for large datasets
+.pagination-dots {
+    .page-item.ellipsis .page-link {
+        background: none;
+        border: none;
+        color: $paragraph-color;
+        cursor: default;
+
+        &:hover {
+            background: none;
+            color: $paragraph-color;
+            transform: none;
+            box-shadow: none;
+        }
+    }
+}
+
+// ... rest of existing code ...
+
+/*================================================
+Laravel Pagination Styles
+=================================================*/
+
+// Main Laravel pagination container
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 0;
+    list-style: none;
+    gap: 0.5rem;
+
+    // Pagination items
+    .page-item {
+        margin: 0;
+
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            height: 40px;
+            padding: 0.5rem 0.75rem;
+            margin: 0;
+            color: $black-color;
+            background-color: $white-color;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            &:hover {
+                color: $white-color;
+                background-color: $main-color;
+                border-color: $main-color;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(255, 93, 36, 0.3);
+            }
+
+            &:focus {
+                color: $white-color;
+                background-color: $main-color;
+                border-color: $main-color;
+                box-shadow: 0 0 0 0.2rem rgba(255, 93, 36, 0.25);
+            }
+        }
+
+        // Active state
+        &.active .page-link {
+            color: $white-color;
+            background-color: $main-color;
+            border-color: $main-color;
+            box-shadow: 0 4px 12px rgba(255, 93, 36, 0.3);
+        }
+
+        // Disabled state
+        &.disabled .page-link {
+            color: #6c757d;
+            background-color: $white-color;
+            border-color: #e9ecef;
+            cursor: not-allowed;
+            opacity: 0.6;
+
+            &:hover {
+                color: #6c757d;
+                background-color: $white-color;
+                border-color: #e9ecef;
+                transform: none;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        // First and last page items
+        &:first-child .page-link,
+        &:last-child .page-link {
+            border-radius: 8px;
+        }
+
+        // Previous and Next buttons
+        &.prev,
+        &.next {
+            .page-link {
+                padding: 0.5rem 1rem;
+                font-weight: 600;
+
+                i {
+                    margin: 0 0.25rem;
+                }
+            }
+        }
+    }
+}
+
+// Dashboard specific pagination styling
+.pagination-dashboard {
+    .page-item .page-link {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        color: #495057;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+
+        &:hover {
+            background-color: $main-color;
+            border-color: $main-color;
+            color: $white-color;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(255, 93, 36, 0.2);
+        }
+    }
+
+    .page-item.active .page-link {
+        background-color: $main-color;
+        border-color: $main-color;
+        color: $white-color;
+        box-shadow: 0 3px 8px rgba(255, 93, 36, 0.2);
+    }
+
+    .page-item.disabled .page-link {
+        background-color: #f8f9fa;
+        border-color: #dee2e6;
+        color: #6c757d;
+        opacity: 0.5;
+
+        &:hover {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            color: #6c757d;
+            transform: none;
+            box-shadow: none;
+        }
+    }
+}
+
+// Modern card-style pagination
+.pagination-modern {
+    .page-item .page-link {
+        border-radius: 12px;
+        border: none;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            background: linear-gradient(135deg, $main-color 0%, #e54a1a 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 93, 36, 0.4);
+        }
+    }
+
+    .page-item.active .page-link {
+        background: linear-gradient(135deg, $main-color 0%, #e54a1a 100%);
+        box-shadow: 0 6px 20px rgba(255, 93, 36, 0.4);
+    }
+}
+
+// Responsive pagination
+@media (max-width: 768px) {
+    .pagination {
+        flex-wrap: wrap;
+        gap: 0.25rem;
+
+        .page-item .page-link {
+            min-width: 36px;
+            height: 36px;
+            font-size: 13px;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .page-item.prev .page-link,
+        .page-item.next .page-link {
+            padding: 0.25rem 0.75rem;
+            font-size: 12px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .pagination {
+        .page-item .page-link {
+            min-width: 32px;
+            height: 32px;
+            font-size: 12px;
+        }
+
+        // Hide some page numbers on very small screens
+        .page-item:not(.prev):not(.next):not(.active):not(:first-child):not(
+                :last-child
+            ) {
+            display: none;
+        }
+    }
+}
+
+// ... rest of existing code ...

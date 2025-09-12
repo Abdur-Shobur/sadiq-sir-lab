@@ -118,9 +118,9 @@ Route::get('/services/ai', function () {
 })->name('services.ai');
 
 // Team member pages
-Route::get('/team/{team}', function (App\Models\Team $team) {
+Route::get('/member/{team}', function (App\Models\Team $team) {
     return view('team.member', compact('team'));
-})->name('team.member');
+})->whereNumber('team')->name('team.member');
 
 // Additional pages
 Route::get('/pricing', function () {
@@ -157,96 +157,221 @@ Route::get('/team-login', [TeamAuthController::class, 'showLogin'])->name('team.
 Route::post('/team-login', [TeamAuthController::class, 'login'])->name('team.login.post');
 Route::post('/team-logout', [TeamAuthController::class, 'logout'])->name('team.logout');
 
-// Team Dashboard Routes (Protected by Team Auth)
-Route::middleware('team.auth')->group(function () {
+// Team Dashboard Routes (Protected by Team Auth with role-based permissions)
+Route::middleware([\App\Http\Middleware\TeamAuth::class])->group(function () {
     Route::get('/team-dashboard', [TeamDashboardController::class, 'index'])->name('team.dashboard');
     Route::get('/team-profile', [TeamAuthController::class, 'profile'])->name('team.profile');
     Route::put('/team-profile', [TeamAuthController::class, 'updateProfile'])->name('team.profile.update');
+
+    // Team Research Management Routes
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':research.view'])->group(function () {
+        Route::get('/team/researches', [\App\Http\Controllers\Team\ResearchController::class, 'index'])->name('team.researches.index');
+        Route::get('/team/researches/{research}', [\App\Http\Controllers\Team\ResearchController::class, 'show'])->whereNumber('research')->name('team.researches.show');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':research.create'])->group(function () {
+        Route::get('/team/researches/create', [\App\Http\Controllers\Team\ResearchController::class, 'create'])->name('team.researches.create');
+        Route::post('/team/researches', [\App\Http\Controllers\Team\ResearchController::class, 'store'])->name('team.researches.store');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':research.edit'])->group(function () {
+        Route::get('/team/researches/{research}/edit', [\App\Http\Controllers\Team\ResearchController::class, 'edit'])->whereNumber('research')->name('team.researches.edit');
+        Route::put('/team/researches/{research}', [\App\Http\Controllers\Team\ResearchController::class, 'update'])->whereNumber('research')->name('team.researches.update');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':research.delete'])->group(function () {
+        Route::delete('/team/researches/{research}', [\App\Http\Controllers\Team\ResearchController::class, 'destroy'])->whereNumber('research')->name('team.researches.destroy');
+    });
+
+    // Team Blog Management Routes
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':blog.view'])->group(function () {
+        Route::get('/team/blogs', [\App\Http\Controllers\Team\BlogController::class, 'index'])->name('team.blogs.index');
+        Route::get('/team/blogs/{blog}', [\App\Http\Controllers\Team\BlogController::class, 'show'])->whereNumber('blog')->name('team.blogs.show');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':blog.create'])->group(function () {
+        Route::get('/team/blogs/create', [\App\Http\Controllers\Team\BlogController::class, 'create'])->name('team.blogs.create');
+        Route::post('/team/blogs', [\App\Http\Controllers\Team\BlogController::class, 'store'])->name('team.blogs.store');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':blog.edit'])->group(function () {
+        Route::get('/team/blogs/{blog}/edit', [\App\Http\Controllers\Team\BlogController::class, 'edit'])->whereNumber('blog')->name('team.blogs.edit');
+        Route::put('/team/blogs/{blog}', [\App\Http\Controllers\Team\BlogController::class, 'update'])->whereNumber('blog')->name('team.blogs.update');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':blog.delete'])->group(function () {
+        Route::delete('/team/blogs/{blog}', [\App\Http\Controllers\Team\BlogController::class, 'destroy'])->whereNumber('blog')->name('team.blogs.destroy');
+    });
+
+    // Team News Management Routes
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':news.view'])->group(function () {
+        Route::get('/team/news', [\App\Http\Controllers\Team\NewsController::class, 'index'])->name('team.news.index');
+        Route::get('/team/news/{news}', [\App\Http\Controllers\Team\NewsController::class, 'show'])->name('team.news.show');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':news.create'])->group(function () {
+        Route::get('/team/news/create', [\App\Http\Controllers\Team\NewsController::class, 'create'])->name('team.news.create');
+        Route::post('/team/news', [\App\Http\Controllers\Team\NewsController::class, 'store'])->name('team.news.store');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':news.edit'])->group(function () {
+        Route::get('/team/news/{news}/edit', [\App\Http\Controllers\Team\NewsController::class, 'edit'])->name('team.news.edit');
+        Route::put('/team/news/{news}', [\App\Http\Controllers\Team\NewsController::class, 'update'])->name('team.news.update');
+    });
+
+    // Team Event Management Routes
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':event.view'])->group(function () {
+        Route::get('/team/events', [\App\Http\Controllers\Team\EventController::class, 'index'])->name('team.events.index');
+        Route::get('/team/events/{event}', [\App\Http\Controllers\Team\EventController::class, 'show'])->whereNumber('event')->name('team.events.show');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':event.create'])->group(function () {
+        Route::get('/team/events/create', [\App\Http\Controllers\Team\EventController::class, 'create'])->name('team.events.create');
+        Route::post('/team/events', [\App\Http\Controllers\Team\EventController::class, 'store'])->name('team.events.store');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':event.edit'])->group(function () {
+        Route::get('/team/events/{event}/edit', [\App\Http\Controllers\Team\EventController::class, 'edit'])->whereNumber('event')->name('team.events.edit');
+        Route::put('/team/events/{event}', [\App\Http\Controllers\Team\EventController::class, 'update'])->whereNumber('event')->name('team.events.update');
+    });
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':event.delete'])->group(function () {
+        Route::delete('/team/events/{event}', [\App\Http\Controllers\Team\EventController::class, 'destroy'])->whereNumber('event')->name('team.events.destroy');
+    });
+
+    // Team Project Management Routes
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':project.view'])->group(function () {
+        Route::get('/team/projects', [\App\Http\Controllers\Team\ProjectController::class, 'index'])->name('team.projects.index');
+        Route::get('/team/projects/{project}', [\App\Http\Controllers\Team\ProjectController::class, 'show'])->whereNumber('project')->name('team.projects.show');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':project.create'])->group(function () {
+        Route::get('/team/projects/create', [\App\Http\Controllers\Team\ProjectController::class, 'create'])->name('team.projects.create');
+        Route::post('/team/projects', [\App\Http\Controllers\Team\ProjectController::class, 'store'])->name('team.projects.store');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':project.edit'])->group(function () {
+        Route::get('/team/projects/{project}/edit', [\App\Http\Controllers\Team\ProjectController::class, 'edit'])->whereNumber('project')->name('team.projects.edit');
+        Route::put('/team/projects/{project}', [\App\Http\Controllers\Team\ProjectController::class, 'update'])->whereNumber('project')->name('team.projects.update');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':project.delete'])->group(function () {
+        Route::delete('/team/projects/{project}', [\App\Http\Controllers\Team\ProjectController::class, 'destroy'])->whereNumber('project')->name('team.projects.destroy');
+    });
+
+    // Team Gallery Management Routes
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':gallery.view'])->group(function () {
+        Route::get('/team/galleries', [\App\Http\Controllers\Team\GalleryController::class, 'index'])->name('team.galleries.index');
+        Route::get('/team/galleries/{gallery}', [\App\Http\Controllers\Team\GalleryController::class, 'show'])->whereNumber('gallery')->name('team.galleries.show');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':gallery.create'])->group(function () {
+        Route::get('/team/galleries/create', [\App\Http\Controllers\Team\GalleryController::class, 'create'])->name('team.galleries.create');
+        Route::post('/team/galleries', [\App\Http\Controllers\Team\GalleryController::class, 'store'])->name('team.galleries.store');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':gallery.edit'])->group(function () {
+        Route::get('/team/galleries/{gallery}/edit', [\App\Http\Controllers\Team\GalleryController::class, 'edit'])->whereNumber('gallery')->name('team.galleries.edit');
+        Route::put('/team/galleries/{gallery}', [\App\Http\Controllers\Team\GalleryController::class, 'update'])->whereNumber('gallery')->name('team.galleries.update');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':gallery.delete'])->group(function () {
+        Route::delete('/team/galleries/{gallery}', [\App\Http\Controllers\Team\GalleryController::class, 'destroy'])->whereNumber('gallery')->name('team.galleries.destroy');
+    });
+
+    // Team Service Management Routes
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':service.view'])->group(function () {
+        Route::get('/team/services', [\App\Http\Controllers\Team\ServiceController::class, 'index'])->name('team.services.index');
+        Route::get('/team/services/{service}', [\App\Http\Controllers\Team\ServiceController::class, 'show'])->name('team.services.show');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':service.create'])->group(function () {
+        Route::get('/team/services/create', [\App\Http\Controllers\Team\ServiceController::class, 'create'])->name('team.services.create');
+        Route::post('/team/services', [\App\Http\Controllers\Team\ServiceController::class, 'store'])->name('team.services.store');
+    });
+
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':service.edit'])->group(function () {
+        Route::get('/team/services/{service}/edit', [\App\Http\Controllers\Team\ServiceController::class, 'edit'])->name('team.services.edit');
+        Route::put('/team/services/{service}', [\App\Http\Controllers\Team\ServiceController::class, 'update'])->name('team.services.update');
+    });
+
+    // Team Contact Management Routes
+    Route::middleware([\App\Http\Middleware\CheckPermission::class . ':contact.view'])->group(function () {
+        Route::get('/team/contacts', [\App\Http\Controllers\Team\ContactController::class, 'index'])->name('team.contacts.index');
+        Route::get('/team/contacts/{contact}', [\App\Http\Controllers\Team\ContactController::class, 'show'])->name('team.contacts.show');
+    });
 });
 
-// Dashboard Routes (Protected by Auth)
+// Dashboard Routes (Protected by Auth only - temporarily removing permissions)
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Profile Management Routes
-    Route::resource('dashboard/profiles', ProfileController::class, ['as' => 'dashboard']);
-
-    // Gallery Category Management Routes
-    Route::resource('dashboard/gallery-categories', GalleryCategoryController::class, ['as' => 'dashboard']);
-
-    // Gallery Management Routes
-    Route::resource('dashboard/galleries', GalleryController::class, ['as' => 'dashboard']);
-
-    // Banner Management Routes
-    Route::resource('dashboard/banners', BannerController::class, ['as' => 'dashboard']);
-
-    // Portfolio Banner Management Routes
-    Route::resource('dashboard/portfolio-banners', PortfolioBannerController::class, ['as' => 'dashboard']);
-
-    // Portfolio About Management Routes
-    Route::resource('dashboard/portfolio-abouts', PortfolioAboutController::class, ['as' => 'dashboard']);
 
     // Research Management Routes
     Route::resource('dashboard/researches', ResearchController::class, ['as' => 'dashboard']);
 
-    // Research Areas Management Routes
-    Route::resource('dashboard/research-areas', ResearchAreaController::class, ['as' => 'dashboard']);
-
-    // About Sections Management Routes
-    Route::resource('dashboard/abouts', AboutController::class, ['as' => 'dashboard']);
-
-    // Services Management Routes
-    Route::resource('dashboard/services', ServiceController::class, ['as' => 'dashboard']);
-
-    // CTA Management Routes
-    Route::resource('dashboard/ctas', CtaController::class, ['as' => 'dashboard']);
-
-    // Publications Management Routes (simplified - single page)
-    Route::get('/dashboard/publications', [PublicationController::class, 'edit'])->name('dashboard.publications.edit');
-    Route::put('/dashboard/publications', [PublicationController::class, 'update'])->name('dashboard.publications.update');
-
-    // Project Categories Management Routes
-    Route::resource('dashboard/project-categories', ProjectCategoryController::class, ['as' => 'dashboard']);
-
-    // Projects Management Routes
-    Route::resource('dashboard/projects', ProjectController::class, ['as' => 'dashboard']);
-
-    // Events Management Routes
-    Route::resource('dashboard/events', EventController::class, ['as' => 'dashboard']);
-
     // Team Management Routes
     Route::resource('dashboard/teams', TeamController::class, ['as' => 'dashboard']);
 
-    // Blog Categories Management Routes
-    Route::resource('dashboard/blog-categories', BlogCategoryController::class, ['as' => 'dashboard']);
+    // Role Management Routes
+    Route::resource('dashboard/roles', \App\Http\Controllers\RoleController::class, ['as' => 'dashboard']);
+    Route::post('dashboard/roles/{role}/toggle-status', [\App\Http\Controllers\RoleController::class, 'toggleStatus'])->name('dashboard.roles.toggle-status');
+
+    // Permission Management Routes
+    Route::resource('dashboard/permissions', \App\Http\Controllers\PermissionController::class, ['as' => 'dashboard']);
+    Route::post('dashboard/permissions/{permission}/toggle-status', [\App\Http\Controllers\PermissionController::class, 'toggleStatus'])->name('dashboard.permissions.toggle-status');
 
     // Blog Management Routes
     Route::resource('dashboard/blogs', BlogController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/blog-categories', BlogCategoryController::class, ['as' => 'dashboard']);
 
     // News Management Routes
     Route::resource('dashboard/news', NewsController::class, ['as' => 'dashboard']);
 
-    // Contact Messages Management Routes
+    // Event Management Routes
+    Route::resource('dashboard/events', EventController::class, ['as' => 'dashboard']);
+
+    // Project Management Routes
+    Route::resource('dashboard/projects', ProjectController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/project-categories', ProjectCategoryController::class, ['as' => 'dashboard']);
+
+    // Gallery Management Routes
+    Route::resource('dashboard/galleries', GalleryController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/gallery-categories', GalleryCategoryController::class, ['as' => 'dashboard']);
+
+    // Service Management Routes
+    Route::resource('dashboard/services', ServiceController::class, ['as' => 'dashboard']);
+
+    // Contact Management Routes
     Route::resource('dashboard/contact-messages', ContactController::class, ['as' => 'dashboard'])->except(['create', 'edit', 'store']);
-    Route::put('/dashboard/contact-messages/{contactMessage}/status', [ContactController::class, 'updateStatus'])->name('dashboard.contact-messages.update-status');
+    Route::put('dashboard/contact-messages/{contactMessage}/update-status', [ContactController::class, 'updateStatus'])->name('dashboard.contact-messages.update-status');
+
+    // Newsletter Management Routes
+    Route::resource('dashboard/newsletter-subscribers', \App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, ['as' => 'dashboard']);
+    Route::get('dashboard/newsletter-subscribers/export', [\App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, 'export'])
+        ->name('dashboard.newsletter-subscribers.export');
+    Route::post('dashboard/newsletter-subscribers/{newsletterSubscriber}/status', [\App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, 'updateStatus'])
+        ->whereNumber('newsletterSubscriber')
+        ->name('dashboard.newsletter-subscribers.update-status');
 
     // Settings Management Routes
     Route::get('/dashboard/settings', [SettingsController::class, 'index'])->name('dashboard.settings.index');
     Route::put('/dashboard/settings', [SettingsController::class, 'update'])->name('dashboard.settings.update');
 
-    // Newsletter Subscribers Management Routes
-    Route::resource('dashboard/newsletter-subscribers', \App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, ['as' => 'dashboard']);
-    Route::put('/dashboard/newsletter-subscribers/{newsletterSubscriber}/status', [\App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, 'updateStatus'])->name('dashboard.newsletter-subscribers.update-status');
-    Route::get('/dashboard/newsletter-subscribers/export/csv', [\App\Http\Controllers\Dashboard\NewsletterSubscriberController::class, 'export'])->name('dashboard.newsletter-subscribers.export');
-
-    // Social Media Management Routes
-    Route::resource('dashboard/social-media', SocialMediaController::class, [
-        'as' => 'dashboard',
-    ])->parameters(['social-media' => 'socialMedia']);
-
-    // Achievement Management Routes
+    // Other routes
+    Route::resource('dashboard/banners', BannerController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/portfolio-banners', PortfolioBannerController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/portfolio-abouts', PortfolioAboutController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/abouts', AboutController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/ctas', CtaController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/research-areas', ResearchAreaController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/social-media', SocialMediaController::class, ['as' => 'dashboard'])->parameters(['social-media' => 'social_medium']);
     Route::resource('dashboard/achievements', AchievementController::class, ['as' => 'dashboard']);
 
+    // Publications Management Routes
+    Route::get('/dashboard/publications', [PublicationController::class, 'edit'])->name('dashboard.publications.edit');
+    Route::put('/dashboard/publications', [PublicationController::class, 'update'])->name('dashboard.publications.update');
+
+    // Profile Management Routes
+    Route::resource('dashboard/profiles', ProfileController::class, ['as' => 'dashboard']);
     Route::get('/dashboard/profile', [\App\Http\Controllers\UserProfileController::class, 'edit'])->name('dashboard.profile.edit');
     Route::put('/dashboard/profile', [\App\Http\Controllers\UserProfileController::class, 'update'])->name('dashboard.profile.update');
 });

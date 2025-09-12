@@ -12,7 +12,7 @@ class ResearchController extends Controller
      */
     public function index()
     {
-        $researches = Research::orderBy('created_at', 'desc')->get();
+        $researches = Research::orderBy('order', 'asc')->orderBy('created_at', 'desc')->get();
         return view('dashboard.researches.index', compact('researches'));
     }
 
@@ -36,10 +36,12 @@ class ResearchController extends Controller
             'image'            => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'link'             => 'nullable|url',
             'is_active'        => 'boolean',
+            'order'            => 'nullable|integer|min:0',
         ]);
 
         $data              = $request->all();
         $data['is_active'] = $request->boolean('is_active');
+        $data['order']     = $request->input('order', 0);
 
         if ($request->hasFile('image')) {
             $imagePath     = $request->file('image')->store('researches', 'public');
@@ -80,6 +82,7 @@ class ResearchController extends Controller
             'image'            => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'link'             => 'nullable|url',
             'is_active'        => 'boolean',
+            'order'            => 'nullable|integer|min:0',
         ]);
 
         $data              = $request->all();

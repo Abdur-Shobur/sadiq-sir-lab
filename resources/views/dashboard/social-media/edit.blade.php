@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('dashboard.social-media.update', $socialMedia->id) }}" method="POST">
+                    <form action="{{ route('dashboard.social-media.update', $social_medium) }}" method="POST">
                         @csrf
                         @method('PUT')
 
@@ -25,17 +25,17 @@
                             <label for="platform">Platform <span class="text-danger">*</span></label>
                             <select name="platform" id="platform" class="form-control @error('platform') is-invalid @enderror" required>
                                 <option value="">Select Platform</option>
-                                <option value="facebook" {{ old('platform', $socialMedia->platform) == 'facebook' ? 'selected' : '' }}>Facebook</option>
-                                <option value="twitter" {{ old('platform', $socialMedia->platform) == 'twitter' ? 'selected' : '' }}>Twitter</option>
-                                <option value="instagram" {{ old('platform', $socialMedia->platform) == 'instagram' ? 'selected' : '' }}>Instagram</option>
-                                <option value="linkedin" {{ old('platform', $socialMedia->platform) == 'linkedin' ? 'selected' : '' }}>LinkedIn</option>
-                                <option value="youtube" {{ old('platform', $socialMedia->platform) == 'youtube' ? 'selected' : '' }}>YouTube</option>
-                                <option value="github" {{ old('platform', $socialMedia->platform) == 'github' ? 'selected' : '' }}>GitHub</option>
-                                <option value="tiktok" {{ old('platform', $socialMedia->platform) == 'tiktok' ? 'selected' : '' }}>TikTok</option>
-                                <option value="pinterest" {{ old('platform', $socialMedia->platform) == 'pinterest' ? 'selected' : '' }}>Pinterest</option>
-                                <option value="reddit" {{ old('platform', $socialMedia->platform) == 'reddit' ? 'selected' : '' }}>Reddit</option>
-                                <option value="discord" {{ old('platform', $socialMedia->platform) == 'discord' ? 'selected' : '' }}>Discord</option>
-                                <option value="other" {{ old('platform', $socialMedia->platform) == 'other' ? 'selected' : '' }}>Other</option>
+                                <option value="facebook" {{ old('platform', $social_medium->platform) == 'facebook' ? 'selected' : '' }}>Facebook</option>
+                                <option value="twitter" {{ old('platform', $social_medium->platform) == 'twitter' ? 'selected' : '' }}>Twitter</option>
+                                <option value="instagram" {{ old('platform', $social_medium->platform) == 'instagram' ? 'selected' : '' }}>Instagram</option>
+                                <option value="linkedin" {{ old('platform', $social_medium->platform) == 'linkedin' ? 'selected' : '' }}>LinkedIn</option>
+                                <option value="youtube" {{ old('platform', $social_medium->platform) == 'youtube' ? 'selected' : '' }}>YouTube</option>
+                                <option value="github" {{ old('platform', $social_medium->platform) == 'github' ? 'selected' : '' }}>GitHub</option>
+                                <option value="tiktok" {{ old('platform', $social_medium->platform) == 'tiktok' ? 'selected' : '' }}>TikTok</option>
+                                <option value="pinterest" {{ old('platform', $social_medium->platform) == 'pinterest' ? 'selected' : '' }}>Pinterest</option>
+                                <option value="reddit" {{ old('platform', $social_medium->platform) == 'reddit' ? 'selected' : '' }}>Reddit</option>
+                                <option value="discord" {{ old('platform', $social_medium->platform) == 'discord' ? 'selected' : '' }}>Discord</option>
+                                <option value="other" {{ old('platform', $social_medium->platform) == 'other' ? 'selected' : '' }}>Other</option>
                             </select>
                             @error('platform')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -45,7 +45,7 @@
                         <div class="form-group mb-3">
                             <label for="url">URL <span class="text-danger">*</span></label>
                             <input type="url" name="url" id="url" class="form-control @error('url') is-invalid @enderror"
-                                   value="{{ old('url', $socialMedia->url) }}" placeholder="https://example.com" required>
+                                   value="{{ old('url', $social_medium->url) }}" placeholder="https://example.com" required>
                             @error('url')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -54,7 +54,7 @@
                         <div class="form-group mb-3">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" value="1"
-                                       {{ old('is_active', $socialMedia->is_active) ? 'checked' : '' }}>
+                                       {{ old('is_active', $social_medium->is_active) ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="is_active">Active</label>
                             </div>
                         </div>

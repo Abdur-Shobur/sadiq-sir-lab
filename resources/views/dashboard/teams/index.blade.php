@@ -1,15 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
-<div  >
-     <!-- Breadcrumb -->
-     <nav aria-label="breadcrumb" class="mb-4">
+<div>
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
             <li class="breadcrumb-item active" aria-current="page">Teams</li>
         </ol>
     </nav>
-
 
     <div class="row">
         <div class="col-12">
@@ -22,85 +21,83 @@
                     </a>
                 </div>
                 <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Image</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Designation</th>
-                            <th>Role</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($teams as $team)
-                        <tr>
-                            <td class="text-center">
-                                @if($team->image)
-                                <img src="{{ $team->image_url }}" alt="{{ $team->name }}"
-                                     class="rounded-circle" width="50" height="50" style="object-fit: cover;">
-                                @else
-                                    <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $team->name }}"
-                                         class="rounded-circle" width="50" height="50" style="object-fit: cover;">
-                                @endif
-                            </td>
-                            <td>{{ $team->name }}</td>
-                            <td>{{ $team->email }}</td>
-                            <td>{{ $team->designation }}</td>
-                            <td>
-                                <span class="badge bg-{{ $team->role === 'admin' ? 'success' : 'info' }}">
-                                    {{ ucfirst($team->role) }}
-                                </span>
-                            </td>
-                            <td>
-                                <span class="badge bg-{{ $team->is_active ? 'success' : 'secondary' }}">
-                                    {{ $team->is_active ? 'Active' : 'Inactive' }}
-                                </span>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Image</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Designation</th>
+                                    <th>Roles</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($teams as $team)
+                                <tr>
+                                    <td class="text-center">
+                                        @if($team->image)
+                                        <img src="{{ $team->image_url }}" alt="{{ $team->name }}"
+                                             class="rounded-circle" width="50" height="50" style="object-fit: cover;">
+                                        @else
+                                            <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $team->name }}"
+                                                 class="rounded-circle" width="50" height="50" style="object-fit: cover;">
+                                        @endif
+                                    </td>
+                                    <td>{{ $team->name }}</td>
+                                    <td>{{ $team->email }}</td>
+                                    <td>{{ $team->designation }}</td>
+                                    <td>
+                                        @if($team->roles->count() > 0)
+                                            @foreach($team->roles as $role)
+                                                <span class="badge bg-{{ $role->slug === 'admin' ? 'danger' : ($role->slug === 'advisor' ? 'warning' : 'info') }} me-1">
+                                                    {{ $role->name }}
+                                                </span>
+                                            @endforeach
+                                        @else
+                                            <span class="text-muted">No roles assigned</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ $team->is_active ? 'success' : 'secondary' }}">
+                                            {{ $team->is_active ? 'Active' : 'Inactive' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group gap-2" role="group">
+                                            <a href="{{ route('dashboard.teams.show', $team) }}"
+                                               class="btn btn-sm btn-info" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('dashboard.teams.edit', $team) }}"
+                                               class="btn btn-sm btn-warning" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-danger delete-team"
+                                                    data-id="{{ $team->id }}"
+                                                    data-name="{{ $team->name }}"
+                                                    title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
-
-                            </td>
-                            <td>
-                                <div class="btn-group gap-2" role="group">
-                                    <a href="{{ route('dashboard.teams.show', $team) }}"
-                                       class="btn btn-sm btn-info" title="View Details">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{{ route('dashboard.teams.edit', $team) }}"
-                                       class="btn btn-sm
-                                        btn-warning" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-sm btn-danger delete-team"
-                                            data-id="{{ $team->id }}"
-                                            data-name="{{ $team->name }}"
-                                            title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            @if($teams->hasPages())
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $teams->links() }}
-                </div>
-            @endif
-        </div>
+                    @if($teams->hasPages())
+                        <div class="d-flex justify-content-center mt-4">
+                            {{ $teams->links('pagination.bootstrap-4-custom') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
 </div>
 
 @if($teams->isEmpty())

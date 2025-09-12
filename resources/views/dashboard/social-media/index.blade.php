@@ -47,18 +47,18 @@
                                                 <span class="badge bg-danger">Inactive</span>
                                             @endif
                                         </td>
-                                        <td>{{ $item->created_at->format('M d, Y H:i') }}</td>
+                                        <td>{{ $item->created_at ? $item->created_at->format('M d, Y H:i') : 'Not available' }}</td>
                                         <td>
                                             <div class="btn-group gap-2" role="group">
-                                                <a href="{{ route('dashboard.social-media.show', $item->id) }}" class="btn btn-sm btn-info" title="View">
+                                                <a href="{{ route('dashboard.social-media.show', $item) }}" class="btn btn-sm btn-info" title="View">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('dashboard.social-media.edit', $item->id) }}" class="btn btn-sm btn-warning" title="Edit">
+                                                <a href="{{ route('dashboard.social-media.edit', $item) }}" class="btn btn-sm btn-warning" title="Edit">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
 
                                                 <button type="button" class="btn btn-sm btn-danger" title="Delete"
-                                                        onclick="confirmDelete('{{ route('dashboard.social-media.destroy', $item->id) }}', '{{ $item->platform }}')">
+                                                        onclick="confirmDelete('{{ route('dashboard.social-media.destroy', $item) }}', '{{ $item->platform }}')">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </div>

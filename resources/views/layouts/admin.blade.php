@@ -90,7 +90,7 @@
                         <i class="fas fa-file-alt"></i>Lab Contents
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
-                    <div class="collapse {{ request()->routeIs([
+                    <div class="collapse db-submenu {{ request()->routeIs([
                         'dashboard.banners.*',
                         'dashboard.research-areas.*',
                         'dashboard.abouts.*',
@@ -150,7 +150,7 @@
                         <i class="fas fa-briefcase"></i>Portfolio Content
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
-                    <div class="collapse {{ request()->routeIs([
+                    <div class="collapse db-submenu {{ request()->routeIs([
                         'dashboard.portfolio-banners.*',
                         'dashboard.portfolio-abouts.*',
                         'dashboard.gallery-categories.*',
@@ -197,7 +197,7 @@
                     <i class="fas fa-newspaper"></i>Blog Management
                     <i class="fas fa-chevron-down ms-auto"></i>
                 </a>
-                <div class="collapse {{ request()->routeIs([
+                <div class="collapse db-submenu {{ request()->routeIs([
                     'dashboard.blogs.*',
                     'dashboard.blog-categories.*',
                 ]) ? 'show' : '' }}" id="blogSubmenu">
@@ -228,11 +228,11 @@
                             </li>
 
 
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                  <a class="nav-link {{ request()->routeIs('dashboard.news.*') ? 'active' : '' }}" href="{{ route('dashboard.news.index') }}">
                                      <i class="fas fa-newspaper"></i>News Articles
                                  </a>
-                             </li>
+                             </li> -->
 
                              <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs([
@@ -245,7 +245,7 @@
                         <i class="fas fa-project-diagram"></i>Projects
                         <i class="fas fa-chevron-down ms-auto"></i>
                     </a>
-                    <div class="collapse {{ request()->routeIs([
+                    <div class="collapse db-submenu {{ request()->routeIs([
                         'dashboard.project-categories.*',
                         'dashboard.projects.*',
                     ]) ? 'show' : '' }}" id="projectsSubmenu">
@@ -263,11 +263,11 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('dashboard.publications.*') ? 'active' : '' }}" href="{{ route('dashboard.publications.edit') }}">
                         <i class="fas fa-book"></i>Publications
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('dashboard.events.*') ? 'active' : '' }}" href="{{ route('dashboard.events.index') }}">
                         <i class="fas fa-calendar"></i>Events
@@ -279,7 +279,38 @@
                                     <i class="fas fa-users"></i>Team Members
                                 </a>
                             </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs([
+                        'dashboard.roles.*',
+                        'dashboard.permissions.*',
+                    ]) ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#roleManagementSubmenu" aria-expanded="{{ request()->routeIs([
+                        'dashboard.roles.*',
+                        'dashboard.permissions.*',
+                    ]) ? 'true' : 'false' }}">
+                        <i class="fas fa-shield-alt"></i>Role Management
+                        <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <div class="collapse db-submenu {{ request()->routeIs([
+                        'dashboard.roles.*',
+                        'dashboard.permissions.*',
+                    ]) ? 'show' : '' }}" id="roleManagementSubmenu">
+                        <ul class="nav flex-column ms-3">
                             <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.roles.*') ? 'active' : '' }}" href="{{ route('dashboard.roles.index') }}">
+                                    <i class="fas fa-user-tag"></i>Roles
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.permissions.*') ? 'active' : '' }}" href="{{ route('dashboard.permissions.index') }}">
+                                    <i class="fas fa-key"></i>Permissions
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('dashboard.newsletter-subscribers.*') ? 'active' : '' }}" href="{{ route('dashboard.newsletter-subscribers.index') }}">
                         <i class="fas fa-envelope"></i>Newsletter Subscribers
                     </a>

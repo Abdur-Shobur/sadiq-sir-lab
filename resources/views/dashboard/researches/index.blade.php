@@ -32,6 +32,7 @@
                                         <th>Title</th>
                                         <th>Link</th>
                                         <th>Status</th>
+                                        <th>Order</th>
                                         <th>Created</th>
                                         <th>Actions</th>
                                     </tr>
@@ -42,9 +43,10 @@
                                             <td>
                                                 @if($research->image)
                                                     <img src="{{ $research->image_url }}" alt="{{ $research->title }}"
-                                                         class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                                        class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
                                                 @else
-                                                    <span class="text-muted">No Image</span>
+                                                <img  src="/assets/img/placeholder.svg"
+                                                class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
                                                 @endif
                                             </td>
                                             <td>{{ $research->title }}</td>
@@ -62,6 +64,7 @@
                                                     {{ $research->is_active ? 'Active' : 'Inactive' }}
                                                 </span>
                                             </td>
+                                            <td>{{ $research->order }}</td>
                                             <td>{{ $research->created_at->format('M d, Y') }}</td>
                                             <td>
                                                     <a href="{{ route('dashboard.researches.show', $research) }}"

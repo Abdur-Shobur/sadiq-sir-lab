@@ -42,7 +42,7 @@
                                     <tr>
                                         <td>
                                             @if($project->image)
-                                                <img src="{{ Storage::url($project->image) }}"
+                                                <img src="{{ asset('uploads/'.$project->image) }}"
                                                      alt="{{ $project->title }}"
                                                      style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
                                             @else
