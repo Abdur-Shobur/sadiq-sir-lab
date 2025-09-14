@@ -28,6 +28,20 @@ class TeamAuthController extends Controller
 
         $remember = (bool) $request->boolean('remember');
 
+        // Check if user is already logged in (either as admin or team member)
+        $wasLoggedIn      = false;
+        $previousUserType = null;
+
+        if (Auth::check()) {
+            $wasLoggedIn      = true;
+            $previousUserType = 'admin';
+            Auth::logout();
+        } elseif (Auth::guard('team')->check()) {
+            $wasLoggedIn      = true;
+            $previousUserType = 'team';
+            Auth::guard('team')->logout();
+        }
+
         // Use guard attempt and require is_active = true
         if (! Auth::guard('team')->attempt([
             'email'     => $credentials['email'],
@@ -40,6 +54,12 @@ class TeamAuthController extends Controller
         }
 
         $request->session()->regenerate();
+
+        // Show message if user was previously logged in
+        if ($wasLoggedIn) {
+            return redirect()->intended(route('team.dashboard'))->with('success',
+                'Previous session ended. You are now logged in as team member.');
+        }
 
         return redirect()->intended(route('team.dashboard'));
     }
@@ -77,23 +97,53 @@ class TeamAuthController extends Controller
             'image'                   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'designation'             => 'required|string|max:255',
             'specialities'            => 'nullable|array',
-            'specialities.*'          => 'string|max:255',
+            'specialities.*'          => 'nullable|string|max:255',
             'education'               => 'nullable|array',
-            'education.*'             => 'string|max:500',
+            'education.*'             => 'nullable|string|max:500',
             'experience'              => 'nullable|array',
-            'experience.*'            => 'string|max:500',
+            'experience.*'            => 'nullable|string|max:500',
             'address'                 => 'nullable|string|max:500',
             'phone'                   => 'nullable|string|max:20',
             'email'                   => ['required', 'email', \Illuminate\Validation\Rule::unique('teams')->ignore($team->id)],
             'website'                 => 'nullable|url|max:255',
             'social_media'            => 'nullable|array',
-            'social_media.*.platform' => 'required|string|max:50',
-            'social_media.*.url'      => 'required|url|max:255',
+            'social_media.*.platform' => 'nullable|string|max:50',
+            'social_media.*.url'      => 'nullable|url|max:255',
             'current_password'        => 'nullable|required_with:new_password',
             'new_password'            => 'nullable|string|min:8|confirmed',
         ]);
 
         $data = $request->except(['current_password', 'new_password', 'new_password_confirmation']);
+
+        // Clean up array data - remove empty entries
+        if (isset($data['specialities'])) {
+            $data['specialities'] = array_filter($data['specialities'], function ($item) {
+                return ! empty(trim($item));
+            });
+            $data['specialities'] = array_values($data['specialities']); // Re-index array
+        }
+
+        if (isset($data['education'])) {
+            $data['education'] = array_filter($data['education'], function ($item) {
+                return ! empty(trim($item));
+            });
+            $data['education'] = array_values($data['education']); // Re-index array
+        }
+
+        if (isset($data['experience'])) {
+            $data['experience'] = array_filter($data['experience'], function ($item) {
+                return ! empty(trim($item));
+            });
+            $data['experience'] = array_values($data['experience']); // Re-index array
+        }
+
+        // Clean up social media data - remove empty entries
+        if (isset($data['social_media'])) {
+            $data['social_media'] = array_filter($data['social_media'], function ($social) {
+                return ! empty($social['platform']) && ! empty($social['url']);
+            });
+            $data['social_media'] = array_values($data['social_media']); // Re-index array
+        }
 
         // Handle image upload
         if ($request->hasFile('image')) {

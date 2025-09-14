@@ -35,6 +35,21 @@
 
                             <div class="col-md-6">
                                 <div class="mb-3">
+                                    <label for="slug" class="form-label">Slug <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control @error('slug') is-invalid @enderror"
+                                           id="slug" name="slug" value="{{ old('slug') }}"
+                                           pattern="[a-z0-9\-]+" title="Only lowercase letters, numbers, and hyphens allowed" required>
+                                    <div class="form-text">Only lowercase letters, numbers, and hyphens allowed (e.g., admin, content-manager)</div>
+                                    @error('slug')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
                                     <label for="is_active" class="form-label">Status</label>
                                     <select class="form-select @error('is_active') is-invalid @enderror"
                                             id="is_active" name="is_active">

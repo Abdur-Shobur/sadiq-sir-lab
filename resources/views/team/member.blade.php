@@ -3,12 +3,13 @@
 @section('title', $team->name . ' - Our Team Details')
 
 @section('content')
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="text-center mb-5">Team Details</h1>
-        </div>
-    </div>
+
+<div class="page-title-area">
+	<div class="container">
+		<div class="page-title-content">
+			<h2>Team Details</h2>
+		</div>
+	</div>
 </div>
 
 <section class="team-details-area ptb-120">

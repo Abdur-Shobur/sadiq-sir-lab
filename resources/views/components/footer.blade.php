@@ -88,10 +88,10 @@
 
                     <ul class="useful-links-list">
                         <li><a href="{{ route('about') }}">About Us</a></li>
-                        <li><a href="{{ route('team') }}">Team</a></li>
                         <li><a href="{{ route('contact') }}">Contacts</a></li>
                         <li><a href="{{ route('research') }}">Research</a></li>
                         <li><a href="{{ route('blog') }}">Blog</a></li>
+                        <li><a href="{{ route('team.login') }}">Team Login</a></li>
                     </ul>
                 </div>
             </div>

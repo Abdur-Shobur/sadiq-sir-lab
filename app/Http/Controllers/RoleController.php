@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class RoleController extends Controller
 {
@@ -33,14 +32,14 @@ class RoleController extends Controller
     {
         $request->validate([
             'name'          => 'required|string|max:255|unique:roles,name',
+            'slug'          => 'required|string|max:255|unique:roles,slug|regex:/^[a-z0-9\-]+$/',
             'description'   => 'nullable|string|max:500',
             'permissions'   => 'nullable|array',
             'permissions.*' => 'exists:permissions,id',
             'is_active'     => 'boolean',
         ]);
 
-        $data         = $request->only(['name', 'description', 'is_active']);
-        $data['slug'] = Str::slug($request->name);
+        $data = $request->only(['name', 'slug', 'description', 'is_active']);
 
         $role = Role::create($data);
 
@@ -79,14 +78,14 @@ class RoleController extends Controller
     {
         $request->validate([
             'name'          => 'required|string|max:255|unique:roles,name,' . $role->id,
+            'slug'          => 'required|string|max:255|unique:roles,slug,' . $role->id . '|regex:/^[a-z0-9\-]+$/',
             'description'   => 'nullable|string|max:500',
             'permissions'   => 'nullable|array',
             'permissions.*' => 'exists:permissions,id',
             'is_active'     => 'boolean',
         ]);
 
-        $data         = $request->only(['name', 'description', 'is_active']);
-        $data['slug'] = Str::slug($request->name);
+        $data = $request->only(['name', 'slug', 'description', 'is_active']);
 
         $role->update($data);
 
