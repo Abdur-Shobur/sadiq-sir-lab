@@ -25,6 +25,8 @@
                             <label for="platform">Platform <span class="text-danger">*</span></label>
                             <select name="platform" id="platform" class="form-control @error('platform') is-invalid @enderror" required>
                                 <option value="">Select Platform</option>
+                                <option value="ResearchGate" {{ old('platform', $social_medium->platform) == 'ResearchGate' ? 'selected' : '' }}>ResearchGate</option>
+                                <option value="GoogleScholar" {{ old('platform', $social_medium->platform) == 'GoogleScholar' ? 'selected' : '' }}>GoogleScholar</option>
                                 <option value="facebook" {{ old('platform', $social_medium->platform) == 'facebook' ? 'selected' : '' }}>Facebook</option>
                                 <option value="twitter" {{ old('platform', $social_medium->platform) == 'twitter' ? 'selected' : '' }}>Twitter</option>
                                 <option value="instagram" {{ old('platform', $social_medium->platform) == 'instagram' ? 'selected' : '' }}>Instagram</option>

@@ -12,7 +12,8 @@
     <!-- FontAwesome Min CSS -->
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}" /> -->
     <!-- FontAwesome CDN for better compatibility -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <!-- Flaticon CSS -->
     <!-- <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}" /> -->
     <!-- Magnific Popup Min CSS -->

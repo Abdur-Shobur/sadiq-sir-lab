@@ -7,9 +7,9 @@
                     <div class="logo">
                         <a href="{{ route('home') }}">
                             @if(\App\Models\Setting::getValue('footer_logo'))
-                                <img src="{{ asset('uploads/' . \App\Models\Setting::getValue('footer_logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'lab') }}" />
+                                <img style="max-height: 80px;" src="{{ asset('uploads/' . \App\Models\Setting::getValue('footer_logo')) }}" alt="{{ \App\Models\Setting::getValue('site_name', 'lab') }}" />
                             @else
-                                <img src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'lab') }}" />
+                                <img style="max-height: 80px;" src="{{ asset('assets/img/logo.png') }}" alt="{{ \App\Models\Setting::getValue('site_name', 'lab') }}" />
                             @endif
                         </a>
 
