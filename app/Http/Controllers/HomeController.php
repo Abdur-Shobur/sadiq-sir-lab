@@ -5,17 +5,31 @@ use App\Models\Banner;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\Event;
+use App\Models\HomeTeam;
 use App\Models\News;
 use App\Models\Project;
 use App\Models\Team;
+use App\Models\TeamCategory;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $banner = Banner::active()->first();
-        $teams  = Team::active()->orderBy('created_at', 'desc')->take(4)->get();
-        $blogs  = Blog::with('category')->active()->latest()->take(3)->get();
+
+        // Get featured teams for home page, fallback to latest teams if none selected
+        $teams = HomeTeam::with('team')
+            ->active()
+            ->ordered()
+            ->get()
+            ->pluck('team');
+
+        // If no teams are selected for home page, get the latest 4 teams
+        if ($teams->isEmpty()) {
+            $teams = Team::active()->orderBy('created_at', 'desc')->take(4)->get();
+        }
+
+        $blogs = Blog::with('category')->active()->latest()->take(3)->get();
         return view('home', compact('banner', 'teams', 'blogs'));
     }
 
@@ -33,10 +47,21 @@ class HomeController extends Controller
 
     public function team()
     {
-        // Show only active teams
-        $teams = Team::active()->orderBy('created_at', 'desc')->get();
+        // Get teams grouped by categories with sort order
+        $categories = TeamCategory::active()
+            ->with(['teams' => function ($query) {
+                $query->active()->ordered();
+            }])
+            ->ordered()
+            ->get();
 
-        return view('team', compact('teams'));
+        // Also get teams without categories for backward compatibility
+        $uncategorizedTeams = Team::active()
+            ->whereNull('category_id')
+            ->ordered()
+            ->get();
+
+        return view('team', compact('categories', 'uncategorizedTeams'));
     }
 
     public function blog()

@@ -80,6 +80,7 @@
                         'dashboard.services.*',
                         'dashboard.ctas.*',
                         'dashboard.social-media.*',
+                        'dashboard.team-categories.*',
                     ]) ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#contentSubmenu" aria-expanded="{{ request()->routeIs([
                         'dashboard.banners.*',
                         'dashboard.research-areas.*',
@@ -87,6 +88,7 @@
                         'dashboard.services.*',
                         'dashboard.ctas.*',
                         'dashboard.social-media.*',
+                        'dashboard.team-categories.*',
                     ]) ? 'true' : 'false' }}">
                         <i class="fas fa-file-alt"></i>Lab Contents
                         <i class="fas fa-chevron-down ms-auto"></i>
@@ -98,6 +100,7 @@
                         'dashboard.services.*',
                         'dashboard.ctas.*',
                         'dashboard.social-media.*',
+                        'dashboard.team-categories.*',
                     ]) ? 'show' : '' }}" id="contentSubmenu">
                         <ul class="nav flex-column ms-3">
                             <li class="nav-item">
@@ -129,6 +132,11 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('dashboard.social-media.*') ? 'active' : '' }}" href="{{ route('dashboard.social-media.index') }}">
                                     <i class="fas fa-share-alt"></i>Social Media
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('dashboard.team-categories.*') ? 'active' : '' }}" href="{{ route('dashboard.team-categories.index') }}">
+                                    <i class="fas fa-users"></i>Team Categories
                                 </a>
                             </li>
                         </ul>
@@ -280,6 +288,12 @@
                                     <i class="fas fa-users"></i>Team Members
                                 </a>
                             </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard.home-teams.*') ? 'active' : '' }}" href="{{ route('dashboard.home-teams.manage') }}">
+                        <i class="fas fa-home"></i>Home Team Management
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs([

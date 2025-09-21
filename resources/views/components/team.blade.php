@@ -13,35 +13,58 @@
             <a href="{{ route('team') }}" class="btn btn-secondary">Meet All</a>
         </div>
 
-        <div class="row">
-            @forelse($teams->take(4) as $member)
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-team-member">
-                        <div class="member-image">
-                            @if($member->image)
-                                <img src="{{ $member->image_url }}" alt="{{ $member->name }}" />
-                            @else
-                                <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $member->name }}" />
-                            @endif
+        <div class="row gy-4">
+        @forelse($teams  as $team)
+                    <div class="col-lg-6">
+                        <div class="user-card">
+                            <div class="user-card-img">
+                                @if($team->image)
+                                    <img src="{{ $team->image_url }}" alt="{{ $team->name }}">
+                                @else
+                                    <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $team->name }}">
+                                @endif
+                            </div>
+                            <div class="user-card-info">
+                                <h2>{{ $team->name }}</h2>
+                                <p><span>Designation:</span> {{ $team->designation }}</p>
 
-                            <a href="{{ route('team.member', $member->id) }}" class="details-btn">
-                                <i class="fas fa-plus"></i>
-                            </a>
-                        </div>
+                                @if($team->specialities)
+                                    <p><span>Specialties:</span>
+                                        @foreach($team->specialities as $speciality)
+                                            {{ $speciality }}@if(!$loop->last), @endif
+                                        @endforeach
+                                    </p>
+                                @endif
 
-                        <div class="member-content">
-                            <h3><a href="{{ route('team.member', $member->id) }}">{{ $member->name }}</a></h3>
-                            <span>{{ $member->designation }}</span>
+                                @if($team->education)
+                                    <p><span>Education:</span>
+                                        @foreach($team->education as $education)
+                                            {{ $education }}@if(!$loop->last), @endif
+                                        @endforeach
+                                    </p>
+                                @endif
+
+                                @if($team->experience)
+                                    <p><span>Experience:</span>
+                                        @foreach($team->experience as $experience)
+                                            {{ $experience }}@if(!$loop->last), @endif
+                                        @endforeach
+                                    </p>
+                                @endif
+
+                                <p><span>Location:</span> {{ $team->address }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @empty
-                <div class="col-12">
-                    <div class="text-center">
-                        <p>No team members found.</p>
+                @empty
+                    <div class="col-12">
+                        <div class="text-center">
+                            <p>No team members found.</p>
+                        </div>
                     </div>
-                </div>
-            @endforelse
+                @endforelse
+
+
         </div>
     </div>
 </section>

@@ -1,6 +1,6 @@
 
 		<!-- Start Blog Area -->
-		<section class="blog-area ptb-120 bg-fff7f4">
+		<section class="blog-area ptb-120 ">
 			<div class="container">
 				<div class="section-title text-center">
 					<span class="bg-ff5d24">Blog Update</span>

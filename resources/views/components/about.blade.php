@@ -65,11 +65,6 @@
         @endif
     </div>
 
-    <div class="bg-shape1">
-        <img src="{{ asset('assets/img/bg-shape1.png') }}" alt="image" />
-    </div>
-    <div class="shape-img9">
-        <img src="{{ asset('assets/img/shape-image/4.png') }}" alt="image" />
-    </div>
+
 </section>
 <!-- End About Area -->

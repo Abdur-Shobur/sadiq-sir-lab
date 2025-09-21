@@ -14,116 +14,81 @@
 		</div>
 	</div>
 </div>
-<section class="team-area ptb-120">
-    <div class="container">
-        @php
-            // Group: Admins + Advisors in one row, others as members
-            $admins   = collect();
-            $advisors = collect();
-            $leaders  = collect();
-            $members  = collect();
+<section class="team-area team-page ptb-120">
+    <div class="container-fluid">
+        {{-- Display teams by categories with sort order --}}
+        @if(isset($categories) && $categories->count() > 0)
+            @foreach($categories as $category)
+                @if($category->teams->count() > 0)
+                    <div class="team-category-row">
+                    <div class=" team-category-header">
+                        <h3>{{ $category->title }}</h3>
+                        @if($category->description)
+                        <p >{{ $category->description }}</p>
+                        @endif
+                    </div>
+                    <div class="container-fluid">
+                    <div class="row gy-4">
+                        @foreach($category->teams as $team)
+                            <div class=" col-lg-6  ">
+                            <div class="user-card">
+                                <div class="user-card-img">
+                                    @if($team->image)
+                                    <img src="{{ $team->image_url }}" alt="{{ $team->name }}">
+                                    @else
+                                        <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $team->name }}">
+                                    @endif
+                                </div>
+                                <div class="user-card-info">
+                                    <h2>{{ $team->name }}</h2>
+                                    <p><span>Designation:</span> {{ $team->designation }}</p>
+                                    @if($team->specialities)
+                                    <p><span>Specialties:</span>
+                                     @foreach($team->specialities as $speciality)
+                                    {{ $speciality }},
+                                                    @endforeach</p>
 
-            if (isset($teams) && $teams->count() > 0) {
-                $admins = $teams->filter(function($t) {
-                    if (!method_exists($t, 'roles') || !isset($t->roles)) return false;
-                    return $t->roles->contains(function($role) {
-                        $name = strtolower($role->name ?? '');
-                        $slug = strtolower($role->slug ?? '');
-                        return str_contains($name, 'system administrator')
-                            || str_contains($name, 'administrator')
-                            || str_contains($slug, 'system-administrator')
-                            || str_contains($slug, 'admin');
-                    });
-                });
+                                        @endif
 
-                $advisors = $teams->filter(function($t) {
-                    if (!method_exists($t, 'roles') || !isset($t->roles)) return false;
-                    return $t->roles->contains(function($role) {
-                        $name = strtolower($role->name ?? '');
-                        $slug = strtolower($role->slug ?? '');
-                        return str_contains($name, 'advisor') || str_contains($name, 'research advisor')
-                            || str_contains($slug, 'advisor') || str_contains($slug, 'research-advisor');
-                    });
-                });
+                                        @if($team->education)
+                                        <p><span>Education:</span>
+                                        @foreach($team->education as $education)
+                                        {{ $education }},
+                                        @endforeach</p>
+                                        @endif
 
-                // Merge leaders (admins + advisors) and dedupe by id
-                $leaders = $admins->merge($advisors)->unique('id')->values();
+                                        @if($team->experience)
+                                        <p><span>Experience:</span>
+                                        @foreach($team->experience as $experience)
+                                        {{ $experience }},
+                                        @endforeach</p>
+                                        @endif
 
-                // Members are those not in leaders
-                $leaderIds = $leaders->pluck('id')->all();
-                $members   = $teams->filter(fn($t) => !in_array($t->id, $leaderIds));
-            }
-        @endphp
-
-        {{-- Leaders: System Administrators & Research Advisors (combined row) --}}
-        @if($leaders->count() > 0)
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h3 class="mb-3">System Administrators & Research Advisors</h3>
-                </div>
-                @foreach($leaders as $team)
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="single-team-member">
-                            <div class="member-image">
-                                @if($team->image)
-                                <img src="{{ $team->image_url }}" alt="{{ $team->name }}">
-                                @else
-                                    <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $team->name }}">
-                                @endif
-
-                                <a href="{{ route('team.member', $team->id) }}" class="details-btn">
-                                    <i class="fas fa-plus"></i>
-                                </a>
+                                    <p><span>Location:</span> {{ $team->address }}</p>
+                                </div>
                             </div>
-
-                            <div class="member-content">
-                                <h3><a href="{{ route('team.member', $team->id) }}">{{ $team->name }}</a></h3>
-                                <span>{{ $team->designation }}</span>
                             </div>
+                        @endforeach
                         </div>
                     </div>
-                @endforeach
-            </div>
+                    </div>
+                @endif
+            @endforeach
         @endif
 
-        {{-- Other Team Members --}}
-        <div class="row">
-            <div class="col-12">
-                <h3 class="mb-3">Team Members</h3>
-            </div>
 
-            @if($members->count() > 0)
-                @foreach($members as $team)
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="single-team-member">
-                            <div class="member-image">
-                                @if($team->image)
-                                <img src="{{ $team->image_url }}" alt="{{ $team->name }}">
-                                @else
-                                    <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $team->name }}">
-                                @endif
 
-                                <a href="{{ route('team.member', $team->id) }}" class="details-btn">
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                            </div>
-
-                            <div class="member-content">
-                                <h3><a href="{{ route('team.member', $team->id) }}">{{ $team->name }}</a></h3>
-                                <span>{{ $team->designation }}</span>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @else
+        {{-- Show message if no teams found --}}
+        @if((!isset($categories) || $categories->count() == 0))
+            <div class="row">
                 <div class="col-12">
                     <div class="text-center">
                         <h4 class="mb-1">No team members found</h4>
                         <p class="text-muted mb-0">Our team information will be available soon.</p>
                     </div>
                 </div>
-            @endif
-        </div>
+            </div>
+        @endif
     </div>
 </section>
 @endsection

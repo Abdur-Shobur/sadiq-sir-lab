@@ -26,6 +26,8 @@ class Team extends Authenticatable
         'password',
         'role',
         'is_active',
+        'category_id',
+        'sort_order',
     ];
 
     protected $hidden = [
@@ -172,5 +174,33 @@ class Team extends Authenticatable
             return asset('uploads/' . $this->image);
         }
         return asset('assets/img/default-avatar.png');
+    }
+
+    // Category relationship
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(TeamCategory::class, 'category_id');
+    }
+
+    /**
+     * Check if this team is featured on home page
+     */
+    public function isOnHomePage(): bool
+    {
+        return $this->homeTeam()->exists();
+    }
+
+    /**
+     * Get the home team entry for this team
+     */
+    public function homeTeam(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(HomeTeam::class);
+    }
+
+    // Scope for ordering
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('sort_order');
     }
 }

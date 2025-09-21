@@ -8,6 +8,6 @@
     @include('components.about')
     @include('components.services')
     @include('components.team')
-    @include('components.blog')
     @include('components.cta')
+    @include('components.blog')
 @endsection

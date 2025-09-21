@@ -1,5 +1,5 @@
 <!-- Start Services Area -->
-<section class="services-area ptb-120 pt-0">
+<section class="services-area ptb-120">
     <div class="container">
         <div class="section-title">
             <span>Services</span>

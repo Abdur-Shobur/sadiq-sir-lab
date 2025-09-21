@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\TeamCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::orderBy('created_at', 'desc')->paginate(10);
+        $teams = Team::with('category')->orderBy('created_at', 'desc')->paginate(10);
         return view('dashboard.teams.index', compact('teams'));
     }
 
@@ -23,7 +24,8 @@ class TeamController extends Controller
      */
     public function create()
     {
-        return view('dashboard.teams.create');
+        $categories = TeamCategory::active()->ordered()->get();
+        return view('dashboard.teams.create', compact('categories'));
     }
 
     /**
@@ -51,6 +53,8 @@ class TeamController extends Controller
             'password'                => 'required|string|min:8|confirmed',
             'roles'                   => 'required|array',
             'roles.*'                 => 'exists:roles,id',
+            'category_id'             => 'nullable|exists:team_categories,id',
+            'sort_order'              => 'nullable|integer|min:0',
         ]);
 
         $data = $request->except(['roles']);
@@ -94,7 +98,8 @@ class TeamController extends Controller
      */
     public function edit(Team $team)
     {
-        return view('dashboard.teams.edit', compact('team'));
+        $categories = TeamCategory::active()->ordered()->get();
+        return view('dashboard.teams.edit', compact('team', 'categories'));
     }
 
     /**
@@ -122,6 +127,8 @@ class TeamController extends Controller
             'password'                => 'nullable|string|min:8|confirmed',
             'roles'                   => 'required|array',
             'roles.*'                 => 'exists:roles,id',
+            'category_id'             => 'nullable|exists:team_categories,id',
+            'sort_order'              => 'nullable|integer|min:0',
         ]);
 
         $data = $request->except(['password', 'password_confirmation', 'roles']);

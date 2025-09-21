@@ -26,6 +26,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\TeamAuthController;
+use App\Http\Controllers\TeamCategoryController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -310,6 +311,20 @@ Route::middleware('auth')->group(function () {
 
     // Team Management Routes
     Route::resource('dashboard/teams', TeamController::class, ['as' => 'dashboard']);
+    Route::resource('dashboard/team-categories', TeamCategoryController::class, ['as' => 'dashboard']);
+    Route::post('dashboard/team-categories/{teamCategory}/toggle-status', [TeamCategoryController::class, 'toggleStatus'])->name('dashboard.team-categories.toggle-status');
+    Route::post('dashboard/team-categories/{teamCategory}/update-team-order', [TeamCategoryController::class, 'updateTeamOrder'])->name('dashboard.team-categories.update-team-order');
+    Route::post('dashboard/team-categories/{teamCategory}/add-team-members', [TeamCategoryController::class, 'addTeamMembers'])->name('dashboard.team-categories.add-team-members');
+    Route::delete('dashboard/team-categories/{teamCategory}/teams/{team}', [TeamCategoryController::class, 'removeTeamMember'])->name('dashboard.team-categories.remove-team-member');
+    Route::get('dashboard/team-categories/{teamCategory}/available-teams', [TeamCategoryController::class, 'getAvailableTeams'])->name('dashboard.team-categories.available-teams');
+
+    // Home Team Management Routes
+    Route::get('dashboard/home-teams', [\App\Http\Controllers\HomeTeamController::class, 'manage'])->name('dashboard.home-teams.manage');
+    Route::post('dashboard/home-teams/add', [\App\Http\Controllers\HomeTeamController::class, 'addTeams'])->name('dashboard.home-teams.add');
+    Route::delete('dashboard/home-teams/{homeTeam}', [\App\Http\Controllers\HomeTeamController::class, 'removeTeam'])->name('dashboard.home-teams.remove');
+    Route::post('dashboard/home-teams/update-order', [\App\Http\Controllers\HomeTeamController::class, 'updateOrder'])->name('dashboard.home-teams.update-order');
+    Route::post('dashboard/home-teams/{homeTeam}/toggle-status', [\App\Http\Controllers\HomeTeamController::class, 'toggleStatus'])->name('dashboard.home-teams.toggle-status');
+    Route::get('dashboard/home-teams/available', [\App\Http\Controllers\HomeTeamController::class, 'getAvailableTeams'])->name('dashboard.home-teams.available');
 
     // Role Management Routes
     Route::resource('dashboard/roles', \App\Http\Controllers\RoleController::class, ['as' => 'dashboard']);

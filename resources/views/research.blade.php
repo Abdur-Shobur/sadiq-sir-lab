@@ -91,7 +91,6 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     transition: all 0.3s ease;
-    margin-bottom: 30px;
     height: 100%;
 }
 
@@ -103,13 +102,13 @@
 .research-image {
     position: relative;
     overflow: hidden;
-    height: 250px;
+    height: 300px;
 }
 
 .research-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 300px;
+    object-fit: contain;
     transition: transform 0.3s ease;
 }
 
@@ -135,7 +134,7 @@
 }
 
 .research-content h3 a:hover {
-    color: #007bff;
+    color: var(--main-color);
 }
 
 .research-content p {
@@ -155,7 +154,7 @@
 
 .research-meta .date i {
     margin-right: 5px;
-    color: #007bff;
+    color: var(--main-color);
 }
 
 .research-actions {
@@ -165,14 +164,14 @@
 }
 
 .read-more-btn {
-    color: #007bff;
+    color: var(--main-color);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .read-more-btn:hover {
-    color: #0056b3;
+    color: var(--main-color);
 }
 
 .read-more-btn i {
