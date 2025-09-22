@@ -171,7 +171,7 @@
                         @forelse($socialMedia as $social)
                             <li>
                                 <a href="{{ $social->url }}" target="_blank" title="{{ ucfirst($social->platform) }}">
-                                    <i class="{{ $social->getIconClass() }}"></i>
+                                    <img src="{{ asset('assets/img/icon/' . $social->getIconClass()) }}" alt="{{ ucfirst($social->platform) }}" style="width: 20px; height: 20px;">
                                 </a>
                             </li>
                         @empty

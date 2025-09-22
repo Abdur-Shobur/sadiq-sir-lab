@@ -15,7 +15,7 @@
 
             @forelse($services as $service)
                 <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-services-box h-100">
+                    <div class="single-services-box service-card h-100">
                         <div class="icon" style="background-color: {{ $service->background_color }};">
                             <i class="{{ $service->icon }}"></i>
                         </div>

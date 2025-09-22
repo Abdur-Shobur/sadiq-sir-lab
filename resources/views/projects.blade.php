@@ -18,7 +18,7 @@
 <!-- End Page Title Area -->
 
 <!-- Start Projects Area -->
-<section class="research-area pt-3 pt-md-5">
+<section class="research-area ptb-120">
         <div class="container">
             <div class="row">
                 @if($projects->count() > 0)

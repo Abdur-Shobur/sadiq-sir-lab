@@ -1042,16 +1042,30 @@ Services Area CSS
   margin-bottom: 30px;
   transition: 0.5s;
 }
-.single-services-box .icon {
-  display: inline-block;
+.single-services-box.service-card .icon {
   width: 80px;
   height: 80px;
   line-height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.single-services-box .icon {
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  height: 200px;
+  line-height: 80px;
   background: linear-gradient(to bottom, #ffdfd4, #ffe6e0, #ffeeeb, #fff6f5, #fffefe);
   text-align: center;
-  border-radius: 50%;
   color: #ff5d24;
   transition: 0.5s;
+}
+.single-services-box .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .single-services-box .icon i::before {
   font-size: 38px;
@@ -1091,9 +1105,6 @@ Services Area CSS
 }
 .single-services-box:hover {
   transform: translateY(-5px);
-}
-.single-services-box:hover .icon {
-  transform: rotateY(-180deg);
 }
 
 .services-box {
@@ -2241,7 +2252,7 @@ Blog Area CSS
   margin-top: 12px;
 }
 .single-blog-post:hover .post-image a img {
-  transform: rotate(15deg) scale(1.4);
+  transform: scale(1.1);
 }
 
 /*================================================
@@ -2796,19 +2807,47 @@ Page Title Area CSS
   text-align: center;
   position: relative;
   z-index: 1;
-  background-color: #4c4c4c;
+  background-image: url("../img/bg-breadcrumb.png");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   border-bottom: 1px solid #eeeeee;
   color: #fff;
-  padding-top: 120px;
+  padding-top: 140px;
   padding-bottom: 50px;
+}
+.page-title-area::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.page-title-area::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.page-title-area::before {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.page-title-area::after {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.page-title-area h2 {
+  position: relative;
+  z-index: 1;
 }
 
 .page-title-content h2 {
   text-transform: uppercase;
   margin-bottom: 0;
+  position: relative;
+  z-index: 1;
   font-weight: 700;
   font-size: 30px;
 }
@@ -2823,7 +2862,8 @@ Page Title Area CSS
   display: inline-block;
   background-color: #ffffff;
   padding: 5px 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 1;
 }
 .page-title-content ul li {
   font-size: 16px;
@@ -4732,8 +4772,27 @@ Footer Area CSS
 =================================================*/
 .footer-area {
   padding-top: 100px;
-  background-color: #4c4c4c;
+  background-image: url("../img/footer image.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
   color: #ffffff;
+}
+.footer-area .container {
+  position: relative;
+  z-index: 1;
+}
+.footer-area::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.footer-area::before {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .single-footer-widget {
@@ -4831,6 +4890,9 @@ Footer Area CSS
 }
 .single-footer-widget .newsletter-box .newsletter-form {
   position: relative;
+}
+.single-footer-widget .newsletter-box .newsletter-form input::placeholder {
+  color: #fff;
 }
 .single-footer-widget .newsletter-box .newsletter-form button {
   position: absolute;
@@ -5156,8 +5218,10 @@ Laravel Pagination Styles
 
 .team-category-row {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 50px;
   padding-bottom: 50px;
+}
+.team-category-row:not(:last-child) {
+  margin-bottom: 50px;
 }
 
 .team-category-header {
@@ -5232,6 +5296,10 @@ Laravel Pagination Styles
   overflow: hidden;
   box-shadow: 0 2px 20px -5px rgba(0, 0, 0, 0.5);
   height: 100%;
+  transition: 0.5s;
+}
+.user-card:hover {
+  transform: translateY(-5px);
 }
 
 .user-card:before {

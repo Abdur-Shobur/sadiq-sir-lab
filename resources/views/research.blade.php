@@ -18,7 +18,7 @@
 <!-- End Page Title Area -->
 
 <!-- Start Publications Area -->
-<section class="research-area pt-3 pt-md-5 pb-70">
+<section class="research-area ptb-120">
     <div class="container">
 
 

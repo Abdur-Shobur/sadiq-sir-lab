@@ -18,7 +18,7 @@
 <!-- End Page Title Area -->
 
 <!-- Start News Area -->
-<section class="blog-area pt-3 pt-md-5">
+<section class="blog-area ptb-120">
     <div class="container">
         <div class="row">
             @forelse($news as $article)

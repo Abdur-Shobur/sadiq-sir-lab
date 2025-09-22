@@ -18,7 +18,7 @@
 <!-- End Page Title Area -->
 
 <!-- Start Blog Area -->
-<section class="blog-area pt-3 pt-md-5">
+<section class="blog-area ptb-120">
     <div class="container">
         <!-- Category Filter -->
         @if($categories->count() > 0)
@@ -39,9 +39,9 @@
         </div>
         @endif
 
-        <div class="row">
+        <div class="row gy-4">
             @forelse($blogs as $blog)
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 ">
                 <div class="single-blog-post">
                     <div class="post-image">
                         <a href="{{ route('blog.detail', $blog->id) }}">

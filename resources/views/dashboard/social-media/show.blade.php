@@ -28,7 +28,7 @@
                                 <tr>
                                     <th>Platform:</th>
                                     <td>
-                                        <i class="{{ $social_medium->getIconClass() }}"></i>
+                                        <img src="{{ asset('assets/img/icon/' . $social_medium->getIconClass()) }}" alt="{{ ucfirst($social_medium->platform) }}" style="width: 20px; height: 20px;">
                                         {{ ucfirst($social_medium->platform) }}
                                     </td>
                                 </tr>

@@ -19,7 +19,7 @@
 <!-- End Page Title Area -->
 
 <!-- Start Blog Detail Area -->
-<section class="blog-detail-area pt-3 pt-md-5">
+<section class="blog-detail-area pt-3 pt-md-5 pb-5">
     <div class="container">
         <div class="row">
             <!-- Main Content -->

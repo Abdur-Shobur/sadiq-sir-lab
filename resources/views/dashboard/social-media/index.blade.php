@@ -32,7 +32,7 @@
                                     <tr>
                                         <td>{{ $item->id }}</td>
                                         <td>
-                                            <i class="{{ $item->getIconClass() }}"></i>
+                                            <img src="{{ asset('assets/img/icon/' . $item->getIconClass()) }}" alt="{{ ucfirst($item->platform) }}" style="width: 20px; height: 20px;">
                                             {{ ucfirst($item->platform) }}
                                         </td>
                                         <td>

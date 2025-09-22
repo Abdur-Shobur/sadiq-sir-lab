@@ -18,7 +18,7 @@
 <!-- End Page Title Area -->
 
 <!-- Start Events Area -->
-<section class="services-area pt-3 pt-md-5">
+<section class="services-area ptb-120">
     <div class="container">
         <div class="row gy-4">
             @if($events->count() > 0)
@@ -27,10 +27,10 @@
                     <div class="single-services-box h-100">
                         <div class="icon">
                             @if($event->image)
-                                <img src="{{ $event->image_url }}" alt="{{ $event->title }}"
-                                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
+                                <img src="{{ $event->image_url }}" alt="{{ $event->title }}"  >
                             @else
-                                <i class="fas fa-calendar"></i>
+                                <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $event->title }}"  >
+
                             @endif
                         </div>
 

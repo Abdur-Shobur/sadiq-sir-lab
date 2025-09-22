@@ -63,25 +63,10 @@
                                                     <span class="badge bg-primary">{{ $team->sort_order }}</span>
                                                 </div>
                                             </div>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
-                                                        data-bs-toggle="dropdown">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="{{ route('dashboard.teams.show', $team) }}">
-                                                        <i class="fas fa-eye"></i> View Details
-                                                    </a></li>
-                                                    <li><a class="dropdown-item" href="{{ route('dashboard.teams.edit', $team) }}">
-                                                        <i class="fas fa-edit"></i> Edit
-                                                    </a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li><a class="dropdown-item text-danger" href="#"
-                                                           onclick="removeFromCategory({{ $team->id }}, '{{ $team->name }}')">
-                                                        <i class="fas fa-times"></i> Remove from Category
-                                                    </a></li>
-                                                </ul>
-                                            </div>
+                                            <button class="btn btn-sm btn-outline-secondary" onclick="removeFromCategory({{ $team->id }}, '{{ $team->name }}')">
+                                                <i class="fas fa-times"></i> Remove
+                                            </button>
+
                                         </div>
                                     </div>
                                 </div>

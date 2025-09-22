@@ -57,41 +57,15 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
-                                                        data-bs-toggle="dropdown">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="{{ route('dashboard.teams.show', $homeTeam->team) }}">
-                                                        <i class="fas fa-eye"></i> View Details
-                                                    </a></li>
-                                                    <li><a class="dropdown-item" href="{{ route('dashboard.teams.edit', $homeTeam->team) }}">
-                                                        <i class="fas fa-edit"></i> Edit Team
-                                                    </a></li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li>
-                                                        <form method="POST" action="{{ route('dashboard.home-teams.toggle-status', $homeTeam) }}" class="d-inline">
-                                                            @csrf
-                                                            <button type="submit" class="dropdown-item">
-                                                                <i class="fas fa-{{ $homeTeam->is_active ? 'pause' : 'play' }}"></i>
-                                                                {{ $homeTeam->is_active ? 'Deactivate' : 'Activate' }}
-                                                            </button>
-                                                        </form>
-                                                    </li>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li>
-                                                        <form method="POST" action="{{ route('dashboard.home-teams.remove', $homeTeam) }}"
+                                            <form method="POST" action="{{ route('dashboard.home-teams.remove', $homeTeam) }}"
                                                               onsubmit="return confirm('Are you sure you want to remove this team from the home page?')" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="dropdown-item text-danger">
-                                                                <i class="fas fa-times"></i> Remove from Home
+                                                            <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                                                <i class="fas fa-times"></i> Remove
                                                             </button>
                                                         </form>
-                                                    </li>
-                                                </ul>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
