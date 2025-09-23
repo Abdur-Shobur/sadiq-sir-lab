@@ -19,7 +19,7 @@
 <!-- End Page Title Area -->
 
 <!-- Start Research Details Area -->
-<section class="research-details-area pt-3 pt-md-5 pb-70">
+<section class="research-details-area ptb-120">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">

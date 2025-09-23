@@ -19,7 +19,7 @@
 <!-- End Page Title Area -->
 
 <!-- Start News Detail Area -->
-<section class="blog-details-area pt-3 pt-md-5">
+<section class="blog-details-area ptb-120">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-12">

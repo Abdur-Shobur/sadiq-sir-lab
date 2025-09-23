@@ -19,7 +19,7 @@
 <!-- End Page Title Area -->
 
 <!-- Start Project Details Area -->
-<section class="research-details-area">
+<section class="research-details-area ptb-120" >
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-12">
