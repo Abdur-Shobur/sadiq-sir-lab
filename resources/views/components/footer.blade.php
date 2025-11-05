@@ -98,22 +98,22 @@
 
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="single-footer-widget">
-                    <h3>Our Project</h3>
+                    <h3>Publications</h3>
 
                     <ul class="useful-links-list">
                         @php
-                            $recentProjects = \App\Models\Project::with('category')->active()->ordered()->take(5)->get();
+                            $recentPublications = \App\Models\Research::active()->ordered()->take(5)->get();
                         @endphp
 
-                        @forelse($recentProjects as $project)
+                        @forelse($recentPublications as $publication)
                             <li>
-                                <a href="{{ route('project.details', $project->id) }}">
-                                    <i class="fas fa-flask me-2"></i>
-                                    {{ Str::limit($project->title, 30) }}
+                                <a href="{{ route('research.details', $publication) }}">
+                                    <i class="fas fa-file-alt me-2"></i>
+                                    {{ Str::limit($publication->title, 30) }}
                                 </a>
                             </li>
                         @empty
-                            <li><span class="text-muted">No projects available</span></li>
+                            <li><span class="text-muted">No publications available</span></li>
                         @endforelse
                     </ul>
                 </div>
@@ -158,7 +158,9 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <p>
-                        {{ \App\Models\Setting::getValue('footer_copyright', '© ' . date('Y') . '') }}
+                        <!-- {{ \App\Models\Setting::getValue('footer_copyright', '© ' . date('Y') . '') }} -->
+                        © {{ date('Y') }} All Rights Reserved. Powered by <span  class="primary-color"> Prof. Md Sadiq Iqbal
+                        </span>
                     </p>
                 </div>
 

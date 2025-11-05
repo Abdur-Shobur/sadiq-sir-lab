@@ -308,6 +308,7 @@ Route::middleware('auth')->group(function () {
 
     // Research Management Routes
     Route::resource('dashboard/researches', ResearchController::class, ['as' => 'dashboard']);
+    Route::post('dashboard/researches/update-order', [ResearchController::class, 'updateOrder'])->name('dashboard.researches.update-order');
 
     // Team Management Routes
     Route::resource('dashboard/teams', TeamController::class, ['as' => 'dashboard']);

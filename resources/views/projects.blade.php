@@ -28,7 +28,7 @@
                             <div class="research-image">
                                 <a href="{{ route('project.details', $project->id) }}">
                                     @if($project->image)
-                                        <img src="{{ Storage::url($project->image) }}" alt="{{ $project->title }}">
+                                        <img src="{{ asset('uploads/'.$project->image) }}" alt="{{ $project->title }}">
                                     @else
                                         <img src="{{ asset('assets/img/placeholder.svg') }}" alt="{{ $project->title }}">
                                     @endif

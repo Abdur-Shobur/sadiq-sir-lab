@@ -24,10 +24,16 @@
                 </div>
                 <div class="card-body">
                     @if($researches->count() > 0)
+                        <div class="mb-3">
+                            <p class="text-muted mb-0">
+                                <i class="fas fa-info-circle"></i> Drag and drop rows to reorder researches. The order determines how they appear on the frontend.
+                            </p>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th style="width: 30px;"><i class="fas fa-grip-vertical text-muted"></i></th>
                                         <th>Image</th>
                                         <th>Title</th>
                                         <th>Link</th>
@@ -37,9 +43,12 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="sortable-researches">
                                     @foreach($researches as $research)
-                                        <tr>
+                                        <tr data-research-id="{{ $research->id }}" class="sortable-row">
+                                            <td class="sortable-handle" style="cursor: move;">
+                                                <i class="fas fa-grip-vertical text-muted"></i>
+                                            </td>
                                             <td>
                                                 @if($research->image)
                                                     <img src="{{ $research->image_url }}" alt="{{ $research->title }}"
@@ -64,7 +73,9 @@
                                                     {{ $research->is_active ? 'Active' : 'Inactive' }}
                                                 </span>
                                             </td>
-                                            <td>{{ $research->order }}</td>
+                                            <td>
+                                                <span class="badge bg-primary research-order-badge">{{ $research->order }}</span>
+                                            </td>
                                             <td>{{ $research->created_at->format('M d, Y') }}</td>
                                             <td>
                                                     <a href="{{ route('dashboard.researches.show', $research) }}"
@@ -101,42 +112,153 @@
     </div>
 </div>
 
-<!-- Delete Confirmation Script -->
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>
-    function confirmDelete(url, title) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: `Do you want to delete the research "${title}"?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Create a form and submit it
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = url;
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize sortable for researches
+    const sortableElement = document.getElementById('sortable-researches');
+    if (sortableElement) {
+        const sortable = Sortable.create(sortableElement, {
+            animation: 150,
+            handle: '.sortable-handle',
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            dragClass: 'sortable-drag',
+            onEnd: function(evt) {
+                // Update order in database
+                const researchIds = [];
+                sortableElement.querySelectorAll('[data-research-id]').forEach(function(item) {
+                    researchIds.push(parseInt(item.getAttribute('data-research-id')));
+                });
 
-                const csrfToken = document.createElement('input');
-                csrfToken.type = 'hidden';
-                csrfToken.name = '_token';
-                csrfToken.value = '{{ csrf_token() }}';
+                // Send AJAX request to update order
+                fetch(`{{ route('dashboard.researches.update-order') }}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        research_orders: researchIds
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        showToast('Research order updated successfully!', 'success');
 
-                const methodField = document.createElement('input');
-                methodField.type = 'hidden';
-                methodField.name = '_method';
-                methodField.value = 'DELETE';
-
-                form.appendChild(csrfToken);
-                form.appendChild(methodField);
-                document.body.appendChild(form);
-                form.submit();
+                        // Update order display
+                        sortableElement.querySelectorAll('[data-research-id]').forEach(function(item, index) {
+                            const orderBadge = item.querySelector('.research-order-badge');
+                            if (orderBadge) {
+                                orderBadge.textContent = index + 1;
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating research order:', error);
+                    showToast('Error updating research order. Please try again.', 'error');
+                });
             }
         });
     }
+});
+
+function showToast(message, type) {
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = `toast align-items-center text-white bg-${type === 'success' ? 'success' : 'danger'} border-0`;
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML = `
+        <div class="d-flex">
+            <div class="toast-body">${message}</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    `;
+
+    // Add to page
+    document.body.appendChild(toast);
+
+    // Show toast
+    const bsToast = new bootstrap.Toast(toast);
+    bsToast.show();
+
+    // Remove after hidden
+    toast.addEventListener('hidden.bs.toast', function() {
+        toast.remove();
+    });
+}
+
+function confirmDelete(url, title) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: `Do you want to delete the research "${title}"?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Create a form and submit it
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = url;
+
+            const csrfToken = document.createElement('input');
+            csrfToken.type = 'hidden';
+            csrfToken.name = '_token';
+            csrfToken.value = '{{ csrf_token() }}';
+
+            const methodField = document.createElement('input');
+            methodField.type = 'hidden';
+            methodField.name = '_method';
+            methodField.value = 'DELETE';
+
+            form.appendChild(csrfToken);
+            form.appendChild(methodField);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    });
+}
 </script>
+
+<style>
+.sortable-ghost {
+    opacity: 0.4;
+    background-color: #f8f9fa;
+}
+
+.sortable-chosen {
+    transform: scale(1.02);
+}
+
+.sortable-drag {
+    opacity: 0.8;
+}
+
+.sortable-row {
+    transition: all 0.3s ease;
+}
+
+.sortable-row:hover {
+    background-color: #f8f9fa;
+}
+
+.sortable-handle {
+    cursor: move;
+    user-select: none;
+}
+
+.sortable-handle:hover {
+    color: #007bff !important;
+}
+</style>
+@endpush
 
 @endsection

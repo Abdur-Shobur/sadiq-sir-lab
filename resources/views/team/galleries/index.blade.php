@@ -43,7 +43,7 @@
 									<tr>
 										<td>
 											@if($gallery->image)
-												<img src="{{ $gallery->image_url ?? asset('storage/'.$gallery->image) }}" alt="{{ $gallery->title }}" class="img-thumbnail" style="width:60px;height:60px;object-fit:cover;">
+												<img src="{{ asset('uploads/'.$gallery->image) }}" alt="{{ $gallery->title }}" class="img-thumbnail" style="width:60px;height:60px;object-fit:cover;">
 											@else
 												<span class="text-muted">No Image</span>
 											@endif

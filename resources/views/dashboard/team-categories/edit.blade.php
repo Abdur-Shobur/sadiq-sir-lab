@@ -91,7 +91,8 @@
                                                                            name="sort_orders[{{ $team->id }}]"
                                                                            id="sort_order_{{ $team->id }}"
                                                                            value="{{ old('sort_orders.'.$team->id, $team->sort_order ?? '') }}"
-                                                                           min="1" placeholder="Order">
+                                                                           min="0" placeholder="Order"
+                                                                           {{ !in_array($team->id, old('team_members', $teamCategory->teams->pluck('id')->toArray())) ? 'disabled' : '' }}>
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <label class="form-label small">Preview</label>
@@ -198,12 +199,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const teamId = checkbox.value;
         const row = document.querySelector(`[data-team-id="${teamId}"]`);
         if (row) {
+            const sortInput = row.querySelector('.sort-order-input');
             row.style.display = checkbox.checked ? 'block' : 'none';
+
             if (checkbox.checked) {
-                // Auto-assign sort order if not set
-                const sortInput = row.querySelector('.sort-order-input');
-                if (sortInput && !sortInput.value) {
-                    autoAssignSortOrders();
+                // Enable the sort order input when checkbox is checked
+                if (sortInput) {
+                    sortInput.disabled = false;
+                    // Auto-assign sort order if not set
+                    if (!sortInput.value || sortInput.value === '0') {
+                        autoAssignSortOrders();
+                    }
+                }
+            } else {
+                // Disable the sort order input when checkbox is unchecked to prevent validation errors
+                if (sortInput) {
+                    sortInput.disabled = true;
                 }
             }
         }
@@ -222,6 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function autoAssignSortOrders() {
         const checkedInputs = document.querySelectorAll('.team-member-checkbox:checked');
         const sortInputs = Array.from(document.querySelectorAll('.sort-order-input')).filter(input => {
+            if (input.disabled) return false;
             const teamId = input.name.match(/\[(\d+)\]/)[1];
             const checkbox = document.getElementById(`team_${teamId}`);
             return checkbox && checkbox.checked;
@@ -233,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Auto-assign orders for inputs without values
         sortInputs.forEach((input, index) => {
-            if (!input.value) {
+            if (!input.value || input.value === '0') {
                 input.value = maxOrder + index + 1;
                 updateSortPreview(input);
             }

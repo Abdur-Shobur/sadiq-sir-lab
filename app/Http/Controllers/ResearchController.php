@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Research;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ResearchController extends Controller
 {
@@ -144,5 +145,28 @@ class ResearchController extends Controller
         }
 
         return view('research-details', compact('research'));
+    }
+
+    /**
+     * Update research order
+     */
+    public function updateOrder(Request $request)
+    {
+        $request->validate([
+            'research_orders'   => 'required|array',
+            'research_orders.*' => 'integer|exists:researches,id',
+        ]);
+
+        DB::transaction(function () use ($request) {
+            foreach ($request->research_orders as $index => $researchId) {
+                Research::where('id', $researchId)
+                    ->update(['order' => $index + 1]);
+            }
+        });
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Research order updated successfully!',
+        ]);
     }
 }

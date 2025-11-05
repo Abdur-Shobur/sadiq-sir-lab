@@ -24,6 +24,10 @@ body {
   padding-bottom: 80px;
 }
 
+.primary-color {
+  color: #ff5d24;
+}
+
 .bg-fffcfb {
   background-color: #fffcfb;
 }
@@ -3006,9 +3010,6 @@ Research Details Area CSS
   color: #f59f00;
 }
 
-.research-details-desc {
-  margin-top: 50px;
-}
 .research-details-desc h3 {
   margin-bottom: 12px;
   font-size: 20px;
@@ -5302,18 +5303,6 @@ Laravel Pagination Styles
   transform: translateY(-5px);
 }
 
-.user-card:before {
-  content: "";
-  position: absolute;
-  height: 300%;
-  width: 173px;
-  background: #262626;
-  top: -60px;
-  left: -125px;
-  z-index: 0;
-  transform: rotate(17deg);
-}
-
 .user-card-img {
   display: flex;
   justify-content: center;
@@ -5327,7 +5316,7 @@ Laravel Pagination Styles
   width: 200px;
   height: 200px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 0px;
   border: 3px solid #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }

@@ -26,7 +26,7 @@
                 <div class="research-details-desc">
                     @if($project->image)
                         <div class="project-image mb-4">
-                            <img src="{{ Storage::url($project->image) }}"
+                            <img src="{{ asset('uploads/'.$project->image) }}"
                                  alt="{{ $project->title }}"
                                  style="max-width: 100%; height: auto; border-radius: 10px;">
                         </div>
