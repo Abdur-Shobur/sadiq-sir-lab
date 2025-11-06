@@ -77,6 +77,12 @@
             <p class="mb-0">Access your team dashboard</p>
         </div>
         <div class="login-body">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul class="mb-0">
@@ -103,7 +109,7 @@
                     @enderror
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group">
                         <span class="input-group-text">
@@ -115,6 +121,12 @@
                     @error('password')
                         <div class="error-message">{{ $message }}</div>
                     @enderror
+                </div>
+
+                <div class="mb-3 text-end">
+                    <a href="{{ route('team.password.request') }}" class="text-decoration-none">
+                        <i class="fas fa-question-circle me-1"></i>Forgot Password?
+                    </a>
                 </div>
 
                 <div class="d-grid">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Dashboard</title>
+    <title>Forgot Password - Team Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -73,8 +73,8 @@
 <body>
     <div class="login-card">
         <div class="login-header">
-            <h3><i class="fas fa-user-lock me-2"></i>Login</h3>
-            <p class="mb-0">Access your dashboard</p>
+            <h3><i class="fas fa-key me-2"></i>Reset Password</h3>
+            <p class="mb-0">Enter your email to receive reset link</p>
         </div>
         <div class="login-body">
             @if (session('status'))
@@ -93,9 +93,9 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('team.password.email') }}">
                 @csrf
-                <div class="mb-3">
+                <div class="mb-4">
                     <label for="email" class="form-label">Email Address</label>
                     <div class="input-group">
                         <span class="input-group-text">
@@ -109,36 +109,16 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror"
-                               id="password" name="password" required>
-                    </div>
-                    @error('password')
-                        <div class="error-message">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3 text-end">
-                    <a href="{{ route('password.request') }}" class="text-decoration-none">
-                        <i class="fas fa-question-circle me-1"></i>Forgot Password?
-                    </a>
-                </div>
-
-                <div class="d-grid">
+                <div class="d-grid mb-3">
                     <button type="submit" class="btn btn-primary btn-login">
-                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                        <i class="fas fa-paper-plane me-2"></i>Send Reset Link
                     </button>
                 </div>
             </form>
 
-            <div class="text-center mt-3">
-                <a href="{{ route('home') }}" class="text-decoration-none">
-                    <i class="fas fa-arrow-left me-1"></i>Back to Home
+            <div class="text-center">
+                <a href="{{ route('team.login') }}" class="text-decoration-none">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Login
                 </a>
             </div>
         </div>
@@ -147,3 +127,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

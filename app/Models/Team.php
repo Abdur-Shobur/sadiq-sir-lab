@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 
+use App\Notifications\TeamResetPassword;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -9,7 +11,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Team extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, CanResetPassword;
 
     protected $fillable = [
         'name',
@@ -202,5 +204,16 @@ class Team extends Authenticatable
     public function scopeOrdered($query)
     {
         return $query->orderBy('sort_order');
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new TeamResetPassword($token));
     }
 }

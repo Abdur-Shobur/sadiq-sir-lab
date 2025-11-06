@@ -2,9 +2,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class TeamAuthController extends Controller
 {
@@ -167,5 +170,69 @@ class TeamAuthController extends Controller
 
         return redirect()->route('team.profile')
             ->with('success', 'Profile updated successfully.');
+    }
+
+    /**
+     * Show team forgot password form
+     */
+    public function showForgotPassword()
+    {
+        return view('team.auth.forgot-password');
+    }
+
+    /**
+     * Send password reset link to team member
+     */
+    public function sendResetLink(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+
+        $status = Password::broker('teams')->sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
+    }
+
+    /**
+     * Show team reset password form
+     */
+    public function showResetPassword(Request $request, $token)
+    {
+        return view('team.auth.reset-password', [
+            'token' => $token,
+            'email' => $request->email,
+        ]);
+    }
+
+    /**
+     * Reset team member password
+     */
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token'    => 'required',
+            'email'    => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $status = Password::broker('teams')->reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($team, $password) {
+                $team->forceFill([
+                    'password' => Hash::make($password),
+                ])->setRememberToken(Str::random(60));
+
+                $team->save();
+
+                event(new PasswordReset($team));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('team.login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
     }
 }

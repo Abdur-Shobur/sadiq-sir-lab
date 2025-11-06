@@ -153,10 +153,22 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Password Reset Routes
+Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetPassword'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
 // Team Authentication Routes
 Route::get('/team-login', [TeamAuthController::class, 'showLogin'])->name('team.login');
 Route::post('/team-login', [TeamAuthController::class, 'login'])->name('team.login.post');
 Route::post('/team-logout', [TeamAuthController::class, 'logout'])->name('team.logout');
+
+// Team Password Reset Routes
+Route::get('/team-forgot-password', [TeamAuthController::class, 'showForgotPassword'])->name('team.password.request');
+Route::post('/team-forgot-password', [TeamAuthController::class, 'sendResetLink'])->name('team.password.email');
+Route::get('/team-reset-password/{token}', [TeamAuthController::class, 'showResetPassword'])->name('team.password.reset');
+Route::post('/team-reset-password', [TeamAuthController::class, 'resetPassword'])->name('team.password.update');
 
 // Team Dashboard Routes (Protected by Team Auth with role-based permissions)
 Route::middleware([\App\Http\Middleware\TeamAuth::class])->group(function () {
